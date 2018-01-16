@@ -149,7 +149,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "asgi_redis.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            "hosts": [(redis://h:pdaccb53217fad727508e3fbfaf1169905f4a12e2fe8400c21e6fbaee78d5a541@ec2-34-239-86-75.compute-1.amazonaws.com:54649)],
 
         },
         "ROUTING": "wallet.routing.channel_routing",
