@@ -19,6 +19,7 @@ from django.conf.urls import url
 from wallet import views
 from accounts import views as accounts_views
 
+
 urlpatterns = [
     url('', views.home, name='home'),
     url('signup/', accounts_views.signup, name='signup'),
