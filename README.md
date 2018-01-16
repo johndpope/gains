@@ -1,6 +1,5 @@
-# cryptoboards
-
-Cryptoboards is an app that tracks a user's cryptocurrency wallet.
+# cryptoGains
+An app that gets user's cryptocurrency transaction gains.
 
 ## How to setup
 
