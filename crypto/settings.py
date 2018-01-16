@@ -153,6 +153,7 @@ DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 
 LOGGING = {
     'version': 1,
+    'disable_existing_loggers': False,
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -161,11 +162,10 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugTrue'
         }
     },
-    'handlers': {
-        'console': {
+    'loggers': {
+        'django.request': {
+            'handlers': ['sentry'],
             'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        },
+        }
     }
 }
