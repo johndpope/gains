@@ -16,7 +16,7 @@ gunicorn==19.6.0
 httpretty==0.8.6
 incremental==16.10.1
 msgpack-python==0.4.8
-psycopg2==2.6.2
+psycopg2==2.7.3.2
 python-dateutil==2.6.0
 redis==2.10.5
 requests==2.13.0
