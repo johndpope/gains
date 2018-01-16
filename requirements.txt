@@ -12,6 +12,7 @@ django-cors-headers==2.0.2
 django-extensions==1.7.6
 django-friendship==1.5.0
 django-widget-tweaks == 1.4.1
+django-redis-cache
 djangorestframework==3.5.4
 gunicorn==19.6.0
 httpretty==0.8.6
