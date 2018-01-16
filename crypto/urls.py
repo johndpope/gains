@@ -15,15 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.conf.urls import url
 from wallet import views
 from accounts import views as accounts_views
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('signup/', accounts_views.signup, name='signup'),
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('api/get_drugs/', views.get_drugs, name='get_drugs'),
-    path('admin/', admin.site.urls),
+    url('', views.home, name='home'),
+    url('signup/', accounts_views.signup, name='signup'),
+    url('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    url('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    url('api/get_drugs/', views.get_drugs, name='get_drugs'),
+    url('admin/', admin.site.urls),
 ]
