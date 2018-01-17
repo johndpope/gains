@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'raven.contrib.django.raven_compat',
     'accounts',
     'widget_tweaks',
     'channels',
@@ -162,7 +163,36 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugTrue'
         }
     },
+    'handlers': {
+        'sentry': {
+            'level': 'DEBUG',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+    },
+
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s %(levelname)s module=%(module)s, '
+            'process_id=%(process)d, environment="jumo-ntw", %(message)s'
+        }
+    },
     'loggers': {
+        'django.request': {
+            'handlers': ['sentry'],
+            'level': 'DEBUG',
+        },
+
+        'accounts': {
+            'handlers': ['console', 'sentry'],
+            'level': 'DEBUG',
+        }
 
     }
 }
+
+
