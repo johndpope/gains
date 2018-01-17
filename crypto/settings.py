@@ -182,11 +182,6 @@ LOGGING = {
         }
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['sentry'],
-            'level': 'DEBUG',
-        },
-
         'accounts': {
             'handlers': ['console', 'sentry'],
             'level': 'DEBUG',
