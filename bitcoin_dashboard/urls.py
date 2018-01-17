@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from homepage.views import homepage
 from accounts.views import user_signup,user_login,user_logout
-from dashboard.views import dashboard,populate_database_with_data,get_coin_table
+#from dashboard.views import dashboard,populate_database_with_data,get_coin_table
 
 
 urlpatterns = [
@@ -25,8 +25,8 @@ urlpatterns = [
     url(r'^$', homepage, name='homepage'),
     url(r'^signup/', user_signup, name='user_signup'),
     url(r'^login/', user_login, name='user_login'),
-    url(r'^logout/', user_logout, name='user_logout'),
-    url(r'^dashboard/(?P<user_id>\d+)/$', dashboard, name='dashboard'),
-    url(r'^data-seeding/', populate_database_with_data, name='populate_database_with_data'),
-    url(r'^get-coin-table/', get_coin_table, name='get_coin_table'),
+    #url(r'^logout/', user_logout, name='user_logout'),
+    #url(r'^dashboard/(?P<user_id>\d+)/$', dashboard, name='dashboard'),
+    #url(r'^data-seeding/', populate_database_with_data, name='populate_database_with_data'),
+    #url(r'^get-coin-table/', get_coin_table, name='get_coin_table'),
 ]
