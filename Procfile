@@ -1,1 +1,1 @@
-web: gunicorn crypto.wsgi
+web: gunicorn bitcoin_dashboard.wsgi

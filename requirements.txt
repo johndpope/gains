@@ -29,3 +29,4 @@ txaio==2.6.1
 whitenoise==3.3.0
 xmltodict==0.10.2
 zope.interface==4.3.3
+django-crispy_forms
