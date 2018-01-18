@@ -53,6 +53,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 ROOT_URLCONF = 'bluerun.urls'
@@ -124,10 +126,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR , 'static/')
-STATICFILES_DIRS = (os.path.join(BASE_DIR , 'static/'),)
 
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 AUTH_USER_MODEL = 'account.MyUser'
 #DATABASES['default'] =  dj_database_url.config()
 #DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
@@ -140,3 +145,4 @@ EMAIL_USE_TLS = True
 EMAIL_BACKEND = "sgbackend.SendGridBackend"
 SENDGRID_API_KEY = "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"
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
