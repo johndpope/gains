@@ -1,0 +1,634 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+{% block extrahead %}
+  <link rel="stylesheet" type="text/css" href="{% static 'common/css/dashboard.css' %}">
+
+{% endblock %}
+{% block content %}
+
+<div class="page-banner" style="padding:40px 0;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Dashboard</h2>
+				<p>Hello {{ user.first_name }}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+<div class="row">
+<div class="col-md-2">
+	<h4 class="classic-title"><span>MENU</span></h4>
+	<ul>
+		<li><a href="{% url 'dashboard' id=user.id %}">View calls</a></li>
+
+		<li><a href="{% url 'profile' id=user.id %}">Your Profile</a></li>
+	</ul>
+</div>
+    <div class = "col-md-10" >
+
+    <h4 class="classic-title"><span>CALLS</span></h4>
+	<a href="#" class="nav-tabs-dropdown btn btn-block btn-default">Call Tabs</a>
+	<ul class="nav nav-tabs nav-justified nav-tabs-horizontal " role="tablist" id="nav-tabs-wrapper">
+		<li role="presentation" class="active"><a href="#cashintra" aria-controls="cashintra" role="tab" data-toggle="tab">Cash intra</a></li>
+		<li role="presentation"><a href="#cashpositional" aria-controls="cashpositional" role="tab" data-toggle="tab">Cash positional</a></li>
+		<li role="presentation"><a href="#stockfuture" aria-controls="stcokfuture" role="tab" data-toggle="tab">Stock future</a></li>
+		<li role="presentation"><a href="#niftyfuture" aria-controls="niftyfuture" role="tab" data-toggle="tab">Nifty future</a></li>
+		<li role="presentation"><a href="#optioncallscovered" aria-controls="optioncallscovered" role="tab" data-toggle="tab">Option calls covered</a></li>
+		<li role="presentation"><a href="#optioncallsuncovered" aria-controls="optioncallsuncovered" role="tab" data-toggle="tab">Option calls uncovered</a></li>
+		<li role="presentation"><a href="#multibagger" aria-controls="multibagger" role="tab" data-toggle="tab">Multi bagger</a></li>
+
+	</ul>
+
+	<div class="tab-content">
+
+		<div role="tabpanel" class="tab-pane active" id="cashintra">
+			{% if cash_intra != 'not_subscribed' %}
+			{% for call in cash_intra %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+
+				 {% if call.trade|stringformat:"s" == "SELL" %}
+				 <div class="col-md-12 custom-panel">
+					 <div class="col-md-4 custom call-yes">
+
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</br></h3>
+					</div>
+					</div>
+
+					{%else%}
+					<div class="col-md-12 custom-panel">
+					<div class="col-md-4 custom call-no">
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</h3>
+					</div>
+					</div>
+					{%endif%}
+
+
+				</div>
+
+				<div class="panel-body pan-body-custom">
+
+			</br></br>
+			<div class="row-custom"><div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Date:&nbsp</strong> {{ call.created_on }}</div>
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Entry Price Range:&nbsp </strong>{{ call.entry_price_range }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Stop Loss:&nbsp </strong>{{ call.stop_loss }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Target:&nbsp </strong>{{ call.target }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Time Frame: </strong>{{ call.time_frame }}</div>
+					</div>
+					<div class="row-custom">
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Trade:&nbsp </strong>
+					{% if call.trade|stringformat:"s" == "SELL" %}<span id="sell">{{ call.trade }}</span>
+					{%else%}<span id="buy">{{ call.trade}}</span>
+					{%endif%}
+					</div>
+
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Call Achieved:</strong>
+					{%if call.achived%}
+					<i class="fa fa-check call-yes-icon"></i>
+					{%else%}
+					<i class="fa fa-minus call-no-icon"></i>
+					{%endif%}
+					</div>
+					</div>
+
+
+				</div>
+
+				<div class="panel-body comment-custom">
+				 <div class="detailBox">
+                   <div class="col-md-12 col-sm-12 card custom">
+					<strong>Comments:</strong>
+					 <div class="commentBox">
+                       <p class="commentDescription">{{call.comment}}</p>
+					 </div>
+				   </div>
+				   </div></div>
+			</div>
+
+
+			{% endfor %}
+			{% elif cash_intra == None %}
+			<h1>No calls in this section</h1>
+			{% else %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe <a target= "_blank" href="https://www.payumoney.com/paybypayumoney/#/DF84BF04380253472E39569E628AC1AE">click here</a></h2>
+				<h3>If already paid, give us 48 hours to process or <a href="{% url 'contactus' %}">contact us</a></h3>
+			</div>
+			{% endif %}
+
+			</br></br>
+
+		</div>
+
+		<div role="tabpanel" class="tab-pane" id="cashpositional">
+			{% if cash_positional != 'not_subscribed' %}
+			{% for call in cash_positional %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+
+				 {% if call.trade|stringformat:"s" == "SELL" %}
+				 <div class="col-md-12 custom-panel">
+					 <div class="col-md-4 custom call-yes">
+
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</br></h3>
+					</div>
+					</div>
+
+					{%else%}
+					<div class="col-md-12 custom-panel">
+					<div class="col-md-4 custom call-no">
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</h3>
+					</div>
+					</div>
+					{%endif%}
+				</div>
+
+				<div class="panel-body pan-body-custom">
+			</br></br><div class="row-custom"><div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Date:&nbsp</strong> {{ call.created_on }}</div>
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Entry Price Range:&nbsp </strong>{{ call.entry_price_range }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Stop Loss:&nbsp </strong>{{ call.stop_loss }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Target:&nbsp </strong>{{ call.target }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Time Frame: </strong>{{ call.time_frame }}</div>
+					</div>
+					<div class="row-custom">
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Trade:&nbsp </strong>
+					{% if call.trade|stringformat:"s" == "SELL" %}<span id="sell">{{ call.trade }}</span>
+					{%else%}<span id="buy">{{ call.trade}}</span>
+					{%endif%}
+					</div>
+
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Call Achieved:</strong>
+					{%if call.achived%}
+					<i class="fa fa-check call-yes-icon"></i>
+					{%else%}
+					<i class="fa fa-minus call-no-icon"></i>
+					{%endif%}
+					</div>
+					</div>
+
+
+				</div>
+				<div class="panel-body comment-custom">
+				 <div class="detailBox">
+                   <div class="col-md-12 col-sm-12 card custom">
+					<strong>Comments:</strong>
+					 <div class="commentBox">
+                       <p class="commentDescription">{{call.comment}}</p>
+					 </div>
+				   </div>
+				   </div></div>
+			</div>
+			{% endfor %}
+			{% elif not cash_positional %}
+			<h1>No calls in this section</h1>
+			{% else %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe <a target= "_blank" href="https://www.payumoney.com/paybypayumoney/#/DF84BF04380253472E39569E628AC1AE">click here</a></h2>
+				<h3>If already paid, give us 48 hours to process or <a href="{% url 'contactus' %}">contact us</a></h3>
+			</div>
+			{% endif %}
+			</br></br>
+		</div>
+
+		<div role="tabpanel" class="tab-pane" id="stockfuture">
+			{% if stock_future != 'not_subscribed' %}
+			{% for call in stock_future %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+
+				 {% if call.trade|stringformat:"s" == "SELL" %}
+				 <div class="col-md-12 custom-panel">
+					 <div class="col-md-4 custom call-yes">
+
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</br></h3>
+					</div>
+					</div>
+
+					{%else%}
+					<div class="col-md-12 custom-panel">
+					<div class="col-md-4 custom call-no">
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</h3>
+					</div>
+					</div>
+					{%endif%}
+					</div>
+
+				<div class="panel-body pan-body-custom">
+			</br></br><div class="row-custom"><div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Date:&nbsp</strong> {{ call.created_on }}</div>
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Entry Price Range:&nbsp </strong>{{ call.entry_price_range }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Stop Loss:&nbsp </strong>{{ call.stop_loss }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Target:&nbsp </strong>{{ call.target }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Time Frame: </strong>{{ call.time_frame }}</div>
+					</div>
+					<div class="row-custom">
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Trade:&nbsp </strong>
+					{% if call.trade|stringformat:"s" == "SELL" %}<span id="sell">{{ call.trade }}</span>
+					{%else%}<span id="buy">{{ call.trade}}</span>
+					{%endif%}
+					</div>
+
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Call Achieved:</strong>
+					{%if call.achived%}
+					<i class="fa fa-check call-yes-icon"></i>
+					{%else%}
+					<i class="fa fa-minus call-no-icon"></i>
+					{%endif%}
+					</div>
+					</div>
+
+
+				</div>
+				<div class="panel-body comment-custom">
+				 <div class="detailBox">
+                   <div class="col-md-12 col-sm-12 card custom">
+					<strong>Comments:</strong>
+					 <div class="commentBox">
+                       <p class="commentDescription">{{call.comment}}</p>
+					 </div>
+				   </div>
+				   </div></div>
+			</div>
+			{% endfor %}
+			{% elif stock_future == None %}
+			<h1>No calls in this section</h1>
+			{% else %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe <a target= "_blank" href="https://www.payumoney.com/paybypayumoney/#/DF84BF04380253472E39569E628AC1AE">click here</a></h2>
+				<h3>If already paid, give us 48 hours to process or <a href="{% url 'contactus' %}">contact us</a></h3>
+			</div>
+			{% endif %}
+			</br></br>
+		</div>
+
+		<div role="tabpanel" class="tab-pane" id="niftyfuture">
+			{% if nifty_future != 'not_subscribed' %}
+			{% for call in nifty_future %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+
+				 {% if call.trade|stringformat:"s" == "SELL" %}
+				 <div class="col-md-12 custom-panel">
+					 <div class="col-md-4 custom call-yes">
+
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</br></h3>
+					</div>
+					</div>
+
+					{%else%}
+					<div class="col-md-12 custom-panel">
+					<div class="col-md-4 custom call-no">
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</h3>
+					</div>
+					</div>
+					{%endif%}
+					</div>
+
+				<div class="panel-body pan-body-custom">
+			</br></br><div class="row-custom"><div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Date:&nbsp</strong> {{ call.created_on }}</div>
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Entry Price Range:&nbsp </strong>{{ call.entry_price_range }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Stop Loss:&nbsp </strong>{{ call.stop_loss }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Target:&nbsp </strong>{{ call.target }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Time Frame: </strong>{{ call.time_frame }}</div>
+					</div>
+					<div class="row-custom">
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Trade:&nbsp </strong>
+					{% if call.trade|stringformat:"s" == "SELL" %}<span id="sell">{{ call.trade }}</span>
+					{%else%}<span id="buy">{{ call.trade}}</span>
+					{%endif%}
+					</div>
+
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Call Achieved:</strong>
+					{%if call.achived%}
+					<i class="fa fa-check call-yes-icon"></i>
+					{%else%}
+					<i class="fa fa-minus call-no-icon"></i>
+					{%endif%}
+					</div>
+					</div>
+
+
+				</div>
+				<div class="panel-body comment-custom">
+				 <div class="detailBox">
+                   <div class="col-md-12 col-sm-12 card custom">
+					<strong>Comments:</strong>
+					 <div class="commentBox">
+                       <p class="commentDescription">{{call.comment}}</p>
+					 </div>
+				   </div>
+				   </div></div>
+			</div>
+			{% endfor %}
+			{% elif nifty_future == None %}
+			<h1>No calls in this section</h1>
+			{% else %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe <a target= "_blank" href="https://www.payumoney.com/paybypayumoney/#/DF84BF04380253472E39569E628AC1AE">click here</a></h2>
+				<h3>If already paid, give us 48 hours to process or <a href="{% url 'contactus' %}">contact us</a></h3>
+			</div>
+			{% endif %}
+			</br></br>
+		</div>
+
+		<div role="tabpanel" class="tab-pane" id="optioncallscovered">
+			{% if option_calls_covered != 'not_subscribed' %}
+			{% for call in option_calls_covered %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+
+				 {% if call.trade|stringformat:"s" == "SELL" %}
+				 <div class="col-md-12 custom-panel">
+					 <div class="col-md-4 custom call-yes">
+
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</br></h3>
+					</div>
+					</div>
+
+					{%else%}
+					<div class="col-md-12 custom-panel">
+					<div class="col-md-4 custom call-no">
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</h3>
+					</div>
+					</div>
+					{%endif%}
+				</div>
+
+				<div class="panel-body pan-body-custom">
+			</br></br><div class="row-custom"><div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Date:&nbsp</strong> {{ call.created_on }}</div>
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Entry Price Range:&nbsp </strong>{{ call.entry_price_range }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Stop Loss:&nbsp </strong>{{ call.stop_loss }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Target:&nbsp </strong>{{ call.target }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Time Frame: </strong>{{ call.time_frame }}</div>
+					</div>
+					<div class="row-custom">
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Trade:&nbsp </strong>
+					{% if call.trade|stringformat:"s" == "SELL" %}<span id="sell">{{ call.trade }}</span>
+					{%else%}<span id="buy">{{ call.trade}}</span>
+					{%endif%}
+					</div>
+
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Call Achieved:</strong>
+					{%if call.achived%}
+					<i class="fa fa-check call-yes-icon"></i>
+					{%else%}
+					<i class="fa fa-minus call-no-icon"></i>
+					{%endif%}
+					</div>
+					</div>
+
+
+				</div>
+				<div class="panel-body comment-custom">
+				 <div class="detailBox">
+                   <div class="col-md-12 col-sm-12 card custom">
+					<strong>Comments:</strong>
+					 <div class="commentBox">
+                       <p class="commentDescription">{{call.comment}}</p>
+					 </div>
+				   </div>
+				   </div></div>
+			</div>
+			{% endfor %}
+			{% elif option_calls_covered == None %}
+			<h1>No calls in this section</h1>
+			{% else %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe <a target= "_blank" href="https://www.payumoney.com/paybypayumoney/#/DF84BF04380253472E39569E628AC1AE">click here</a></h2>
+				<h3>If already paid, give us 48 hours to process or <a href="{% url 'contactus' %}">contact us</a></h3>
+			</div>
+			{% endif %}
+			</br></br>
+		</div>
+
+		<div role="tabpanel" class="tab-pane" id="optioncallsuncovered">
+			{% if option_calls_uncovered != 'not_subscribed' %}
+			{% for call in option_calls_uncovered %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+
+				 {% if call.trade|stringformat:"s" == "SELL" %}
+				 <div class="col-md-12 custom-panel">
+					 <div class="col-md-4 custom call-yes">
+
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</br></h3>
+					</div>
+					</div>
+
+					{%else%}
+					<div class="col-md-12 custom-panel">
+					<div class="col-md-4 custom call-no">
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</h3>
+					</div>
+					</div>
+					{%endif%}
+				</div>
+
+				<div class="panel-body pan-body-custom">
+			</br></br><div class="row-custom"><div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Date:&nbsp</strong> {{ call.created_on }}</div>
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Entry Price Range:&nbsp </strong>{{ call.entry_price_range }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Stop Loss:&nbsp </strong>{{ call.stop_loss }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Target:&nbsp </strong>{{ call.target }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Time Frame: </strong>{{ call.time_frame }}</div>
+					</div>
+					<div class="row-custom">
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Trade:&nbsp </strong>
+					{% if call.trade|stringformat:"s" == "SELL" %}<span id="sell">{{ call.trade }}</span>
+					{%else%}<span id="buy">{{ call.trade}}</span>
+					{%endif%}
+					</div>
+
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Call Achieved:</strong>
+					{%if call.achived%}
+					<i class="fa fa-check call-yes-icon"></i>
+					{%else%}
+					<i class="fa fa-minus call-no-icon"></i>
+					{%endif%}
+					</div>
+					</div>
+
+
+				</div>
+				<div class="panel-body comment-custom">
+				 <div class="detailBox">
+                   <div class="col-md-12 col-sm-12 card custom">
+					<strong>Comments:</strong>
+					 <div class="commentBox">
+                       <p class="commentDescription">{{call.comment}}</p>
+					 </div>
+				   </div>
+				   </div></div>
+			</div>
+			{% endfor %}
+			{% elif option_calls_uncovered == None %}
+			<h1>No calls in this section</h1>
+			{% else %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe <a target= "_blank" href="https://www.payumoney.com/paybypayumoney/#/DF84BF04380253472E39569E628AC1AE">click here</a></h2>
+				<h3>If already paid, give us 48 hours to process or <a href="{% url 'contactus' %}">contact us</a></h3>
+			</div>
+			{% endif %}
+			</br></br>
+		</div>
+
+		<div role="tabpanel" class="tab-pane" id="multibagger">
+			{% if multi_bagger != 'not_subscribed' %}
+			{% for call in multi_bagger %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+
+				 {% if call.trade|stringformat:"s" == "SELL" %}
+				 <div class="col-md-12 custom-panel">
+					 <div class="col-md-4 custom call-yes">
+
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</br></h3>
+					</div>
+					</div>
+
+					{%else%}
+					<div class="col-md-12 custom-panel">
+					<div class="col-md-4 custom call-no">
+					<h3 class="panel-title" id="panel">{{ call.stock_name }}</h3>
+					</div>
+					</div>
+					{%endif%}
+				</div>
+
+				<div class="panel-body pan-body-custom">
+			</br></br><div class="row-custom"><div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Date:&nbsp</strong> {{ call.created_on }}</div>
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Entry Price Range:&nbsp </strong>{{ call.entry_price_range }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Stop Loss:&nbsp </strong>{{ call.stop_loss }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Target:&nbsp </strong>{{ call.target }}</div>
+					<div class="col-md-2 col-sm-2 custom">
+					<strong class="pbody">Time Frame: </strong>{{ call.time_frame }}</div>
+					</div>
+					<div class="row-custom">
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Trade:&nbsp </strong>
+					{% if call.trade|stringformat:"s" == "SELL" %}<span id="sell">{{ call.trade }}</span>
+					{%else%}<span id="buy">{{ call.trade}}</span>
+					{%endif%}
+					</div>
+
+					<div class="col-md-3 col-sm-3 custom">
+					<strong class="pbody">Call Achieved:</strong>
+					{%if call.achived%}
+					<i class="fa fa-check call-yes-icon"></i>
+					{%else%}
+					<i class="fa fa-minus call-no-icon"></i>
+					{%endif%}
+					</div>
+					</div>
+
+
+				</div>
+				<div class="panel-body comment-custom">
+				 <div class="detailBox">
+                   <div class="col-md-12 col-sm-12 card custom">
+					<strong>Comments:</strong>
+					 <div class="commentBox">
+                       <p class="commentDescription">{{call.comment}}</p>
+					 </div>
+				   </div>
+				   </div></div>
+			</div>
+			{% endfor %}
+			{% elif multi_bagger == None %}
+			<h1>No calls in this Section.</h1>
+			{% else %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe <a target= "_blank" href="https://www.payumoney.com/paybypayumoney/#/DF84BF04380253472E39569E628AC1AE">click here</a></h2>
+				<h3>If already paid, give us 48 hours to process or <a href="{% url 'contactus' %}">contact us</a></h3>
+			</div>
+			{% endif %}
+			</br></br>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+<!--Mobile Tabs Dropdown Menu Script-->
+<script>
+
+$('.nav-tabs-dropdown').each(function(i, elm) {
+
+    $(elm).text($(elm).next('ul').find('li.active a').text());
+
+});
+
+$('.nav-tabs-dropdown').on('click', function(e) {
+
+    e.preventDefault();
+
+    $(e.target).toggleClass('open').next('ul').slideToggle();
+
+});
+
+$('#nav-tabs-wrapper a[data-toggle="tab"]').on('click', function(e) {
+
+    e.preventDefault();
+
+    $(e.target).closest('ul').hide().prev('a').removeClass('open').text($(this).text());
+
+});
+
+</script>
+
+<!--End of mobile tab dropdown script-->
+
+{% endblock %}
