@@ -131,6 +131,7 @@ class APISettings(TemplateView):
         api_key = request.POST.get('api_key')
         secret = request.POST.get('secret')
         trading_platform = request.POST.get('trading_platform')
+        user = get_object_or_404(MyUser, email = request.user.email)
         try:
             trader = Trading_Platform.objects.get(user=request.user, trading_platform = trading_platform)
             trader.api_key = api_key
@@ -140,7 +141,7 @@ class APISettings(TemplateView):
             trader = Trading_Platform.objects.create(trading_platform = trading_platform,
                     api_key = api_key,
                     secret = secret,
-                    user = request.user)
+                    user = user)
 
 
         return HttpResponseRedirect('/')
