@@ -137,12 +137,10 @@ class APISettings(TemplateView):
             trader.secret = secret
             trader.save()
         except:
-            trader = Trading_Platform()
-            trader.trading_platform = trading_platform
-            trader.api_key = api_key
-            trader.secret = secret
-            trader.user = request.user
-            trader.save()
+            trader = Trading_Platform.objects.create(trading_platform = trading_platform
+                    api_key = api_key
+                    secret = secret
+                    user = request.user)
 
 
         return HttpResponseRedirect('/')
