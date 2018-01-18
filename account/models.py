@@ -115,7 +115,7 @@ class Trading_Platform(models.Model):
             ('Quoine_API','Quoine_API')
             )
 	user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-	trading_platform = models.CharField(max_length=1,
+	trading_platform = models.CharField(max_length=100,
                             choices=PLATFORM_CHOICES, default=None)
 	api_key = models.CharField(max_length=64)
 	secret = models.CharField(max_length=64)
