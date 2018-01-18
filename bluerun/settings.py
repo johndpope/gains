@@ -134,8 +134,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 AUTH_USER_MODEL = 'account.MyUser'
-#DATABASES['default'] =  dj_database_url.config()
-#DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+DATABASES['default'] =  dj_database_url.config()
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 DEFAULT_FROM_EMAIL = 'noreply@capitalgain.crypto'
 #EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
@@ -143,6 +143,6 @@ EMAIL_HOST= 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = "sgbackend.SendGridBackend"
-SENDGRID_API_KEY = "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"
+#SENDGRID_API_KEY = "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"
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
