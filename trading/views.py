@@ -137,9 +137,9 @@ class APISettings(TemplateView):
             trader.secret = secret
             trader.save()
         except:
-            trader = Trading_Platform.objects.create(trading_platform = trading_platform
-                    api_key = api_key
-                    secret = secret
+            trader = Trading_Platform.objects.create(trading_platform = trading_platform,
+                    api_key = api_key,
+                    secret = secret,
                     user = request.user)
 
 
