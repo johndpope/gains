@@ -21,23 +21,19 @@
 <div class="col-md-2">
 	<h4 class="classic-title"><span>MENU</span></h4>
 	<ul>
-		<li><a href="{% url 'dashboard' id=user.id %}">View calls</a></li>
-
 		<li><a href="{% url 'profile' id=user.id %}">Your Profile</a></li>
 	</ul>
 </div>
     <div class = "col-md-10" >
 
-    <h4 class="classic-title"><span>CALLS</span></h4>
+    <h4 class="classic-title"><span>CAPITAL GAINS IN SPECIFIED TRADING PLATFORMS</span></h4>
 	<a href="#" class="nav-tabs-dropdown btn btn-block btn-default">Call Tabs</a>
 	<ul class="nav nav-tabs nav-justified nav-tabs-horizontal " role="tablist" id="nav-tabs-wrapper">
-		<li role="presentation" class="active"><a href="#cashintra" aria-controls="cashintra" role="tab" data-toggle="tab">Cash intra</a></li>
-		<li role="presentation"><a href="#cashpositional" aria-controls="cashpositional" role="tab" data-toggle="tab">Cash positional</a></li>
-		<li role="presentation"><a href="#stockfuture" aria-controls="stcokfuture" role="tab" data-toggle="tab">Stock future</a></li>
-		<li role="presentation"><a href="#niftyfuture" aria-controls="niftyfuture" role="tab" data-toggle="tab">Nifty future</a></li>
-		<li role="presentation"><a href="#optioncallscovered" aria-controls="optioncallscovered" role="tab" data-toggle="tab">Option calls covered</a></li>
-		<li role="presentation"><a href="#optioncallsuncovered" aria-controls="optioncallsuncovered" role="tab" data-toggle="tab">Option calls uncovered</a></li>
-		<li role="presentation"><a href="#multibagger" aria-controls="multibagger" role="tab" data-toggle="tab">Multi bagger</a></li>
+		<li role="presentation" class="active"><a href="#cashintra" aria-controls="cashintra" role="tab" data-toggle="tab">Quadrigacx</a></li>
+		<li role="presentation"><a href="#cashpositional" aria-controls="cashpositional" role="tab" data-toggle="tab">Kraken</a></li>
+		<li role="presentation"><a href="#stockfuture" aria-controls="stcokfuture" role="tab" data-toggle="tab">Bitfinex</a></li>
+		<li role="presentation"><a href="#niftyfuture" aria-controls="niftyfuture" role="tab" data-toggle="tab">Quoine</a></li>
+		<li role="presentation"><a href="#optioncallscovered" aria-controls="optioncallscovered" role="tab" data-toggle="tab">Reports and Export</a></li>
 
 	</ul>
 
@@ -442,162 +438,7 @@
 			</br></br>
 		</div>
 
-		<div role="tabpanel" class="tab-pane" id="optioncallsuncovered">
-			{% if option_calls_uncovered != 'not_subscribed' %}
-			{% for call in option_calls_uncovered %}
-			<div class="panel panel-default">
-				<div class="panel-heading">
-
-				 {% if call.trade|stringformat:"s" == "SELL" %}
-				 <div class="col-md-12 custom-panel">
-					 <div class="col-md-4 custom call-yes">
-
-					<h3 class="panel-title" id="panel">{{ call.stock_name }}</br></h3>
-					</div>
-					</div>
-
-					{%else%}
-					<div class="col-md-12 custom-panel">
-					<div class="col-md-4 custom call-no">
-					<h3 class="panel-title" id="panel">{{ call.stock_name }}</h3>
-					</div>
-					</div>
-					{%endif%}
-				</div>
-
-				<div class="panel-body pan-body-custom">
-			</br></br><div class="row-custom"><div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Date:&nbsp</strong> {{ call.created_on }}</div>
-					<div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Entry Price Range:&nbsp </strong>{{ call.entry_price_range }}</div>
-					<div class="col-md-2 col-sm-2 custom">
-					<strong class="pbody">Stop Loss:&nbsp </strong>{{ call.stop_loss }}</div>
-					<div class="col-md-2 col-sm-2 custom">
-					<strong class="pbody">Target:&nbsp </strong>{{ call.target }}</div>
-					<div class="col-md-2 col-sm-2 custom">
-					<strong class="pbody">Time Frame: </strong>{{ call.time_frame }}</div>
-					</div>
-					<div class="row-custom">
-					<div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Trade:&nbsp </strong>
-					{% if call.trade|stringformat:"s" == "SELL" %}<span id="sell">{{ call.trade }}</span>
-					{%else%}<span id="buy">{{ call.trade}}</span>
-					{%endif%}
-					</div>
-
-					<div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Call Achieved:</strong>
-					{%if call.achived%}
-					<i class="fa fa-check call-yes-icon"></i>
-					{%else%}
-					<i class="fa fa-minus call-no-icon"></i>
-					{%endif%}
-					</div>
-					</div>
-
-
-				</div>
-				<div class="panel-body comment-custom">
-				 <div class="detailBox">
-                   <div class="col-md-12 col-sm-12 card custom">
-					<strong>Comments:</strong>
-					 <div class="commentBox">
-                       <p class="commentDescription">{{call.comment}}</p>
-					 </div>
-				   </div>
-				   </div></div>
 			</div>
-			{% endfor %}
-			{% elif option_calls_uncovered == None %}
-			<h1>No calls in this section</h1>
-			{% else %}
-			<div style = "text-align: center;">
-				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
-				<h2>To subscribe <a target= "_blank" href="https://www.payumoney.com/paybypayumoney/#/DF84BF04380253472E39569E628AC1AE">click here</a></h2>
-				<h3>If already paid, give us 48 hours to process or <a href="{% url 'contactus' %}">contact us</a></h3>
-			</div>
-			{% endif %}
-			</br></br>
-		</div>
-
-		<div role="tabpanel" class="tab-pane" id="multibagger">
-			{% if multi_bagger != 'not_subscribed' %}
-			{% for call in multi_bagger %}
-			<div class="panel panel-default">
-				<div class="panel-heading">
-
-				 {% if call.trade|stringformat:"s" == "SELL" %}
-				 <div class="col-md-12 custom-panel">
-					 <div class="col-md-4 custom call-yes">
-
-					<h3 class="panel-title" id="panel">{{ call.stock_name }}</br></h3>
-					</div>
-					</div>
-
-					{%else%}
-					<div class="col-md-12 custom-panel">
-					<div class="col-md-4 custom call-no">
-					<h3 class="panel-title" id="panel">{{ call.stock_name }}</h3>
-					</div>
-					</div>
-					{%endif%}
-				</div>
-
-				<div class="panel-body pan-body-custom">
-			</br></br><div class="row-custom"><div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Date:&nbsp</strong> {{ call.created_on }}</div>
-					<div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Entry Price Range:&nbsp </strong>{{ call.entry_price_range }}</div>
-					<div class="col-md-2 col-sm-2 custom">
-					<strong class="pbody">Stop Loss:&nbsp </strong>{{ call.stop_loss }}</div>
-					<div class="col-md-2 col-sm-2 custom">
-					<strong class="pbody">Target:&nbsp </strong>{{ call.target }}</div>
-					<div class="col-md-2 col-sm-2 custom">
-					<strong class="pbody">Time Frame: </strong>{{ call.time_frame }}</div>
-					</div>
-					<div class="row-custom">
-					<div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Trade:&nbsp </strong>
-					{% if call.trade|stringformat:"s" == "SELL" %}<span id="sell">{{ call.trade }}</span>
-					{%else%}<span id="buy">{{ call.trade}}</span>
-					{%endif%}
-					</div>
-
-					<div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Call Achieved:</strong>
-					{%if call.achived%}
-					<i class="fa fa-check call-yes-icon"></i>
-					{%else%}
-					<i class="fa fa-minus call-no-icon"></i>
-					{%endif%}
-					</div>
-					</div>
-
-
-				</div>
-				<div class="panel-body comment-custom">
-				 <div class="detailBox">
-                   <div class="col-md-12 col-sm-12 card custom">
-					<strong>Comments:</strong>
-					 <div class="commentBox">
-                       <p class="commentDescription">{{call.comment}}</p>
-					 </div>
-				   </div>
-				   </div></div>
-			</div>
-			{% endfor %}
-			{% elif multi_bagger == None %}
-			<h1>No calls in this Section.</h1>
-			{% else %}
-			<div style = "text-align: center;">
-				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
-				<h2>To subscribe <a target= "_blank" href="https://www.payumoney.com/paybypayumoney/#/DF84BF04380253472E39569E628AC1AE">click here</a></h2>
-				<h3>If already paid, give us 48 hours to process or <a href="{% url 'contactus' %}">contact us</a></h3>
-			</div>
-			{% endif %}
-			</br></br>
-		</div>
-	</div>
 </div>
 </div>
 </div>
