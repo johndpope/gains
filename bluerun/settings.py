@@ -134,8 +134,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 AUTH_USER_MODEL = 'account.MyUser'
-DATABASES['default'] =  dj_database_url.config()
-DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+#DATABASES['default'] =  dj_database_url.config()
+#DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 DEFAULT_FROM_EMAIL = 'noreply@capitalgain.crypto'
 EMAIL_HOST = 'smtp.sendgrid.net'
