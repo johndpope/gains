@@ -1,1 +1,1 @@
-web: gunicorn bitcoin_dashboard.wsgi
+web: gunicorn bluerun.wsgi
