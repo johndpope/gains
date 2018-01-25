@@ -32,7 +32,8 @@ def dashboard(request , id):
 
 
         # get products
-        products = client.get_trading_accounts()
+        Quadrigacx_products = Quadrigacx_client.get_trading_accounts()
+        Quinine_products = Quadrigacx_client.get_trading_accounts()
 
         # get market depth
         #depth = client.get_order_book(product_id=products[0]['id'])
@@ -49,8 +50,8 @@ def dashboard(request , id):
 	context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
 	context['user'] = user
-	context['Quadrigacx_products'] = Quadrigacx_data
-	context['Quinine_products'] = Quinine_data
+	context['Quadrigacx_products'] = Quadrigacx_products
+	context['Quinine_products'] = Quinine_products
 
 	return render(request , 'trading/dashboard.html' , context)
 
