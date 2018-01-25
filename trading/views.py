@@ -23,7 +23,7 @@ from quoine.client import Quoinex
 @require_GET
 @login_required(login_url = 'login')
 def dashboard(request , id):
-        apis = Trading_Platform.objects.filter(id=id).values()
+        apis = Trading_Platform.objects.filter(id=id).values()[0]
         print apis
 	Quadrigacx_client = apis['Quadrigacx_API']
 	Quoinex_client = apis['Quoine_API']
