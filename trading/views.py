@@ -31,14 +31,14 @@ def dashboard(request , id):
         # get market depth
         depth = client.get_order_book(product_id=products[0]['id'])
 
-        # place market buy order
-        order = client.create_market_buy(
-            product_id=products[0]['id'],
-            quantity='100',
-            price_range='0.01')
+        ## place market buy order
+        #order = client.create_market_buy(
+            #product_id=products[0]['id'],
+            #quantity='100',
+            #price_range='0.01')
 
         # get list of filled orders environmental1
-        filled_orders = client.get_orders(status=client.STATUS_FILLED)
+        #filled_orders = client.get_orders(status=client.STATUS_FILLED)
 
 	context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
