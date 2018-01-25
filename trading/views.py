@@ -24,9 +24,9 @@ from quoine.client import Quoinex
 @login_required(login_url = 'login')
 def dashboard(request , id):
         apis = Trading_Platform.objects.filter(id=id).values()[0]
-        print apis
-	Quadrigacx_client = apis['Quadrigacx_API']
-	Quoinex_client = apis['Quoine_API']
+        print apis.get('Quadrigacx_API')
+	Quadrigacx_client = apis.get('Quadrigacx_API')
+	Quoinex_client = apis.get('Quoine_API')
 	Quadrigacx_data = Quoinex(Quadrigacx_client.api_key, Quadrigacx_client.secret)
 	Quoine_data = Quoinex(quoinex_client.api, quoinex_client.secret)
 
