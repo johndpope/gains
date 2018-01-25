@@ -26,10 +26,11 @@ def dashboard(request , id):
         try:
             Quadrigacx_API = get_object_or_404(Trading_Platform , id = request.user.id, trading_platform="Quadrigacx_API")
             Quoinex_API = get_object_or_404(Trading_Platform , id = request.user.id, trading_platform="Quoinex_API")
-    	#Quadrigacx_client = apis.get('Quadrigacx_API')
-    	#Quoinex_client = apis'Quoine_API')
-    	Quadrigacx_client = Quoinex(Quadrigacx_API.api_key, Quadrigacx_API.secret)
-    	Quoine_client = Quoinex(Quoinex_API.api, Quoinex_API.secret)
+            	#Quadrigacx_client = apis.get('Quadrigacx_API')
+            	#Quoinex_client = apis'Quoine_API')
+            Quadrigacx_client = Quoinex(Quadrigacx_API.api_key, Quadrigacx_API.secret)
+            Quoine_client = Quoinex(Quoinex_API.api, Quoinex_API.secret)
+
 
 
             # get products
@@ -48,6 +49,8 @@ def dashboard(request , id):
             # get list of filled orders environmental1
         #filled_orders = client.get_orders(status=client.STATUS_FILLED)
         except:
+            pass
+
 	context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
 	context['user'] = user

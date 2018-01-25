@@ -125,79 +125,8 @@
 		</div>
 
 		<div role="tabpanel" class="tab-pane" id="stockfuture">
-			{% if stock_future != 'not_subscribed' %}
-			{% for call in stock_future %}
-			<div class="panel panel-default">
-				<div class="panel-heading">
-
-				 {% if call.trade|stringformat:"s" == "SELL" %}
-				 <div class="col-md-12 custom-panel">
-					 <div class="col-md-4 custom call-yes">
-
-					<h3 class="panel-title" id="panel">{{ call.stock_name }}</br></h3>
-					</div>
-					</div>
-
-					{%else%}
-					<div class="col-md-12 custom-panel">
-					<div class="col-md-4 custom call-no">
-					<h3 class="panel-title" id="panel">{{ call.stock_name }}</h3>
-					</div>
-					</div>
-					{%endif%}
-					</div>
-
-				<div class="panel-body pan-body-custom">
-			</br></br><div class="row-custom"><div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Date:&nbsp</strong> {{ call.created_on }}</div>
-					<div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Entry Price Range:&nbsp </strong>{{ call.entry_price_range }}</div>
-					<div class="col-md-2 col-sm-2 custom">
-					<strong class="pbody">Stop Loss:&nbsp </strong>{{ call.stop_loss }}</div>
-					<div class="col-md-2 col-sm-2 custom">
-					<strong class="pbody">Target:&nbsp </strong>{{ call.target }}</div>
-					<div class="col-md-2 col-sm-2 custom">
-					<strong class="pbody">Time Frame: </strong>{{ call.time_frame }}</div>
-					</div>
-					<div class="row-custom">
-					<div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Trade:&nbsp </strong>
-					{% if call.trade|stringformat:"s" == "SELL" %}<span id="sell">{{ call.trade }}</span>
-					{%else%}<span id="buy">{{ call.trade}}</span>
-					{%endif%}
-					</div>
-
-					<div class="col-md-3 col-sm-3 custom">
-					<strong class="pbody">Call Achieved:</strong>
-					{%if call.achived%}
-					<i class="fa fa-check call-yes-icon"></i>
-					{%else%}
-					<i class="fa fa-minus call-no-icon"></i>
-					{%endif%}
-					</div>
-					</div>
-
-
-				</div>
-				<div class="panel-body comment-custom">
-				 <div class="detailBox">
-                   <div class="col-md-12 col-sm-12 card custom">
-					<strong>Comments:</strong>
-					 <div class="commentBox">
-                       <p class="commentDescription">{{call.comment}}</p>
-					 </div>
-				   </div>
-				   </div></div>
-			</div>
-			{% endfor %}
-			{% elif stock_future == None %}
-			<h1>No calls in this section</h1>
-			{% else %}
-			<div style = "text-align: center;">
-				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
-				<h2>To subscribe <a target= "_blank" href="https://www.payumoney.com/paybypayumoney/#/DF84BF04380253472E39569E628AC1AE">click here</a></h2>
-				<h3>If already paid, give us 48 hours to process or <a href="{% url 'contactus' %}">contact us</a></h3>
-			</div>
+			{% if Quinine_products%}
+			{{Quinine_products}}
 			{% endif %}
 			</br></br>
 		</div>
