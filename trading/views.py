@@ -17,15 +17,33 @@ from django.core import serializers
 
 from django.views.generic import TemplateView
 from account.forms import Settings_APIForm
+from quoine.client import Quoinex
 
 # Create your views here.
 @require_GET
 @login_required(login_url = 'login')
 def dashboard(request , id):
+	client = Quoinex(api_key, api_secret)
+
+        # get products
+        products = client.get_products()
+
+        # get market depth
+        depth = client.get_order_book(product_id=products[0]['id'])
+
+        # place market buy order
+        order = client.create_market_buy(
+            product_id=products[0]['id'],
+            quantity='100',
+            price_range='0.01')
+
+        # get list of filled orders
+        filled_orders = client.get_orders(status=client.STATUS_FILLED)
+
 	context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
 	context['user'] = user
-
+	context['Quinine_products'] = products
 	return render(request , 'trading/dashboard.html' , context)
 
 
@@ -93,23 +111,6 @@ def confirm_email(request , id , otp):
 	user.save()
 	otp_object.delete()
 	return redirect(reverse('profile' , kwargs={'id': request.user.id}))
-
-@login_required(login_url = 'login')
-def load_more(request, id, request_tab):
-	user = get_object_or_404(MyUser, id = request.user.id)
-	TOTAL = 10
-	OFFSET = request.GET.get('offset', 0)
-	END = offset + TOTAL
-	request_tab = request.GET.get('request_tab')
-	call = calls.objects.filter(request_tab = True)[OFFSET:END] #assuming request_tab is the requesting tab e.g. cash_intra
-	json_list = []
-	for c in call:
-		json_list.append({
-			'created_on': calls.created_on, 'stock_name': calls.stock_name, 'trade': calls.trade, 'entry_price_range': calls.entry_price_range, 'target': calls.target, 'stop_loss': calls.stop_loss, 'time_frame': calls.time_frame, 'achived': calls.achived, 'comment': calls.comment
-			})
-	data = json.dumps(json_list)
-
-	return HttpResponse(data, content_type='application/json')
 
 class APISettings(TemplateView):
     template_name = 'trading/settings.html'
