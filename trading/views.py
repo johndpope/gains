@@ -23,10 +23,15 @@ from quoine.client import Quoinex
 @require_GET
 @login_required(login_url = 'login')
 def dashboard(request , id):
-	client = Quoinex(Trading_Platform.api_key, Trading_Platform.secret)
+        apis = Trading_Platform.objects.filter(id=id)
+	Quadrigacx_client = apis.objects.get(platform='Quadrigacx_API')
+	Quoinex_client = apis.objects.get(platform='Quoine_API'))
+	Quadrigacx_data = Quoinex(Quadrigacx_client.api_key, Quadrigacx_client.secret)
+	Quoine_data = Quoinex(quoinex_client.api, quoinex_client.secret)
+
 
         # get products
-        products = client. get_trading_accounts()
+        products = client.get_trading_accounts()
 
         # get market depth
         #depth = client.get_order_book(product_id=products[0]['id'])
@@ -43,7 +48,9 @@ def dashboard(request , id):
 	context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
 	context['user'] = user
-	context['Quinine_products'] = products
+	context['Quadrigacx_products'] = Quadrigacx_data
+	context['Quinine_products'] = Quinine_data
+
 	return render(request , 'trading/dashboard.html' , context)
 
 
