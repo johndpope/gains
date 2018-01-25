@@ -23,30 +23,31 @@ from quoine.client import Quoinex
 @require_GET
 @login_required(login_url = 'login')
 def dashboard(request , id):
-        Quadrigacx_API = Trading_Platform.objects.get(id=id, trading_platform="Quadrigacx_API")
-        Quoinex_API = Trading_Platform.objects.get(id=id, trading_platform="Quoinex_API")
-	#Quadrigacx_client = apis.get('Quadrigacx_API')
-	#Quoinex_client = apis'Quoine_API')
-	Quadrigacx_client = Quoinex(Quadrigacx_API.api_key, Quadrigacx_API.secret)
-	Quoine_client = Quoinex(Quoinex_API.api, Quoinex_API.secret)
+        try:
+            Quadrigacx_API = get_object_or_404(Trading_Platform , id = request.user.id, trading_platform="Quadrigacx_API")
+            Quoinex_API = get_object_or_404(Trading_Platform , id = request.user.id, trading_platform="Quoinex_API")
+    	#Quadrigacx_client = apis.get('Quadrigacx_API')
+    	#Quoinex_client = apis'Quoine_API')
+    	Quadrigacx_client = Quoinex(Quadrigacx_API.api_key, Quadrigacx_API.secret)
+    	Quoine_client = Quoinex(Quoinex_API.api, Quoinex_API.secret)
 
 
-        # get products
-        Quadrigacx_products = Quadrigacx_client.get_trading_accounts()
-        Quinine_products = Quadrigacx_client.get_trading_accounts()
+            # get products
+            Quadrigacx_products = Quadrigacx_client.get_trading_accounts()
+            Quinine_products = Quadrigacx_client.get_trading_accounts()
 
-        # get market depth
-        #depth = client.get_order_book(product_id=products[0]['id'])
+            # get market depth
+            #depth = client.get_order_book(product_id=products[0]['id'])
 
-        ## place market buy order
-        #order = client.create_market_buy(
-            #product_id=products[0]['id'],
-            #quantity='100',
-            #price_range='0.01')
+            ## place market buy order
+            #order = client.create_market_buy(
+                #product_id=products[0]['id'],
+                #quantity='100',
+                #price_range='0.01')
 
-        # get list of filled orders environmental1
+            # get list of filled orders environmental1
         #filled_orders = client.get_orders(status=client.STATUS_FILLED)
-
+        except:
 	context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
 	context['user'] = user
