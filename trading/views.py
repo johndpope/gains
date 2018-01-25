@@ -26,10 +26,10 @@ def dashboard(request , id):
 	client = Quoinex(Trading_Platform.api_key, Trading_Platform.secret)
 
         # get products
-        products = client.get_products()
+        products = client. get_trading_accounts()
 
         # get market depth
-        depth = client.get_order_book(product_id=products[0]['id'])
+        #depth = client.get_order_book(product_id=products[0]['id'])
 
         ## place market buy order
         #order = client.create_market_buy(
