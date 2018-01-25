@@ -24,7 +24,7 @@ from quoine.client import Quoinex
 @require_GET
 @login_required(login_url = 'login')
 def dashboard(request , id):
-	client = Quoinex(Trading_Platform.api_key, Trading_Platform.api_secret)
+	client = Quoinex(Trading_Platform.api_key, Trading_Platform.secret)
 
         # get products
         products = client.get_products()
