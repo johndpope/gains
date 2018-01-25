@@ -117,8 +117,8 @@ class Trading_Platform(models.Model):
 	user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 	trading_platform = models.CharField(max_length=100,
                             choices=PLATFORM_CHOICES, default=None)
-	api_key = models.CharField(max_length=64)
-	secret = models.CharField(max_length=64)
+	api_key = models.CharField(max_length=224)
+	secret = models.CharField(max_length=224)
 
 	def __unicode__(self):
 	    return self.user.email + " - " + self.trading_platform
