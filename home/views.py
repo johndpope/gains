@@ -4,7 +4,6 @@ from .forms import ContactForm
 from django import forms
 from django.contrib import messages
 from django.views.decorators.http import require_GET, require_POST,require_http_methods
-from trading.models import calls
 from django.template import loader
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings

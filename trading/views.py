@@ -5,7 +5,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_GET, require_POST,require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from .models import calls
 from account.models import *
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
