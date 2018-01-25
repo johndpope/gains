@@ -17,7 +17,7 @@ from django.core import serializers
 
 from django.views.generic import TemplateView
 from account.forms import Settings_APIForm
-from account.models Trading_Platform
+from account.models import Trading_Platform
 from quoine.client import Quoinex
 
 # Create your views here.
@@ -38,7 +38,7 @@ def dashboard(request , id):
             quantity='100',
             price_range='0.01')
 
-        # get list of filled orders
+        # get list of filled orders environmental1
         filled_orders = client.get_orders(status=client.STATUS_FILLED)
 
 	context = {}
