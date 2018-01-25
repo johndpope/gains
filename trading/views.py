@@ -17,13 +17,14 @@ from django.core import serializers
 
 from django.views.generic import TemplateView
 from account.forms import Settings_APIForm
+from account.models Trading_Platform
 from quoine.client import Quoinex
 
 # Create your views here.
 @require_GET
 @login_required(login_url = 'login')
 def dashboard(request , id):
-	client = Quoinex(api_key, api_secret)
+	client = Quoinex(Trading_Platform.api_key, Trading_Platform.api_secret)
 
         # get products
         products = client.get_products()
