@@ -47,14 +47,14 @@ def dashboard(request , id):
         #
         Quadrigacx_client = Quoinex(Quadrigacx_API.api_key, Quadrigacx_API.secret)
         Quoine_client = Quoinex(Quoinex_API.api_key, Quoinex_API.secret)
-        #print Quadrigacx_API.secret
-        #print Quoinex_API.api_key
+        print Quoinex_API.secret
+        print Quoinex_API.api_key
 
         try:
 
         # get products
             Quadrigacx_products = Quadrigacx_client.get_trading_accounts()
-            Quinine_products = Quadrigacx_client.get_trading_accounts()
+            #Quinine_products = Quadrigacx_client.get_trading_accounts()
         except QuoineAPIException as e:
             print(e.status_code)
             print(e.messages)
