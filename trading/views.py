@@ -46,7 +46,7 @@ def dashboard(request , id):
             #pass
         #
         Quadrigacx_client = Quoinex(Quadrigacx_API.api_key, Quadrigacx_API.secret)
-        Quoine_client = Quoinex(Quoinex_API.api, Quoinex_API.secret)
+        Quoine_client = Quoinex(Quoinex_API.api_key, Quoinex_API.secret)
         print Quadrigacx_client
         print Quoine_client
 
