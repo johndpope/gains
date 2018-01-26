@@ -28,7 +28,7 @@ def dashboard(request , id):
 
 
         Quadrigacx_API = Trading_Platform.objects.get( user = user, trading_platform="Quadrigacx_API")
-        Quoinex_API = Trading_Platform.objects.get( user = user, trading_platform="Quoinex_API")
+        Quoinex_API = Trading_Platform.objects.get( user = user, trading_platform="Quoine_API")
         	#Quadrigacx_client = apis.get('Quadrigacx_API')
         	#Quoinex_client = apis'Quoine_API')
         # get market depth
