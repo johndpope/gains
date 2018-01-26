@@ -51,7 +51,7 @@ def dashboard(request , id):
         #print Quoinex_API.api_key
 
         print Quadrigacx_client.get_products()
-        print Quoine_clientget_products()
+        print Quoine_client.get_products()
 
 
 
