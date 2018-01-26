@@ -16,16 +16,19 @@ from django.core import serializers
 
 from django.views.generic import TemplateView
 from account.forms import Settings_APIForm
-from account.models import Trading_Platform
+from account.models import Trading_Platform, MyUser
 from quoine.client import Quoinex
 
 # Create your views here.
 @require_GET
 @login_required(login_url = 'login')
 def dashboard(request , id):
+        context = {}
+	user = get_object_or_404(MyUser , id = request.user.id)
 
-        Quadrigacx_API = Trading_Platform.objects.get( user = request.user, trading_platform=trading_platform.Quadrigacx_API)
-        Quoinex_API = Trading_Platform.objects.get( user = request.user, trading_platform=trading_platform.Quoinex_API)
+
+        Quadrigacx_API = Trading_Platform.objects.get( user = user, trading_platform="Quadrigacx_API")
+        Quoinex_API = Trading_Platform.objects.get( user = user, trading_platform="Quoinex_API")
         	#Quadrigacx_client = apis.get('Quadrigacx_API')
         	#Quoinex_client = apis'Quoine_API')
         # get market depth
@@ -53,8 +56,6 @@ def dashboard(request , id):
         Quadrigacx_products = Quadrigacx_client.get_trading_accounts()
         Quinine_products = Quadrigacx_client.get_trading_accounts()
 
-	context = {}
-	user = get_object_or_404(MyUser , id = request.user.id)
 	context['user'] = user
 	context['Quadrigacx_products'] = Quadrigacx_products
 	context['Quinine_products'] = Quinine_products
