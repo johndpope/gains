@@ -18,7 +18,7 @@ from django.views.generic import TemplateView
 from account.forms import Settings_APIForm
 from account.models import Trading_Platform, MyUser
 from quoine.client import Quoinex
-
+from quoine.exceptions import QuoineAPIException
 # Create your views here.
 @require_GET
 @login_required(login_url = 'login')
