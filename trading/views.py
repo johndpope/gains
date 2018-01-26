@@ -35,7 +35,7 @@ def dashboard(request , id):
         #depth = client.get_order_book(product_id=products[0]['id'])
 
         ## place market buy order
-        #order = client.create_market_buy(
+        #order = client.create_market_buy( environmental1
             #product_id=products[0]['id'],
             #quantity='100',
             #price_range='0.01')
@@ -47,6 +47,9 @@ def dashboard(request , id):
         #
         Quadrigacx_client = Quoinex(Quadrigacx_API.api_key, Quadrigacx_API.secret)
         Quoine_client = Quoinex(Quoinex_API.api_key, Quoinex_API.secret)
+        print Quadrigacx_API.secret
+        print Quoine_API.api_key
+
         print Quadrigacx_client
         print Quoine_client
 
