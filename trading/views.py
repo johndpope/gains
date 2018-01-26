@@ -24,8 +24,8 @@ from quoine.client import Quoinex
 @login_required(login_url = 'login')
 def dashboard(request , id):
 
-        Quadrigacx_API = get_object_or_404(Trading_Platform , id = id, trading_platform="Quadrigacx_API")
-        Quoinex_API = get_object_or_404(Trading_Platform , id = id, trading_platform="Quoinex_API")
+        Quadrigacx_API = get_object_or_404(Trading_Platform , user = request.user, trading_platform="Quadrigacx_API")
+        Quoinex_API = get_object_or_404(Trading_Platform , user = request.user, trading_platform="Quoinex_API")
         	#Quadrigacx_client = apis.get('Quadrigacx_API')
         	#Quoinex_client = apis'Quoine_API')
         # get market depth
