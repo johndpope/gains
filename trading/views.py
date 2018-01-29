@@ -33,7 +33,7 @@ def dashboard(request , id):
         for exchange in ['Quadrigacx','Quoine']:
             api_credentials = Trading_Platform.objects.get( user = user, trading_platform=exchange)
             print api_credentials.secret
-            print pyxi.requestTradeHistory(exchange=exchange, settings=settings, api_credentials=api_credentials, method="tradehistory")
+            #print pyxi.requestTradeHistory(exchange=exchange, settings=settings, api_credentials=api_credentials, method="tradehistory")
             q= ccxt.quadrigacx({
                 "uid":api_credentials.client_id,
                 "apiKey": api_credentials.api_key,
