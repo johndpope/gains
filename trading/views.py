@@ -19,7 +19,7 @@ from account.forms import Settings_APIForm
 from account.models import Trading_Platform, MyUser
 from quoine.client import Quoinex
 from quoine.exceptions import QuoineAPIException
-from quadriga import QuadrigaClient
+#from quadriga import QuadrigaClient
 # Create your views here.
 @require_GET
 @login_required(login_url = 'login')

@@ -103,4 +103,4 @@ class Settings_APIForm(forms.ModelForm):
 	secret = forms.CharField(required=True)
 	class Meta:
             model = Trading_Platform
-            fields = ['api_key', 'secret', 'trading_platform']
+            fields = ['api_key', 'secret', 'trading_platform', 'client_id']

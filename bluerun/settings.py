@@ -133,7 +133,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
 AUTH_USER_MODEL = 'account.MyUser'
 DATABASES['default'] =  dj_database_url.config()
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
@@ -148,4 +147,5 @@ SENDGRID_API_KEY =  os.environ.get('SENDGRID_API_KEY')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-
+XI_URL = 'http://agile-bayou-9436.herokuapp.com'
+AES_KEY = 'jeiniwn98e9w9ne9'
