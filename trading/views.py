@@ -61,7 +61,7 @@ def dashboard(request , id):
         print book.get_public_orders()            # Get public open orders
         print book.get_public_trades()            # Get recent public trans
 
-        Quinine_products = Quoine_client.get_trading_accounts()
+        Quinine_products = Quoine_client.get_trades()
         #except QuoineAPIException as e:
             #Quadrigacx_products = ''
             #Quinine_products = ''
