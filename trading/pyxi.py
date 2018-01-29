@@ -355,6 +355,7 @@ def requestTradeHistory(exchange, settings, api_credentials, method="tradehistor
         creds = getCreds(exchange, api_credentials)
         history_req.update({"exchange_credentials": creds});
         r = send(encrypt(history_req, config), method, config)
+        print r
         data = decrypt(r)
         response.update({exchange.upper(): data})
     return response
