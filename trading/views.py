@@ -20,6 +20,9 @@ from account.models import Trading_Platform, MyUser
 from quoine.client import Quoinex
 from quoine.exceptions import QuoineAPIException
 import pyxi
+import ccxt  # noqa: E402
+
+
 #from quadriga import QuadrigaClient
 # Create your views here.
 @require_GET
@@ -31,7 +34,12 @@ def dashboard(request , id):
             api_credentials = Trading_Platform.objects.get( user = user, trading_platform=exchange)
             print api_credentials.secret
             print pyxi.requestTradeHistory(exchange=exchange, settings=settings, api_credentials=api_credentials, method="tradehistory")
-
+            q= ccxt.quadrigacx({
+                "uid":api_credentials.client_id,
+                "apiKey": api_credentials.api_key,
+                "secret": api_credentials.secret
+                })
+            print q.fetch_trades('BTC/USD')
         Quadrigacx_API = Trading_Platform.objects.get( user = user, trading_platform="Quadrigacx_API")
         Quoinex_API = Trading_Platform.objects.get( user = user, trading_platform="Quoine_API")
         	#Quadrigacx_client = apis.get('Quadrigacx_API')
