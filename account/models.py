@@ -119,7 +119,7 @@ class Trading_Platform(models.Model):
                             choices=PLATFORM_CHOICES, default=None)
 	api_key = models.CharField(max_length=224)
 	secret = models.CharField(max_length=224)
-	client_id = models.CharField(max_length=120)
+	client_id = models.IntegerField(max_length=100)
 
 	def __unicode__(self):
 	    return self.user.email + " - " + self.trading_platform
