@@ -35,7 +35,7 @@ def dashboard(request , id):
             print api_credentials.secret
             #print pyxi.requestTradeHistory(exchange=exchange, settings=settings, api_credentials=api_credentials, method="tradehistory")
             q= ccxt.quadrigacx({
-                "uid":api_credentials.client_id,
+                "uid":str(api_credentials.client_id),
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret
                 })
