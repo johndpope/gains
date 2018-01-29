@@ -54,7 +54,7 @@ def dashboard(request , id):
         #try:
 
         # get products
-        book = Quadrigacx_client.book()
+        book = Quadrigacx_client.book('btc_cad')
         print book.get_ticker()                   # Get the latest ticker information
         print book.get_user_orders()              # Get user's open orders
         Quadrigacx_products = book.get_user_trades()              # Get user's transactions
