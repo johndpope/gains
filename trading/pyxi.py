@@ -65,7 +65,8 @@ def encrypt( data, config):
     return encrypted_request
 
 def getCreds(exchange, config):
-
+    print exchange
+    print config
     try:
         creds = {
                 "exchange": exchange.lower(),
