@@ -39,9 +39,9 @@ def dashboard(request , id):
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret
                 })
-            print q.fetch_trades('BTC/USD')
-        Quadrigacx_API = Trading_Platform.objects.get( user = user, trading_platform="Quadrigacx_API")
-        Quoinex_API = Trading_Platform.objects.get( user = user, trading_platform="Quoine_API")
+            print q.privatePostUserTransactions()
+        Quadrigacx_API = Trading_Platform.objects.get( user = user, trading_platform="Quadrigacx")
+        Quoinex_API = Trading_Platform.objects.get( user = user, trading_platform="Quoine")
         	#Quadrigacx_client = apis.get('Quadrigacx_API')
         	#Quoinex_client = apis'Quoine_API')
         # get market depth
