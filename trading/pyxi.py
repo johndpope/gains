@@ -64,7 +64,7 @@ def encrypt( data, config):
             "encrypted_data": base64_cipher_string}
     return encrypted_request
 
-def getCreds(exchange, config):
+def getCreds(exchange, api_credentials):
     print exchange
     print config
     try:
@@ -159,7 +159,7 @@ def requestLimitOrder(exchange, limitorder, ordertype):
         response = {}
         #if exchange.lower() == 'all':
         #    for exchange in exchanges:
-        #        creds = getCreds(exchange, config)
+        #        creds = getCreds(exchange, api_credentials)
         #        limitorder.update({"exchange_credentials":creds})
         #        r = send(encrypt(limitorder, config), "limitorder", config)
         #       data = decrypt(r)
@@ -181,7 +181,7 @@ def requestFillOrKill(orders):
     while (index < len(orders)):
         if not orders[index].get('exchange_credentials'):
             exchange = orders[index]['exchange']
-            creds = getCreds(exchange, config)
+            creds = getCreds(exchange, api_credentials)
             orders[index].update({"exchange_credentials": creds})
 
         modified_orders.append(orders[index])
@@ -203,7 +203,7 @@ def requestInterExchangeArbitrage(orders, external_creds=None):
     if (external_creds==None):
         while (index < len(orders)):
             exchange = orders[index]['exchange']
-            creds = getCreds(exchange, config)
+            creds = getCreds(exchange, api_credentials)
             orders[index]['order'].update({"exchange_credentials": creds})
             modified_orders.append(orders[index]['order'])
             index = index + 1
@@ -227,12 +227,12 @@ def requestBalance(exchange):
 
     if exchange_name.lower() == 'all':
         for exchange in exchanges:
-            creds = getCreds(exchange, config)
+            creds = getCreds(exchange, api_credentials)
             r = send(encrypt(creds, config), "balance", config)
             data = decrypt(r)
             response.update({exchange.upper(): data})
     else:
-        # creds = getCreds(exchange, config)
+        # creds = getCreds(exchange, api_credentials)
         r = send(encrypt(exchange, config), "balance", config)
         data = decrypt(r)
         # response.update({exchange.upper(): data})
@@ -268,12 +268,12 @@ def requestOpenOrders(exchange):
 
     if exchange_name.lower() == 'all':
         for exchange in exchanges:
-            creds = getCreds(exchange, config)
+            creds = getCreds(exchange, api_credentials)
             r = send(encrypt(creds, config), "openorders", config)
             data = decrypt(r)
             response.update({exchange.upper(): data})
     else:
-        # creds = getCreds(exchange, config)
+        # creds = getCreds(exchange, api_credentials)
         r = send(encrypt(exchange, config), "openorders", config)
         data = decrypt(r)
         # response.update({exchange.upper(): data})
@@ -296,13 +296,13 @@ def requestFundingHistory( exchange, method="fundinghistory"):
 
     if exchange_name.lower() == 'all':
         for exchange in exchanges:
-            creds = getCreds(exchange, config)
+            creds = getCreds(exchange, api_credentials)
             history_req.update({"exchange_credentials": creds});
             r = send(encrypt(history_req, config), method, config)
             data = decrypt(r)
             response.update({exchange.upper(): data})
     else:
-        #creds = getCreds(exchange, config)
+        #creds = getCreds(exchange, api_credentials)
         r = send(encrypt(exchange, config), method, config)
         data = decrypt(r)
         #response.update({exchange.upper(): data})
@@ -337,7 +337,7 @@ def requestAmFundingHistroy(exchange):
     return data
 
 
-def requestTradeHistory(exchange, settings, config, method="tradehistory"):
+def requestTradeHistory(exchange, settings, api_credentials, method="tradehistory"):
     config = getConfig(settings)
     response = {}
     temp = {}
@@ -346,13 +346,13 @@ def requestTradeHistory(exchange, settings, config, method="tradehistory"):
     history_req.update({"trade_params": temp});
     if exchange.lower() == 'all':
         for exchange in exchanges:
-            creds = getCreds(exchange, config)
+            creds = getCreds(exchange, api_credentials)
             history_req.update({"exchange_credentials": creds});
             r = send(encrypt(history_req, config), method, config)
             data = decrypt(r)
             response.update({exchange.upper(): data})
     else:
-        creds = getCreds(exchange, config)
+        creds = getCreds(exchange, api_credentials)
         history_req.update({"exchange_credentials": creds});
         r = send(encrypt(history_req, config), method, config)
         data = decrypt(r)
@@ -366,14 +366,14 @@ def cancelLimitOrder( exchange, order_id):
     order_to_cancel = {}
     if exchange.lower() == 'all':
         for exchange in exchanges:
-            creds = getCreds(exchange, config)
+            creds = getCreds(exchange, api_credentials)
             order_to_cancel.update({"exchange_credentials": creds});
             order_to_cancel.update({"order_id": order_id});
             r = send(encrypt(order_to_cancel, config), "cancelorder", config)
             data = decrypt(r)
             response.update({exchange.upper(): data})
     else:
-        creds = getCreds(exchange, config)
+        creds = getCreds(exchange, api_credentials)
         order_to_cancel.update({"exchange_credentials": creds});
         order_to_cancel.update({"order_id": order_id});
         r = send(encrypt(order_to_cancel, config), "cancelorder", config)
@@ -394,7 +394,7 @@ def amCancelLimitOrder(exchange_dict, order_id):
 
 
 def requestOrders(exchange, orders):
-    creds = getCreds(exchange, config)
+    creds = getCreds(exchange, api_credentials)
     data = {'exchange_credentials':creds,'order_ids':orders}
     config = getConfig(settings)
     response = {}
