@@ -19,6 +19,7 @@ from account.forms import Settings_APIForm
 from account.models import Trading_Platform, MyUser
 from quoine.client import Quoinex
 from quoine.exceptions import QuoineAPIException
+from quadriga import QuadrigaClient
 # Create your views here.
 @require_GET
 @login_required(login_url = 'login')
@@ -45,19 +46,28 @@ def dashboard(request , id):
         #except:
             #pass
         #
-        Quadrigacx_client = Quoinex(Quadrigacx_API.api_key, Quadrigacx_API.secret)
+        Quadrigacx_client = QuadrigaClient(Quadrigacx_API.api_key, Quadrigacx_API.secret)
         Quoine_client = Quoinex(Quoinex_API.api_key, Quoinex_API.secret)
         print Quoinex_API.secret
         print Quoinex_API.api_key
 
-        try:
+        #try:
 
         # get products
-            #Quadrigacx_products = Quadrigacx_client.get_trading_accounts()
-            Quinine_products = Quadrigacx_client.get_trading_accounts()
-        except QuoineAPIException as e:
-            print(e.status_code)
-            print(e.messages)
+        book = Quadrigacx_client.book()
+        print book.get_ticker()                   # Get the latest ticker information
+        print book.get_user_orders()              # Get user's open orders
+        Quadrigacx_products = book.get_user_trades()              # Get user's transactions
+        print book.get_public_orders()            # Get public open orders
+        print book.get_public_trades()            # Get recent public trans
+
+        Quinine_products = Quoine_client.get_trading_accounts()
+        #except QuoineAPIException as e:
+            #Quadrigacx_products = ''
+            #Quinine_products = ''
+
+            #print(e.status_code)
+            #print(e.messages)
 
 
 
