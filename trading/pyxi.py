@@ -10,7 +10,7 @@ import configparser
 
 from Crypto.Cipher import AES
 from .ccxt_balance import CcxtClient
-
+from django.conf import settings
 
 # balance, cancelorder, limitorder, openorders, orderbook, json, ticker, tradefees, tradehistory,
 
