@@ -19,6 +19,7 @@ from account.forms import Settings_APIForm
 from account.models import Trading_Platform, MyUser
 from quoine.client import Quoinex
 from quoine.exceptions import QuoineAPIException
+import pyxi
 #from quadriga import QuadrigaClient
 # Create your views here.
 @require_GET
@@ -26,7 +27,9 @@ from quoine.exceptions import QuoineAPIException
 def dashboard(request , id):
         context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
-
+        for exchange in ['Quadrigacx_API','Quoine_API']:
+            config = Trading_Platform.objects.get( user = user, trading_platform=exchange)
+            print pyxi.requestTradeHistory(exchange=exchange, settings=settings, config=config, method="tradehistory")
 
         Quadrigacx_API = Trading_Platform.objects.get( user = user, trading_platform="Quadrigacx_API")
         Quoinex_API = Trading_Platform.objects.get( user = user, trading_platform="Quoine_API")
