@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='trading_platform',
             name='client_id',
-            field=models.CharField(default=23232, max_length=100),
-            preserve_default=False,
+            field=models.CharField(default='23232', max_length=100)
+
         ),
     ]
