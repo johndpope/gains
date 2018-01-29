@@ -29,7 +29,7 @@ def dashboard(request , id):
 	user = get_object_or_404(MyUser , id = request.user.id)
         for exchange in ['Quadrigacx','Quoine']:
             config = Trading_Platform.objects.get( user = user, trading_platform=exchange)
-            print config
+            print config.secret
             print pyxi.requestTradeHistory(exchange=exchange, settings=settings, config=config, method="tradehistory")
 
         Quadrigacx_API = Trading_Platform.objects.get( user = user, trading_platform="Quadrigacx_API")
