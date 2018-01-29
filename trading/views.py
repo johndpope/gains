@@ -39,7 +39,7 @@ def dashboard(request , id):
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret
                 })
-            print q.privatePostUserTransactions('BTC/USD')
+            print q.privatePostUserTransactions()
         Quadrigacx_API = Trading_Platform.objects.get( user = user, trading_platform="Quadrigacx")
         Quoinex_API = Trading_Platform.objects.get( user = user, trading_platform="Quoine")
         	#Quadrigacx_client = apis.get('Quadrigacx_API')
