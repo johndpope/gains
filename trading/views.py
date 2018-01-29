@@ -30,7 +30,7 @@ import ccxt  # noqa: E402
 def dashboard(request , id):
         context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
-        for exchange in ['Quadrigacx','Quoine']:
+        for exchange in ['Quadrigacx']:
             api_credentials = Trading_Platform.objects.get( user = user, trading_platform=exchange)
             print api_credentials.secret
             #print pyxi.requestTradeHistory(exchange=exchange, settings=settings, api_credentials=api_credentials, method="tradehistory")
@@ -39,7 +39,7 @@ def dashboard(request , id):
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret
                 })
-            print q.UserTransactions()
+            print q.privatePostUserTransactions()
         Quadrigacx_API = Trading_Platform.objects.get( user = user, trading_platform="Quadrigacx")
         Quoinex_API = Trading_Platform.objects.get( user = user, trading_platform="Quoine")
         	#Quadrigacx_client = apis.get('Quadrigacx_API')
