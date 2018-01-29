@@ -337,7 +337,7 @@ def requestAmFundingHistroy(exchange):
 
 
 def requestTradeHistory(exchange, settings, config, method="tradehistory"):
-    config = getConfig(settings, config)
+    config = getConfig(settings)
     response = {}
     temp = {}
     history_req = {}
