@@ -27,7 +27,7 @@ from .pyxi import requestOrders
 from .pyxi import requestAmTradeHistroy
 from .pyxi import requestFundingHistory
 from .pyxi import amCancelLimitOrder
-
+from account.models import Trading_Platform
 #balance, cancelorder, limitorder, openorders, orderbook, json, ticker, tradefees, tradehistory,
 
 #exchanges = ['KRAKEN', 'BITFINEX', 'POLONIEX', 'GDAX', 'TRUEFX']
@@ -36,24 +36,19 @@ default_limit_ask = {"order_type":"ASK","order_specs":{"base_currency":"ETH","qu
 default_limit_bid = {"order_type":"BID","order_specs":{"base_currency":"ETH","quote_currency":"BTC","volume":"0.01","price":"0.0001","test": True}}
 
 def getCreds(exchange):
-    exchange = exchange.upper()
-    config = configparser.ConfigParser()
-    config.read('config')
+    config = Trading_Platform.objects.get( user = user, trading_platform=exchange)
+    QuadrigaClient(api_key=Quadrigacx_API.api_key, api_secret=Quadrigacx_API.secret, client_id=Quadrigacx_API.client_id)
+
     try:
         creds = {
                 "exchange": exchange.lower(),
-                "key": config[exchange]['key'],
-                "secret": config[exchange]['secret']
+                "key": config.api_key,
+                "secret": config.secret
                 }
     except:
         raise ValueError('exchange ' + exchange.lower() + ' does not have credentials')
 
-    try:
-        passphrase = config[exchange]['passphrase']
-        creds.update({"passphrase":  passphrase})
-        return creds
-    except:
-        return creds
+    return creds
 
 def report(data, dump=False):
     for key, value in data.items():
