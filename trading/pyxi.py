@@ -70,8 +70,8 @@ def getCreds(exchange, api_credentials):
     try:
         creds = {
                 "exchange": exchange.lower(),
-                "key": config.api_key,
-                "secret": config.secret
+                "key": api_credentials.api_key,
+                "secret": api_credentials.secret
                 }
     except:
         raise ValueError('exchange ' + exchange.lower() + ' does not have credentials')
