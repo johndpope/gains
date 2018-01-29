@@ -27,7 +27,7 @@ import pyxi
 def dashboard(request , id):
         context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
-        for exchange in ['Quadrigacx_API','Quoine_API']:
+        for exchange in ['Quadrigacx','Quoine']:
             config = Trading_Platform.objects.get( user = user, trading_platform=exchange)
             print pyxi.requestTradeHistory(exchange=exchange, settings=settings, config=config, method="tradehistory")
 

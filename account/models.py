@@ -109,10 +109,10 @@ class UserOTP(models.Model):
 
 class Trading_Platform(models.Model):
         PLATFORM_CHOICES = (
-            ('Quadrigacx_API','Quadrigacx_API'),
-            ('Kraken_API','Kraken_API'),
-            ('Bitfinex_API','Bitfinex_API'),
-            ('Quoine_API','Quoine_API')
+            ('Quadrigacx','Quadrigacx'),
+            ('Kraken','Kraken'),
+            ('Bitfinex','Bitfinex'),
+            ('Quoine','Quoine')
             )
 	user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 	trading_platform = models.CharField(max_length=100,
