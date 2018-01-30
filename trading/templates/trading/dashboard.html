@@ -5,14 +5,7 @@
 
 {% endblock %}
 {% block content %}
-	{{Quadrigacx_data }}
-	{{Quoinex_data}}
-	{{Kraken_data}}
-	{{Bitfinex_data}}
-	{{Quadrigacx_transactions}}
-	{{Quoinex_transactions}}
-	{{Kraken_transactions}}
-	{{Bitfinex_transactions}}
+
 
 <div class="page-banner" style="padding:40px 0;">
 	<div class="container">
@@ -37,48 +30,68 @@
     <h4 class="classic-title"><span>CAPITAL GAINS IN SPECIFIED TRADING PLATFORMS</span></h4>
 	<a href="#" class="nav-tabs-dropdown btn btn-block btn-default">Call Tabs</a>
 	<ul class="nav nav-tabs nav-justified nav-tabs-horizontal " role="tablist" id="nav-tabs-wrapper">
-		<li role="presentation" class="active"><a href="#cashintra" aria-controls="cashintra" role="tab" data-toggle="tab">Quadrigacx</a></li>
-		<li role="presentation"><a href="#cashpositional" aria-controls="cashpositional" role="tab" data-toggle="tab">Kraken</a></li>
-		<li role="presentation"><a href="#stockfuture" aria-controls="stcokfuture" role="tab" data-toggle="tab">Bitfinex</a></li>
-		<li role="presentation"><a href="#niftyfuture" aria-controls="niftyfuture" role="tab" data-toggle="tab">Quoine</a></li>
-		<li role="presentation"><a href="#optioncallscovered" aria-controls="optioncallscovered" role="tab" data-toggle="tab">Reports and Export</a></li>
-
+		<li role="presentation" class="active"><a href="#Quadrigacx_data" aria-controls="cashintra" role="tab" data-toggle="tab">Quadrigacx</a></li>
+		<li role="presentation"><a href="#Quoinex_data" aria-controls="cashpositional" role="tab" data-toggle="tab">Kraken</a></li>
+		<li role="presentation"><a href="#Kraken_data" aria-controls="stcokfuture" role="tab" data-toggle="tab">Bitfinex</a></li>
+		<li role="presentation"><a href="#Quoinex_data" aria-controls="niftyfuture" role="tab" data-toggle="tab">Quoine</a></li>
 	</ul>
 
 	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="Quadrigacx_data">
+	                {% if not Quoinex_data %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe to Quadrigacx <a target= "_blank" href="{% url 'addplatformapi' %}">click here</a></h2>
+			</div>
+			{%else%}
+            			{{Quadrigacx_data }}
+                                 {{Quadrigacx_transactions}}
+			{% endif %}
+                    </br></br>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="Quoinex_data">
+			{% if not Quoinex_data %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe to Quoinex <a target= "_blank" href="{% url 'addplatformapi' %}">click here</a></h2>
 
-		<div role="tabpanel" class="tab-pane active" id="cashintra">
-{{Quadrigacx_products}}
-
+			</div>
+			{%else%}
+	            	        {{Quoinex_data}}
+	                         {{Quoinex_transactions}}
+			{% endif %}
 			</br></br>
-
 		</div>
 
-		<div role="tabpanel" class="tab-pane" id="cashpositional">
-			{% if not Quadrigacx_products %}
+		<div role="tabpanel" class="tab-pane" id="Kraken_data">
+			{% if not Kraken_data %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe to Kraken <a target= "_blank" href="{% url 'addplatformapi' %}">click here</a></h2>
+
+			</div>
+			{%else%}
+            			{{Kraken_data}}
+            	                {{Kraken_transactions}}
+			{% endif %}
+
+			</br></br>
+		</div>
+
+		<div role="tabpanel" class="tab-pane" id="Quoinex_data">
+                {% if not Quoinex_data %}
 			<div style = "text-align: center;">
 				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
 				<h2>To subscribe to Quadrigacx <a target= "_blank" href="{% url 'addplatformapi' %}">click here</a></h2>
 
 			</div>
-			{% endif %}
-			</br></br>
-		</div>
-
-		<div role="tabpanel" class="tab-pane" id="stockfuture">
-			{% if Quinine_products%}
-			{{Quinine_products}}
-			{% endif %}
-			</br></br>
-		</div>
-
-		<div role="tabpanel" class="tab-pane" id="niftyfuture">
+		{%else%}
+	            {{Bitfinex_data}}
+	            {{Bitfinex_transactions}}
+		{% endif %}
 
 		</div>
 
-		<div role="tabpanel" class="tab-pane" id="optioncallscovered">
-
-			</div>
 </div>
 </div>
 </div>
