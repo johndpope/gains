@@ -26,10 +26,10 @@ def debug_task(self):
     
 @app.task(bind=True)
 @periodic_task(run_every=crontab(minute=1))
-from account.models import Trading_Platform, MyUser
-import ccxt  # noqa: E402
 def Collect_Gain_Report():
-    for user in MyUser:
+	from account.models import Trading_Platform, MyUser
+	import ccxt  # noqa: E402
+	for user in MyUser:
         context = {}
         for exchange in ['Quadrigacx', 'Quoine', 'Kraken', 'Bitfinex']:
             try:
