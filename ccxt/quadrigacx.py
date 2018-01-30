@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from ccxt.base.exchange import Exchange
-
+import time
 # -----------------------------------------------------------------------------
 
 try:
