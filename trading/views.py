@@ -17,9 +17,6 @@ from django.core import serializers
 from django.views.generic import TemplateView
 from account.forms import Settings_APIForm
 from account.models import Trading_Platform, MyUser
-from quoine.client import Quoinex
-from quoine.exceptions import QuoineAPIException
-import pyxi
 import ccxt  # noqa: E402
 
 
