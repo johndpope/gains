@@ -19,6 +19,13 @@ app.config_from_object('django.conf:settings')
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
+app.conf.beat_schedule = {
+    'report_end_of_day': {
+        'task': 'tasks.Collect_Gain_Report',
+        'schedule': crontab(minute=2)
+    },
+}
+
 
 @app.task(bind=True)
 def debug_task(self):
@@ -58,10 +65,3 @@ def Collect_Gain_Report():
 				context['Bitfinex_transactions'] = context['Bitfinex_data'].privatePostMytrades()
 		print context
 
-
-app.conf.beat_schedule = {
-    'report_end_of_day': {
-        'task': 'tasks.Collect_Gain_Report',
-        'schedule': crontab(minute=2)
-    },
-}
