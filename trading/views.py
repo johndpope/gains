@@ -50,11 +50,11 @@ def dashboard(request , id):
             elif exchange == "Kraken":
                 Kraken_data = ccxt.kraken({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
-                Kraken_transactions = Kraken_data.privatePostUserTransactions()
+                Kraken_transactions = Kraken_data.privatePostTradeshistory()
             elif exchange == "Bitfinex":
                 Bitfinex_data = ccxt.bitfinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
-                Bitfinex_transactions = Bitfinex_data.privatePostUserTransactions()
+                Bitfinex_transactions = Bitfinex_data.privatePostMytrades()
 
    	context['user'] = user
 	context['Quadrigacx_data'] = dir (Quadrigacx_data)
