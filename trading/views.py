@@ -36,22 +36,22 @@ def dashboard(request , id):
             except:
                 pass
 
-            if exchange == "Quadrigacx":
+            if exchange == "Quadrigacx" and api_credentials:
                 Quadrigacx_data= ccxt.quadrigacx({
                 "uid":str(api_credentials.client_id),
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret
                 })
                 Quadrigacx_transactions = Quadrigacx_data.privatePostUserTransactions()
-            elif exchange == "Quoine":
+            elif exchange == "Quoine" and api_credentials:
                 Quoinex_data = ccxt.quoinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
                 Quoinex_transactions = Quoinex_data.privateGetTrades()
-            elif exchange == "Kraken":
+            elif exchange == "Kraken" and api_credentials:
                 Kraken_data = ccxt.kraken({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
                 Kraken_transactions = Kraken_data.privatePostTradesHistory()
-            elif exchange == "Bitfinex":
+            elif exchange == "Bitfinex" and api_credentials:
                 Bitfinex_data = ccxt.bitfinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
                 Bitfinex_transactions = Bitfinex_data.privatePostMytrades()
