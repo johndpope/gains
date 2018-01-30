@@ -32,7 +32,7 @@ def dashboard(request , id):
 	user = get_object_or_404(MyUser , id = request.user.id)
         for exchange in ['Quadrigacx', 'Quoine', 'Kraken', 'Bitfinex']:
             try:
-                api_credentials = Trading_Platform.objects.get( user = user, trading_platform=exchange)
+                api_credentials = get_object_or_404(Trading_Platform,  user = user, trading_platform=exchange)
             except:
                 pass
 
@@ -67,7 +67,6 @@ def dashboard(request , id):
 	context['Bitfinex_transactions'] = Bitfinex_transactions
 
 	return render(request , 'trading/dashboard.html' , context)
-
 
 @require_GET
 @login_required(login_url = 'login')
