@@ -747,7 +747,7 @@ class Exchange(object):
         return list(value.values()) if type(value) is dict else value
 
     def nonce(self):
-        return Exchange.milliseconds()
+        return int(time.time() * 1000)
 
     def check_required_credentials(self):
         keys = list(self.requiredCredentials.keys())
