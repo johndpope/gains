@@ -59,9 +59,8 @@ def Collect_Gain_Report():
 
 
 app.conf.beat_schedule = {
-    # Executes every Monday morning at 7:30 a.m.
     'report_end_of_day': {
-        'task': 'tasks.Collect_Gain_Report',
+        'task': 'bluerun.celery.Collect_Gain_Report',
         'schedule': crontab(minute=2)
     },
 }
