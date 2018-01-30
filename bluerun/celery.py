@@ -60,7 +60,7 @@ def Collect_Gain_Report():
 
 app.conf.beat_schedule = {
     'report_end_of_day': {
-        'task': 'bluerun.celery.Collect_Gain_Report',
+        'task': 'Collect_Gain_Report',
         'schedule': crontab(minute=2)
     },
 }
