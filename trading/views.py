@@ -44,7 +44,7 @@ def dashboard(request , id):
             elif exchange == "Quoine":
                 Quoinex_data = ccxt.quoinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
-                Quoinex_transactions = Quoinex_data.privatePostUserTransactions()
+                Quoinex_transactions = Quoinex_data.privateGetTrades()
             elif exchange == "Kraken":
                 Kraken_data = ccxt.kraken({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
