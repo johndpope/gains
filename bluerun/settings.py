@@ -153,7 +153,7 @@ BROKER_URL=os.environ['REDIS_URL'],
 CELERY_RESULT_BACKEND=os.environ['REDIS_URL']
 
 
-from celery.task.schedules import crontab
+from celery.schedules import crontab
 
 app.conf.beat_schedule = {
     'report_end_of_day': {
