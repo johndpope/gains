@@ -152,11 +152,3 @@ BROKER_URL=os.environ['REDIS_URL'],
 CELERY_RESULT_BACKEND=os.environ['REDIS_URL']
 
 
-from celery.schedules import crontab
-
-app.conf.beat_schedule = {
-    'report_end_of_day': {
-        'task': 'bluerun.celery.Collect_Gain_Report',
-        'schedule': crontab(minute=2),
-    },
-}
