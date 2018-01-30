@@ -40,4 +40,3 @@ idna==2.6
 invoke==0.20.4
 pycrypto==2.6.1
 requests==2.18.4
-ccxt==1.10.780
