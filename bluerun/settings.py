@@ -149,6 +149,5 @@ EMAIL_USE_TLS = True
 SENDGRID_API_KEY =  os.environ.get('SENDGRID_API_KEY')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
-XI_URL = 'http://agile-bayou-9436.herokuapp.com'
-AES_KEY = 'jeiniwn98e9w9ne9'
+BROKER_URL=os.environ['REDIS_URL'],
+CELERY_RESULT_BACKEND=os.environ['REDIS_URL']
