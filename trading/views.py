@@ -44,7 +44,7 @@ def dashboard(request , id):
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret
                 })
-                context['Quadrigacx_transactions'] = context['Quadrigacx_data'].privatePostUserTransactions()
+                context['Quadrigacx_transactions'], context['Quadrigacx_data'] = context['Quadrigacx_data'].privatePostUserTransactions(), dir(context['Quadrigacx_data'])
             elif exchange == "Quoine" and api_credentials!=404:
                 context['Quoinex_data'] = ccxt.quoinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
