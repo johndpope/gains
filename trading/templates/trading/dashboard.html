@@ -31,9 +31,9 @@
 	<a href="#" class="nav-tabs-dropdown btn btn-block btn-default">Call Tabs</a>
 	<ul class="nav nav-tabs nav-justified nav-tabs-horizontal " role="tablist" id="nav-tabs-wrapper">
 		<li role="presentation" class="active"><a href="#Quadrigacx_data" aria-controls="cashintra" role="tab" data-toggle="tab">Quadrigacx</a></li>
-		<li role="presentation"><a href="#Quoinex_data" aria-controls="cashpositional" role="tab" data-toggle="tab">Kraken</a></li>
-		<li role="presentation"><a href="#Kraken_data" aria-controls="stcokfuture" role="tab" data-toggle="tab">Bitfinex</a></li>
-		<li role="presentation"><a href="#Quoinex_data" aria-controls="niftyfuture" role="tab" data-toggle="tab">Quoine</a></li>
+		<li role="presentation"><a href="#Quoinex_data" aria-controls="cashpositional" role="tab" data-toggle="tab">Quoine</a></li>
+		<li role="presentation"><a href="#Kraken_data" aria-controls="stcokfuture" role="tab" data-toggle="tab">Kraken</a></li>
+		<li role="presentation"><a href="#Bitfinex_data" aria-controls="niftyfuture" role="tab" data-toggle="tab">Bitfinex</a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -44,8 +44,10 @@
 				<h2>To subscribe to Quadrigacx <a target= "_blank" href="{% url 'addplatformapi' %}">click here</a></h2>
 			</div>
 			{%else%}
+			<h3> Transactions<h3>
+			   {{Quadrigacx_transactions}}
+			 <h3> Possible Method calls</h3>
             			{{Quadrigacx_data }}
-                                 {{Quadrigacx_transactions}}
 			{% endif %}
                     </br></br>
 		</div>
@@ -57,8 +59,10 @@
 
 			</div>
 			{%else%}
-	            	        {{Quoinex_data}}
+			<h3> Transactions<h3>
 	                         {{Quoinex_transactions}}
+                    	 <h3> Possible Method calls</h3>
+	            	        {{Quoinex_data}}
 			{% endif %}
 			</br></br>
 		</div>
@@ -71,24 +75,32 @@
 
 			</div>
 			{%else%}
-            			{{Kraken_data}}
+
+            	               <h3> Transactions<h3>
             	                {{Kraken_transactions}}
+
+                    	 <h3> Possible Method calls</h3>
+            	                {{Kraken_data}}
 			{% endif %}
 
 			</br></br>
 		</div>
 
 		<div role="tabpanel" class="tab-pane" id="Quoinex_data">
-                {% if not Quoinex_data %}
-			<div style = "text-align: center;">
-				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
-				<h2>To subscribe to Quadrigacx <a target= "_blank" href="{% url 'addplatformapi' %}">click here</a></h2>
+                            {% if not Quoinex_data %}
+            			<div style = "text-align: center;">
+            				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+            				<h2>To subscribe to Quadrigacx <a target= "_blank" href="{% url 'addplatformapi' %}">click here</a></h2>
 
-			</div>
-		{%else%}
-	            {{Bitfinex_data}}
-	            {{Bitfinex_transactions}}
-		{% endif %}
+            			</div>
+                		{%else%}
+
+            	               <h3> Transactions<h3>
+                	            {{Bitfinex_transactions}}
+
+                    	 <h3> Possible Method calls</h3>
+                	            {{Bitfinex_data}}
+                		{% endif %}
 
 		</div>
 
