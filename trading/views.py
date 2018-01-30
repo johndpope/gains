@@ -30,10 +30,12 @@ import ccxt  # noqa: E402
 def dashboard(request , id):
         context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
-        for exchange in ['Quadrigacx', 'Quoine', 'Kraken']:
-            api_credentials = Trading_Platform.objects.get( user = user, trading_platform=exchange)
-            print api_credentials.secret
-            #print pyxi.requestTradeHistory(exchange=exchange, settings=settings, api_credentials=api_credentials, method="tradehistory")
+        for exchange in ['Quadrigacx', 'Quoine', 'Kraken', 'Bitfinex']:
+            try:
+                api_credentials = Trading_Platform.objects.get( user = user, trading_platform=exchange)
+            except:
+                pass
+
             if exchange == "Quadrigacx":
                 Quadrigacx_data= ccxt.quadrigacx({
                 "uid":str(api_credentials.client_id),
