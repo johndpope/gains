@@ -43,15 +43,15 @@ def dashboard(request , id):
                 "secret": api_credentials.secret
                 })
                 Quadrigacx_transactions = Quadrigacx_data.privatePostUserTransactions()
-            elif exchange == "Quoine" and api_credentials:
+            elif exchange == "Quoine" and api_credentials!=404:
                 Quoinex_data = ccxt.quoinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
                 Quoinex_transactions = Quoinex_data.privateGetTrades()
-            elif exchange == "Kraken" and api_credentials:
+            elif exchange == "Kraken" and api_credentials!=404:
                 Kraken_data = ccxt.kraken({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
                 Kraken_transactions = Kraken_data.privatePostTradesHistory()
-            elif exchange == "Bitfinex" and api_credentials:
+            elif exchange == "Bitfinex" and api_credentials!=404:
                 Bitfinex_data = ccxt.bitfinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
                 Bitfinex_transactions = Bitfinex_data.privatePostMytrades()
