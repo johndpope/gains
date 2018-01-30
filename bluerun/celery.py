@@ -19,8 +19,6 @@ app.config_from_object('django.conf:settings')
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
-from account.models import Trading_Platform, MyUser
-import ccxt  # noqa: E402
 
 @app.task(bind=True)
 def debug_task(self):
@@ -28,6 +26,8 @@ def debug_task(self):
     
 @app.task(bind=True)
 @periodic_task(run_every=crontab(minute=1))
+from account.models import Trading_Platform, MyUser
+import ccxt  # noqa: E402
 def Collect_Gain_Report():
     for user in MyUser:
         context = {}
