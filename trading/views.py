@@ -54,7 +54,7 @@ def dashboard(request , id):
             elif exchange == "Bitfinex":
                 Bitfinex_data = ccxt.bitfinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
-                Bitfinex_transactions = Bitfinex_data.privatePostUserTransactions()
+                Bitfinex_transactions = Bitfinex_data.privatePostTradesHistory()
 
    	context['user'] = user
 	context['Quadrigacx_data'] = dir (Quadrigacx_data)
