@@ -151,3 +151,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 BROKER_URL=os.environ['REDIS_URL'],
 CELERY_RESULT_BACKEND=os.environ['REDIS_URL']
+
+
+from celery.task.schedules import crontab
+
+app.conf.beat_schedule = {
+    'report_end_of_day': {
+        'task': 'bluerun.celery.Collect_Gain_Report',
+        'schedule': 	(minute=2)
+    },
+}
