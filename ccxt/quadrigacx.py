@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from ccxt.base.exchange import Exchange
-import time
+
 # -----------------------------------------------------------------------------
 
 try:
@@ -210,7 +210,7 @@ class quadrigacx (Exchange):
             url += '?' + self.urlencode(params)
         else:
             self.check_required_credentials()
-            nonce = int(time.time() * 1000)
+            nonce = self.nonce()
             request = ''.join([str(nonce), self.uid, self.apiKey])
             signature = self.hmac(self.encode(request), self.encode(self.secret))
             query = self.extend({
@@ -218,6 +218,7 @@ class quadrigacx (Exchange):
                 'nonce': nonce,
                 'signature': signature,
             }, params)
+
             body = self.json(query)
             headers = {
                 'Content-Type': 'application/json',
