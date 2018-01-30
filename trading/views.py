@@ -30,6 +30,8 @@ import ccxt  # noqa: E402
 def dashboard(request , id):
         context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
+	context['user'] = user
+
         for exchange in ['Quadrigacx', 'Quoine', 'Kraken', 'Bitfinex']:
             try:
                 api_credentials = Trading_Platform.objects.get( user = user, trading_platform=exchange)
@@ -37,34 +39,24 @@ def dashboard(request , id):
                 api_credentials = 404
 
             if exchange == "Quadrigacx" and api_credentials:
-                Quadrigacx_data= ccxt.quadrigacx({
+                context['Quadrigacx_data'] = ccxt.quadrigacx({
                 "uid":str(api_credentials.client_id),
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret
                 })
-                Quadrigacx_transactions = Quadrigacx_data.privatePostUserTransactions()
+                context['Quadrigacx_transactions'] = context['Quadrigacx_data'].privatePostUserTransactions()
             elif exchange == "Quoine" and api_credentials!=404:
-                Quoinex_data = ccxt.quoinex({"apiKey": api_credentials.api_key,
+                context['Quoinex_data'] = ccxt.quoinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
-                Quoinex_transactions = Quoinex_data.privateGetTrades()
+                context['Quoinex_transactions']  = context['Quoinex_data'].privateGetTrades()
             elif exchange == "Kraken" and api_credentials!=404:
-                Kraken_data = ccxt.kraken({"apiKey": api_credentials.api_key,
+                context['Kraken_data'] = ccxt.kraken({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
-                Kraken_transactions = Kraken_data.privatePostTradesHistory()
+                context['Kraken_transactions'] = context['Kraken_data'].privatePostTradesHistory()
             elif exchange == "Bitfinex" and api_credentials!=404:
-                Bitfinex_data = ccxt.bitfinex({"apiKey": api_credentials.api_key,
+                context['Bitfinex_data'] = ccxt.bitfinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
-                Bitfinex_transactions = Bitfinex_data.privatePostMytrades()
-
-   	context['user'] = user
-	context['Quadrigacx_data'] = dir (Quadrigacx_data)
-	context['Quoinex_data'] = dir (Quoinex_data)
-	context['Kraken_data'] = dir (Quadrigacx_transactions)
-	context['Bitfinex_data'] = dir (Bitfinex_data)
-	context['Quadrigacx_transactions'] = Quadrigacx_transactions
-	context['Quoinex_transactions'] = Quoinex_transactions
-	context['Kraken_transactions'] = Kraken_transactions
-	context['Bitfinex_transactions'] = Bitfinex_transactions
+                context['Bitfinex_transactions'] = context['Bitfinex_data'].privatePostMytrades()
 
 	return render(request , 'trading/dashboard.html' , context)
 
