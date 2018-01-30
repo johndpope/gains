@@ -142,18 +142,21 @@ class APISettings(TemplateView):
     def post(self, request):
         api_key = request.POST.get('api_key')
         secret = request.POST.get('secret')
+        client_id = request.POST.get('client_id')
         trading_platform = request.POST.get('trading_platform')
         user = get_object_or_404(MyUser, email = request.user.email)
         try:
             trader = Trading_Platform.objects.get(user=request.user, trading_platform = trading_platform)
             trader.api_key = api_key
             trader.secret = secret
+            trader.client_id = client_id
             trader.save()
         except:
             trader = Trading_Platform.objects.create(trading_platform = trading_platform,
                     api_key = api_key,
                     secret = secret,
-                    user = user)
+                    user = user,
+                    client_id = client_id)
 
 
         return HttpResponseRedirect('/')
