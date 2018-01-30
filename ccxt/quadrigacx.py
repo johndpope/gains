@@ -210,7 +210,7 @@ class quadrigacx (Exchange):
             url += '?' + self.urlencode(params)
         else:
             self.check_required_credentials()
-            nonce = self.nonce()
+            nonce = int(time.time() * 1000)
             request = ''.join([str(nonce), self.uid, self.apiKey])
             signature = self.hmac(self.encode(request), self.encode(self.secret))
             query = self.extend({
