@@ -5,10 +5,10 @@
 
 {% endblock %}
 {% block content %}
-	{{Quadrigacx_data}}
-	{{Quoinex_data}}
-	{{Quadrigacx_transactions}}
-	{{Bitfinex_data}}
+	{{Quadrigacx_data.get_fields }}
+	{{Quoinex_data.get_fields }}
+	{{Kraken_data.get_fields }}
+	{{Bitfinex_data.get_fields }}
 	{{Quadrigacx_transactions}}
 	{{Quoinex_transactions}}
 	{{Kraken_transactions}}
