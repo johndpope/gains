@@ -158,6 +158,6 @@ from celery.task.schedules import crontab
 app.conf.beat_schedule = {
     'report_end_of_day': {
         'task': 'bluerun.celery.Collect_Gain_Report',
-        'schedule': (minute=2),
+        'schedule': crontab(minute=2),
     },
 }
