@@ -25,7 +25,6 @@ def debug_task(self):
     print('Request: {0!r}'.format(self.request))
     
 @app.task(bind=True)
-@periodic_task(run_every=crontab(minute=1))
 def Collect_Gain_Report():
 	from account.models import Trading_Platform, MyUser
 	import ccxt  # noqa: E402
@@ -57,3 +56,12 @@ def Collect_Gain_Report():
 				"secret": api_credentials.secret})
 				context['Bitfinex_transactions'] = context['Bitfinex_data'].privatePostMytrades()
 		print context
+
+
+app.conf.beat_schedule = {
+    # Executes every Monday morning at 7:30 a.m.
+    'report_end_of_day': {
+        'task': 'tasks.Collect_Gain_Report',
+        'schedule': crontab(minute=2)
+    },
+}
