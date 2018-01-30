@@ -30,63 +30,39 @@ import ccxt  # noqa: E402
 def dashboard(request , id):
         context = {}
 	user = get_object_or_404(MyUser , id = request.user.id)
-        for exchange in ['Quadrigacx']:
+        for exchange in ['Quadrigacx', 'Quoine', 'Kraken']:
             api_credentials = Trading_Platform.objects.get( user = user, trading_platform=exchange)
             print api_credentials.secret
             #print pyxi.requestTradeHistory(exchange=exchange, settings=settings, api_credentials=api_credentials, method="tradehistory")
-            q= ccxt.quadrigacx({
+            if exchange == "Quadrigacx":
+                Quadrigacx_data= ccxt.quadrigacx({
                 "uid":str(api_credentials.client_id),
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret
                 })
-            print q.privatePostUserTransactions()
-        Quadrigacx_API = Trading_Platform.objects.get( user = user, trading_platform="Quadrigacx")
-        Quoinex_API = Trading_Platform.objects.get( user = user, trading_platform="Quoine")
-        	#Quadrigacx_client = apis.get('Quadrigacx_API')
-        	#Quoinex_client = apis'Quoine_API')
-        # get market depth
-        #depth = client.get_order_book(product_id=products[0]['id'])
+                Quadrigacx_transactions = Quadrigacx_data.privatePostUserTransactions()
+            elif exchange == "Quoine":
+                Quoinex_data = ccxt.quoinex({"apiKey": api_credentials.api_key,
+                "secret": api_credentials.secret})
+                Quoinex_transactions = Quoinex_data.privatePostUserTransactions()
+            elif exchange == "Kraken":
+                Kraken_data = ccxt.kraken({"apiKey": api_credentials.api_key,
+                "secret": api_credentials.secret})
+                Kraken_transactions = Kraken_data.privatePostUserTransactions()
+            elif exchange == "Bitfinex":
+                Bitfinex_data = ccxt.bitfinex({"apiKey": api_credentials.api_key,
+                "secret": api_credentials.secret})
+                Bitfinex_transactions = Bitfinex_data.privatePostUserTransactions()
 
-        ## place market buy order
-        #order = client.create_market_buy( environmental1
-            #product_id=products[0]['id'],
-            #quantity='100',
-            #price_range='0.01')
-
-            # get list of filled orders environmental1
-        #filled_orders = client.get_orders(status=client.STATUS_FILLED)
-        #except:
-            #pass
-        #
-        Quadrigacx_client = QuadrigaClient(api_key=Quadrigacx_API.api_key, api_secret=Quadrigacx_API.secret, client_id=3853900)
-        Quoine_client = Quoinex(Quoinex_API.api_key, Quoinex_API.secret)
-        print Quoinex_API.secret
-        print Quoinex_API.api_key
-
-        #try:
-
-        # get products
-        book = Quadrigacx_client.book('btc_cad')
-        print book.get_ticker()                   # Get the latest ticker information
-        print book.get_user_orders()              # Get user's open orders
-        Quadrigacx_products = book.get_user_trades()              # Get user's transactions
-        print book.get_public_orders()            # Get public open orders
-        print book.get_public_trades()            # Get recent public trans
-
-        Quinine_products = Quoine_client.get_trades()
-        #except QuoineAPIException as e:
-            #Quadrigacx_products = ''
-            #Quinine_products = ''
-
-            #print(e.status_code)
-            #print(e.messages)
-
-
-
-
-	context['user'] = user
-	context['Quadrigacx_products'] = Quadrigacx_products
-	context['Quinine_products'] = Quinine_products
+   	context['user'] = user
+	context['Quadrigacx_data'] = dir (Quadrigacx_data)
+	context['Quoinex_data'] = dir (Quoinex_data)
+	context['Kraken_data'] = dir (Quadrigacx_transactions)
+	context['Bitfinex_data'] = dir (Bitfinex_data)
+	context['Quadrigacx_transactions'] = Quadrigacx_transactions
+	context['Quoinex_transactions'] = Quoinex_transactions
+	context['Kraken_transactions'] = Kraken_transactions
+	context['Bitfinex_transactions'] = Bitfinex_transactions
 
 	return render(request , 'trading/dashboard.html' , context)
 
