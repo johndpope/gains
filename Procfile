@@ -1,2 +1,2 @@
 web: gunicorn bluerun.wsgi
-celery: celery worker -A bluerun.config --loglevel=info
+celery: celery worker -A bluerun --loglevel=info
