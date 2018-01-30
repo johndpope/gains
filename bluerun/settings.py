@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'home',
     'bootstrap3',
     'trading',
+    'ccxt'
 ]
 
 MIDDLEWARE_CLASSES = [
