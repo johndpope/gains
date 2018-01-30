@@ -1,10 +1,10 @@
 from celery.decorators import periodic_task
 from celery.task.schedules import crontab
+from celery import shared_task
 
 
-
-
-@periodic_task(run_every=crontab(minute=4))
+@shared_task
+@periodic_task(run_every=crontab(minute=1))
 def Collect_Gain_Report():
     from account.models import Trading_Platform, MyUser
     import ccxt  # noqa: E402
