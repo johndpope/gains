@@ -4,8 +4,6 @@ from celery import Celery
 from celery.decorators import periodic_task
 from celery.task.schedules import crontab
 
-from account.models import Trading_Platform, MyUser
-import ccxt  # noqa: E402
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluerun.settings')
@@ -21,6 +19,8 @@ app.config_from_object('django.conf:settings')
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
+from account.models import Trading_Platform, MyUser
+import ccxt  # noqa: E402
 
 @app.task(bind=True)
 def debug_task(self):
