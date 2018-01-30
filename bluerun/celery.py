@@ -2,7 +2,6 @@ from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
 from celery.decorators import periodic_task
-from celery.task.schedules import crontab
 
 
 # set the default Django settings module for the 'celery' program.
@@ -18,14 +17,6 @@ app.config_from_object('django.conf:settings')
 
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
-
-app.conf.beat_schedule = {
-    'report_end_of_day': {
-        'task': 'tasks.Collect_Gain_Report',
-        'schedule': crontab(minute=2)
-    },
-}
-
 
 @app.task(bind=True)
 def debug_task(self):
