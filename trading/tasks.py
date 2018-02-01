@@ -40,8 +40,5 @@ def Collect_Gain_Report():
 				"secret": api_credentials.secret})
 				context['Bitfinex_transactions'] = context['Bitfinex_data'].privatePostMytrades()
 		print context
-		email_body_context = { 'u' : user, 'otp' : context}
-		body = loader.render_to_string('account/activate_account_email.txt', email_body_context)
-		message = EmailMultiAlternatives("Activate Account", body, "email@cryptotaxes.com", [user.email])
-		message.send()
+
 
