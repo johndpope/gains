@@ -41,7 +41,7 @@ def signup(request):
 			otp = create_otp(user = user, purpose = 'AA')
 			email_body_context = { 'u' : user, 'otp' : otp}
 			body = loader.render_to_string('account/activate_account_email.txt', email_body_context)
-			message = EmailMultiAlternatives("Activate Account", body, "bluerunfinancial@gmail.com", [user.email])
+			message = EmailMultiAlternatives("Activate Account", body, "cryptotax@gmail.com", [user.email])
 			message.send()
 			return render(request , 'account/activate_email_sent.html' , { 'user': user })
 
@@ -92,7 +92,7 @@ def forgot_password(request):
 			email_body_context = { 'u' : user, 'otp' : otp}
 			body = loader.render_to_string('account/forgot_password_email.txt', email_body_context)
 			print(user.email)
-			message = EmailMultiAlternatives("Reset Password", body, 'bluerunfinancial@gmail.com', [user.email])
+			message = EmailMultiAlternatives("Reset Password", body, 'cryptotaxes@gmail.com', [user.email])
 			#message.attach_alternative(html_body, 'text/html')
 			message.send()
 			return render(request, 'account/forgot_email_sent.html', {'u': user})
