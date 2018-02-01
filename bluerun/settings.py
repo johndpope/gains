@@ -151,28 +151,10 @@ EMAIL_USE_TLS = True
 SENDGRID_API_KEY =  os.environ.get('SENDGRID_API_KEY')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-REDIS_LOCATION = os.environ['REDIS_URL']
-CACHES = {
-    'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': REDIS_LOCATION,
-        'OPTIONS': {
-            'DB': 0,
-            'PASSWORD': '',
-            'PARSER_CLASS': 'redis.connection.HiredisParser',
-            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
-            'CONNECTION_POOL_CLASS_KWARGS': {
-                'max_connections': 50,
-                'timeout': 20,
-            }
-        }
-    }
-}
+BROKER_URL=os.environ.get('REDIS_URL', ''),
+CELERY_RESULT_BACKEND=os.environ.get('REDIS_URL', '')# CELERY SETTINGS
 
-# CELERY SETTINGS
-
-CELERY_BROKER_URL = REDIS_LOCATION
-CELERY_RESULT_BACKEND = 'django-cache'  # could also use django-db but cache will be generally faster
+CELERY_BROKER_URL = BROKER_URL
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
