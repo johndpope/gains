@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',                   # db-backed periodic task defs
+    'django_celery_results',                # db-backed celery results (if needed)
+    'raven.contrib.django.raven_compat',    # sentry-django connector
     'account',
     'home',
     'bootstrap3',
@@ -148,34 +151,74 @@ EMAIL_USE_TLS = True
 SENDGRID_API_KEY =  os.environ.get('SENDGRID_API_KEY')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-BROKER_URL=os.environ['REDIS_URL'],
-CELERY_RESULT_BACKEND=os.environ['REDIS_URL']
-
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-          'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler'
-        },
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-        'celery': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': True
-        },
-        'trading': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
+REDIS_LOCATION = '{0}/{1}'.format(os.getenv('REDIS_URL', 'redis://127.0.0.1:6379'), 0)
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': REDIS_LOCATION,
+        'OPTIONS': {
+            'DB': 0,
+            'PASSWORD': '',
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            }
+        }
     }
 }
 
+# CELERY SETTINGS
 
+CELERY_BROKER_URL = REDIS_LOCATION
+CELERY_RESULT_BACKEND = 'django-cache'  # could also use django-db but cache will be generally faster
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+
+# SENTRY AND LOGGING SETTINGS
+RAVEN_CONFIG = {
+    'dsn': os.getenv('SENTRY_DSN', ''),
+    # MUST USE "heroku labs:enable runtime-dyno-metadata -a <app name>"
+    'release': os.getenv('HEROKU_SLUG_COMMIT', 'DEBUG')
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,  # disabling this messes up default django logging
+    'root': {
+        'level': 'DEBUG' if DEBUG else 'INFO',
+        'handlers': ['console', 'sentry'],
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s '
+                      '%(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+    },
+}
