@@ -142,10 +142,22 @@ DATABASES['default'] =  dj_database_url.config()
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 
+# Email
 
-# Mail settings
-EMAIL_BACKEND = 'sgbackend.SendGridBackend'
-SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+SENDGRID_USERNAME = os.environ.get('SENDGRID_USERNAME', None)  # noqa: F405
+SENDGRID_PASSWORD = os.environ.get('SENDGRID_PASSWORD', None)  # noqa: F405
+
+# Use SendGrid if we have the addon installed, else just print to console which
+# is accessible via Heroku logs
+if SENDGRID_USERNAME and SENDGRID_PASSWORD:
+    EMAIL_HOST = 'smtp.sendgrid.net'
+    EMAIL_HOST_USER = SENDGRID_USERNAME
+    EMAIL_HOST_PASSWORD = SENDGRID_PASSWORD
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_TIMEOUT = 60
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 FROM_EMAIL = 'noreply@capitalgain.crypto'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
