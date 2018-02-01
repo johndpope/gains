@@ -11,7 +11,7 @@ def Collect_Gain_Report():
 	print "started billing"
 	from account.models import Trading_Platform, MyUser
 	import ccxt  # noqa: E402
-	for user in MyUser:
+	for user in MyUser.objects.all():
 		context = {}
 		for exchange in ['Quadrigacx', 'Quoine', 'Kraken', 'Bitfinex']:
 			try:
