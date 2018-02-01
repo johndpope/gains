@@ -3,7 +3,7 @@ from celery.task.schedules import crontab
 from django.template import loader
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
-from bluerun import celery_app
+#from bluerun import celery_app
 
 #@celery_app.task(bind=True)
 
