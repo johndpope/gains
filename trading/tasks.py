@@ -7,7 +7,7 @@ from django.conf import settings
 
 #@celery_app.task(bind=True)
 
-@periodic_task(run_every=crontab(minute=1))
+@periodic_task(run_every=crontab(minute='1'))
 def Collect_Gain_Report():
 	print "started billing"
 	from account.models import Trading_Platform, MyUser
