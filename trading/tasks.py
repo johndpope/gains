@@ -1,8 +1,8 @@
 from celery.decorators import periodic_task
 from celery.task.schedules import crontab
-from bluerun import celery_app
+from bluerun.celery import app
 
-@celery_app.task
+@app.task
 def Collect_Gain_Report():
 	print "started billing"
 	from account.models import Trading_Platform, MyUser
