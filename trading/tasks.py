@@ -20,7 +20,7 @@ def Collect_Gain_Report():
 			except:
 				api_credentials = 404
 
-			if exchange == "Quadrigacx" and api_credentials:
+			if exchange == "Quadrigacx" and api_credentials!=404:
 				context['Quadrigacx_data'] = ccxt.quadrigacx({
 				"uid":str(api_credentials.client_id),
 				"apiKey": api_credentials.api_key,
