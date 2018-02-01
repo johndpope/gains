@@ -19,7 +19,7 @@ from celery.schedules import crontab
 app.conf.beat_schedule = {
     'send-report-every-single-minute': {
         'task': 'trading.tasks.Collect_Gain_Report',
-        'schedule': crontab(),
+        'schedule': crontab(minute=1),
     },
 }
 # Load task modules from all registered Django app configs.
