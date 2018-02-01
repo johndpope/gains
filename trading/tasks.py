@@ -3,7 +3,6 @@ from celery.task.schedules import crontab
 from bluerun.celery import app
 
 @app.task
-@periodic_task(run_every=crontab(minute=1))
 def Collect_Gain_Report():
 	print "started billing"
 	from account.models import Trading_Platform, MyUser
