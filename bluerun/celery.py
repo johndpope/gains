@@ -14,14 +14,14 @@ app = Celery('bluerun')
 # - namespace='CELERY' means all celery-related configuration keys
 #   should have a `CELERY_` prefix.
 app.config_from_object('django.conf:settings')
-#from celery.schedules import crontab
+from celery.schedules import crontab
 
-#app.conf.beat_schedule = {
-    #'report_end_of_day': {
-        #'task': 'tasks.trading.Collect_Gain_Report',
-        #'schedule': crontab(minute=2),
-    #},
-#}
+app.conf.beat_schedule = {
+    'report_end_of_day': {
+        'task': 'trading.tasks.Collect_Gain_Report',
+        'schedule': crontab(minute=2),
+    },
+}
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
