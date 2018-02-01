@@ -171,8 +171,8 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'INFO',
             'propagate': True
-        }
-        'account': {
+        },
+        'trading': {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
