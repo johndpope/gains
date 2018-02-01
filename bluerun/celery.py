@@ -5,9 +5,9 @@ from celery.decorators import periodic_task
 
 
 # set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cryptoboards.bluerun.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluerun.settings')
 
-app = Celery('cryptoboards.bluerun')
+app = Celery('bluerun')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
@@ -18,7 +18,7 @@ from celery.schedules import crontab
 
 app.conf.beat_schedule = {
     'report_end_of_day': {
-        'task': 'bluerun.celery.Collect_Gain_Report',
+        'task': 'tasks.trading.Collect_Gain_Report',
         'schedule': crontab(minute=2),
     },
 }
