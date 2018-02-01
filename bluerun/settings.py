@@ -135,8 +135,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 AUTH_USER_MODEL = 'account.MyUser'
-#DATABASES['default'] =  dj_database_url.config()
-#DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+DATABASES['default'] =  dj_database_url.config()
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 
 DEFAULT_FROM_EMAIL = 'noreply@capitalgain.crypto'
@@ -148,7 +148,7 @@ EMAIL_USE_TLS = True
 SENDGRID_API_KEY =  os.environ.get('SENDGRID_API_KEY')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-#BROKER_URL=os.environ['REDIS_URL'],
-#CELERY_RESULT_BACKEND=os.environ['REDIS_URL']
+BROKER_URL=os.environ['REDIS_URL'],
+CELERY_RESULT_BACKEND=os.environ['REDIS_URL']
 
 
