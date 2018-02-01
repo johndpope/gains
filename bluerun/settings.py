@@ -151,7 +151,7 @@ EMAIL_USE_TLS = True
 SENDGRID_API_KEY =  os.environ.get('SENDGRID_API_KEY')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-REDIS_LOCATION = '{0}/{1}'.format(os.getenv('REDIS_URL', 'redis://127.0.0.1:6379'), 0)
+REDIS_LOCATION = os.environ['REDIS_URL']
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
