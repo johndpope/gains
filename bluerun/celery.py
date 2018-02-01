@@ -18,13 +18,12 @@ from celery.schedules import crontab
 
 app.conf.beat_schedule = {
     'send-report-every-single-minute': {
-        'task': 'bluerun.celery.debug_task',
+        'task': 'trading.tasks.Collect_Gain_Report',
         'schedule': crontab(minute=1),
     },
 }
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
-
 
 @app.task(bind=True)
 def debug_task(self):
