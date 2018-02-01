@@ -145,9 +145,8 @@ DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 # Mail settings
 EMAIL_BACKEND = 'sgbackend.SendGridBackend'
-SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY', '')
-
-DEFAULT_FROM_EMAIL = 'noreply@capitalgain.crypto'
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+FROM_EMAIL = 'noreply@capitalgain.crypto'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 BROKER_URL=os.environ.get('REDIS_URL', ''),
