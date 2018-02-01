@@ -5,9 +5,9 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from bluerun import celery_app
 
-#@celery_app.task
+#@periodic_task(run_every=crontab(minute=1))
 
-@periodic_task(run_every=crontab(minute=1))
+@celery_app.task(bind=True)
 def Collect_Gain_Report():
 	print "started billing"
 	from account.models import Trading_Platform, MyUser

@@ -18,7 +18,7 @@ from celery.schedules import crontab
 
 app.conf.beat_schedule = {
     'send-report-every-single-minute': {
-        'task': 'trading.tasks.Collect_Gain_Report',
+        'task': 'celery.bluerun.tasks.debug_task',
         'schedule': crontab(minute=1),
     },
 }
