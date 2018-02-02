@@ -1,2 +1,2 @@
 web: gunicorn bluerun.wsgi
-worker: celery -A bluerun worker -B --loglevel=info
+worker: celery -A bluerun worker --loglevel=info
