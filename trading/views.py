@@ -37,7 +37,6 @@ def dashboard(request , id):
 
             if exchange == "Quadrigacx" and api_credentials:
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
-                "uid":str(api_credentials.client_id),
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret
                 })
@@ -53,7 +52,7 @@ def dashboard(request , id):
             elif exchange == "Bitfinex" and api_credentials!=404:
                 context['Bitfinex_data'] = ccxt.bitfinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
-                context['Bitfinex_transactions'] = context['Bitfinex_data'].privatePostMytrades()
+                context['Bitfinex_transactions'] = context['Bitfinex_data'] #.privatePostMytrades()
 
 	return render(request , 'trading/dashboard.html' , context)
 
@@ -149,14 +148,21 @@ class APISettings(TemplateView):
             trader = Trading_Platform.objects.get(user=request.user, trading_platform = trading_platform)
             trader.api_key = api_key
             trader.secret = secret
-            trader.client_id = int(client_id)
+            if trader.client_id != '':
+                trader.client_id = int(client_id)
             trader.save()
         except:
+            if client_id != '':
+                client_id = int(client_id)
+            else:
+                trader.client_id = 0
+
+
             trader = Trading_Platform.objects.create(trading_platform = trading_platform,
                     api_key = api_key,
                     secret = secret,
                     user = user,
-                    client_id = int(client_id))
+                    client_id = client_id)
 
 
         return HttpResponseRedirect('/')

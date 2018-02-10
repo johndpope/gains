@@ -7,4 +7,4 @@ copy this url and paste in your address or click on the link to confirm your ema
 http://agile-bayou-9436.herokuapp.com/{% url 'activate_account' id=u.id otp=otp %}
 
 Thanks,
-Bluerun financial team
+Cryptotax team
