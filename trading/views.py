@@ -57,7 +57,7 @@ def dashboard(request , id):
 
 	return render(request , 'trading/dashboard.html' , context)
 
-environmental1
+
 @require_GET
 @login_required(login_url = 'login')
 def profile(request , id):
