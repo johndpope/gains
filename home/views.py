@@ -26,11 +26,11 @@ def contactus(request):
             message = request.POST.get('message', '')
             forminstance = Contact(name = name,email = email,contact = contact,subject = subject,message = message)
             messages.success(request, 'Submitted successfully!')
-            subject, from_email = 'New Contact Request', 'bluerunfinancial@gmail.com'
+            subject, from_email = 'New Contact Request', 'cryptotax@gmail.com'
             email_body_context = {'name':name, 'contact':contact, 'email':email}
             body = loader.render_to_string('home/contactadmin.txt', email_body_context)
             try:
-                msg = EmailMultiAlternatives(subject, body, from_email, ['bluerunfinancial@gmail.com'])
+                msg = EmailMultiAlternatives(subject, body, from_email, ['cryptotax@gmail.com'])
                 msg.send()
             except ex:
                 print(ex)
