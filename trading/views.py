@@ -57,7 +57,7 @@ def dashboard(request , id):
             elif exchange == "Poloniex" and api_credentials!=404:
                 import poloniex
                 import datetime
-                polon = poloniex.Poloniex( api_credentials.api_key, api_credentials.secret)
+                polon = poloniex.Poloniex( str(api_credentials.api_key), str(api_credentials.secret))
                 #start_date = datetime.datetime(datetime.datetime.now().year, 1, 1)
                 fills = polon.returnTradeHistory()
                 for key, history in fills.items():
