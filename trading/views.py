@@ -55,23 +55,10 @@ def dashboard(request , id):
                 "secret": api_credentials.secret})
                 context['Bitfinex_transactions'] = context['Bitfinex_data'] #.privatePostMytrades()
             elif exchange == "Poloniex" and api_credentials!=404:
-                from poloniexpositionapi import poloniexPosition
+                from exchanges import *
+                poloniex = poloniex.Poloniex( api_credentials.api_key, api_credentials.secret)
 
-                PubKey=api_credentials.api_key
-                PrivKey=api_credentials.secret
-                myPol = poloniexPosition(APIKey=PubKey, Secret=PrivKey, flDebug=True, loadTrades=True)
-
-                print "------------- S U M M A R Y -------------------"
-                myPol.displayAccount()
-                print "-------------Per Coin with Zero Balance Gain/Loss Report-------"
-                print "XRP on BTC "
-                myPol.displayCoinPairGainLoss(coin='XRP', basecoin='BTC')
-                print "XRP on USDT"
-                myPol.displayCoinPairGainLoss(coin='XRP', basecoin='USDT')
-                print "NEOS"
-                myPol.displayCoinPairGainLoss(coin='NEOS')
-                print "XMR"
-                myPol.displayCoinPairGainLoss(coin='XMR')
+                poloniex.getTransactions()
                 context['Poloniex_data'] = ccxt.poloniex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
                 context['Poloniex_transactions'] = context['Poloniex_data'] #.privatePostMytrades()
