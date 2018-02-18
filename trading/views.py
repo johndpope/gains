@@ -74,7 +74,7 @@ def dashboard(request , id):
                 myPol.displayCoinPairGainLoss(coin='XMR')
                 context['Poloniex_data'] = ccxt.poloniex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
-                context['Poloniex_transactions'] = context['Bitfinex_data'] #.privatePostMytrades()
+                context['Poloniex_transactions'] = context['Poloniex_data'] #.privatePostMytrades()
             elif exchange == "Bitmex" and api_credentials!=404:
                 context['Bitmex_data'] = ccxt.bitmex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
