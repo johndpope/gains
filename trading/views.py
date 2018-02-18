@@ -135,7 +135,7 @@ class APISettings(TemplateView):
         print kwargs
 
         try:
-            trader = Trading_Platform.objects.get(user=self.request.user)
+            trader = Trading_Platform.objects.get(user=self.request.user, trading_platform = kwargs['platform'])
             if kwargs['platform'] == trader.trading_platform:
                 context['settings_form'] = Settings_APIForm(initial={'api_key': trader.api_key, 'secret': trader.secret, 'trading_platform':trader.trading_platform})
                 return context
