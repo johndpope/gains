@@ -33,6 +33,10 @@ whitenoise==3.3.0
 xmltodict==0.10.2
 python-quoine
 quadriga
+coinbase
+poloniex
+krakenex
+gdax
 zope.interface==4.3.3
 django-crispy_forms
 certifi==2017.7.27.1
