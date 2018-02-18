@@ -45,7 +45,7 @@ def dashboard(request , id):
             elif exchange == "Quoine" and api_credentials!=404:
                 context['Quoinex_data'] = ccxt.quoinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
-                context['Quoinex_transactions'], context['Quoinex_data']  = context['Quoinex_data'], dir(context['Quoinex_data'])
+                context['Quoinex_transactions'], context['Quoinex_data']  = context['Quoinex_data'].fetchMyTrades(), dir(context['Quoinex_data'])
             elif exchange == "Kraken" and api_credentials!=404:
                 context['Kraken_data'] = ccxt.kraken({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
@@ -59,7 +59,7 @@ def dashboard(request , id):
                 import datetime
                 polon = poloniex.Poloniex( api_credentials.api_key, api_credentials.secret)
                 start_date = datetime.datetime(datetime.datetime.now().year, 1, 1)
-                fills = polon.returnTradeHistory(start=start_date.timestamp())
+                fills = polon.returnTradeHistory(start=datetime.datetime.strptime(start_date, "%Y-%m-%d %H:%M:%S"))
                 for key, history in fills.items():
                     underscore_index = key.index("_")
                     currency = key[underscore_index + 1:].upper()
