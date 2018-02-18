@@ -58,8 +58,9 @@ def dashboard(request , id):
                 import poloniex
                 import datetime
                 polon = poloniex.Poloniex( str(api_credentials.api_key), str(api_credentials.secret))
-                #start_date = datetime.datetime(datetime.datetime.now().year, 1, 1)
-                fills = polon.returnTradeHistory()
+                start = time.mktime(datetime.datetime(2017, 4, 30).timetuple())
+                end = time.mktime(datetime.datetime.now().timetuple())
+                fills = polon.returnTradeHistory(start=start, end=end)
                 print fills
                 for key, history in fills.items():
                     underscore_index = key.index("_")
