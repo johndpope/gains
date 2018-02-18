@@ -60,6 +60,7 @@ def dashboard(request , id):
                 polon = poloniex.Poloniex( str(api_credentials.api_key), str(api_credentials.secret))
                 #start_date = datetime.datetime(datetime.datetime.now().year, 1, 1)
                 fills = polon.returnTradeHistory()
+                print fills
                 for key, history in fills.items():
                     underscore_index = key.index("_")
                     currency = key[underscore_index + 1:].upper()
