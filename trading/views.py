@@ -153,11 +153,11 @@ class APISettings(TemplateView):
             trader = Trading_Platform.objects.get(user=request.user, trading_platform = trading_platform)
             trader.api_key = api_key
             trader.secret = secret
-            if trader.client_id != '':
+            if trader.client_id != u'':
                 trader.client_id = int(client_id)
             trader.save()
         except:
-            if client_id != '':
+            if client_id != u'':
                 client_id = int(client_id)
             else:
                 client_id = 0
