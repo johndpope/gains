@@ -12,10 +12,7 @@ class Poloniex(object):
     def __init__(self, key, secret):
         self._key = key
         self._secret = secret
-
-    # _client creates and returns a Poloniex client
-    def _client(self):
-        return poloniex.Poloniex(self._key, self._secret)
+        self.client = poloniex.Poloniex(self._key, self._secret)
 
     # _to_timestamp converts the given string to a python timestamp object
     def _to_timestamp(self, ts_string):
@@ -23,7 +20,7 @@ class Poloniex(object):
 
     # getTransactions pulls all transactions from the GDAX API
     def getTransactions(self):
-        client = self._client()
+        client = self.client
         transactions = {}
         start_date = datetime.datetime(datetime.datetime.now().year, 1, 1)
         fills = client.returnTradeHistory(start=start_date.timestamp())
