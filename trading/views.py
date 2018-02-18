@@ -55,13 +55,42 @@ def dashboard(request , id):
                 "secret": api_credentials.secret})
                 context['Bitfinex_transactions'] = context['Bitfinex_data'] #.privatePostMytrades()
             elif exchange == "Poloniex" and api_credentials!=404:
-                from exchanges import *
-                polon = Poloniex( api_credentials.api_key, api_credentials.secret)
+                import poloniex
+                polon = poloniex.Poloniex( api_credentials.api_key, api_credentials.secret)
+                start_date = datetime.datetime(datetime.datetime.now().year, 1, 1)
+                fills = polon.returnTradeHistory(start=start_date.timestamp())
+                for key, history in fills.items():
+                    underscore_index = key.index("_")
+                    currency = key[underscore_index + 1:].upper()
+                    base_currency = key[:underscore_index].upper()
+                    if currency not in transactions:
+                        transactions[currency] = []
+                    if base_currency not in transactions:
+                        transactions[base_currency] = []
+                    for transaction in history:
+                        # first the currency that was traded
+                        transaction_ts = self._to_timestamp(transaction['date'])
+                        amount = Decimal(transaction['amount'])
+                        base_amount = amount * Decimal(transaction['rate'])
+                        if transaction['type'] == 'buy':
+                            fee = Decimal(transaction['fee']) * amount
+                            amount -= round(fee, PRECISION)
+                        else:
+                            fee = Decimal(transaction['fee']) * base_amount
+                            base_amount -= round(fee, PRECISION)
+                        base_price = self._gdax.getHistoryPrice(base_currency,
+                                                                transaction_ts)
+                        total = base_amount * Decimal(base_price)
+                        print transaction['type'],
+                        print currency,
+                        print transaction_ts,
+                        print amount,
+                        print total
 
-                polon.getTransactions()
-                context['Poloniex_data'] = ccxt.poloniex({"apiKey": api_credentials.api_key,
-                "secret": api_credentials.secret})
-                context['Poloniex_transactions'] = context['Poloniex_data'] #.privatePostMytrades()
+
+                        context['Poloniex_data'] = ccxt.poloniex({"apiKey": api_credentials.api_key,
+                        "secret": api_credentials.secret})
+                        context['Poloniex_transactions'] = context['Poloniex_data'] #.privatePostMytrades()
             elif exchange == "Bitmex" and api_credentials!=404:
                 context['Bitmex_data'] = ccxt.bitmex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
