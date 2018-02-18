@@ -112,7 +112,8 @@ class Trading_Platform(models.Model):
             ('Quadrigacx','Quadrigacx'),
             ('Kraken','Kraken'),
             ('Bitfinex','Bitfinex'),
-            ('Quoine','Quoine')
+            ('Quoine','Quoine'),
+            ('Poloniex','Poloniex')
             )
 	user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 	trading_platform = models.CharField(max_length=100,

@@ -29,7 +29,7 @@ def dashboard(request , id):
 	user = get_object_or_404(MyUser , id = request.user.id)
 	context['user'] = user
 
-        for exchange in ['Quadrigacx', 'Quoine', 'Kraken', 'Bitfinex']:
+        for exchange in ['Quadrigacx', 'Quoine', 'Kraken', 'Bitfinex', 'Poloniex']:
             try:
                 api_credentials = Trading_Platform.objects.get( user = user, trading_platform=exchange)
             except:
@@ -51,6 +51,10 @@ def dashboard(request , id):
                 "secret": api_credentials.secret})
                 context['Kraken_transactions'] = context['Kraken_data'].privatePostTradesHistory()
             elif exchange == "Bitfinex" and api_credentials!=404:
+                context['Bitfinex_data'] = ccxt.bitfinex({"apiKey": api_credentials.api_key,
+                "secret": api_credentials.secret})
+                context['Bitfinex_transactions'] = context['Bitfinex_data'] #.privatePostMytrades()
+            elif exchange == "Poloniex" and api_credentials!=404:
                 context['Bitfinex_data'] = ccxt.bitfinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
                 context['Bitfinex_transactions'] = context['Bitfinex_data'] #.privatePostMytrades()
