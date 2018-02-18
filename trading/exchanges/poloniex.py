@@ -9,7 +9,7 @@ PRECISION = 8
 
 
 class Poloniex(object):
-    def __init__(self, key, secret, gdaxAPI):
+    def __init__(self, key, secret):
         self._key = key
         self._secret = secret
 
