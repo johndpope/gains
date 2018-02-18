@@ -34,6 +34,8 @@
 		<li role="presentation"><a href="#Quoinex_data" aria-controls="cashpositional" role="tab" data-toggle="tab">Quoine</a></li>
 		<li role="presentation"><a href="#Kraken_data" aria-controls="stcokfuture" role="tab" data-toggle="tab">Kraken</a></li>
 		<li role="presentation"><a href="#Bitfinex_data" aria-controls="niftyfuture" role="tab" data-toggle="tab">Bitfinex</a></li>
+		<li role="presentation"><a href="#Poloniex_data" aria-controls="niftyfuture" role="tab" data-toggle="tab">Poloniex</a></li>
+		<li role="presentation"><a href="#Bitmex_data" aria-controls="niftyfuture" role="tab" data-toggle="tab">Bitmex</a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -85,7 +87,42 @@
 
 			</br></br>
 		</div>
+			<div role="tabpanel" class="tab-pane" id="Bitmex_data">
+			{% if not Bitmex_data %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe to Bitmex <a target= "_blank" href="{% url 'addplatformapi' %}">click here</a></h2>
 
+			</div>
+			{%else%}
+
+            	               <h3> Transactions<h3>
+            	                {{Bitmex_transactions}}
+
+                    	 <h3> Possible Method calls</h3>
+            	                {{Bitmex_data}}
+			{% endif %}
+
+			</br></br>
+		</div>
+            <div role="tabpanel" class="tab-pane" id="Poloniex_data">
+			{% if not Poloniex_data %}
+			<div style = "text-align: center;">
+				<h1 class="unsubscribed">You are not subscribed to this feature</h1><br>
+				<h2>To subscribe to Poloniex <a target= "_blank" href="{% url 'addplatformapi' %}">click here</a></h2>
+
+			</div>
+			{%else%}
+
+            	               <h3> Transactions<h3>
+            	                {{Poloniex_transactions}}
+
+                    	 <h3> Possible Method calls</h3>
+            	                {{Poloniex_data}}
+			{% endif %}
+
+			</br></br>
+		</div>
 		<div role="tabpanel" class="tab-pane" id="Bitfinex_data">
                             {% if not Bitfinex_data %}
             			<div style = "text-align: center;">
