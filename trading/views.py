@@ -132,6 +132,7 @@ class APISettings(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(APISettings, self).get_context_data(**kwargs)
+        print kwargs
 
         try:
             trader = Trading_Platform.objects.get(user=self.request.user)
