@@ -56,9 +56,9 @@ def dashboard(request , id):
                 context['Bitfinex_transactions'] = context['Bitfinex_data'] #.privatePostMytrades()
             elif exchange == "Poloniex" and api_credentials!=404:
                 from exchanges import *
-                poloniex = Poloniex( api_credentials.api_key, api_credentials.secret)
+                polon = Poloniex( api_credentials.api_key, api_credentials.secret)
 
-                poloniex.getTransactions()
+                polon.getTransactions()
                 context['Poloniex_data'] = ccxt.poloniex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
                 context['Poloniex_transactions'] = context['Poloniex_data'] #.privatePostMytrades()
