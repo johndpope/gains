@@ -56,6 +56,7 @@ def dashboard(request , id):
                 context['Bitfinex_transactions'] = context['Bitfinex_data'] #.privatePostMytrades()
             elif exchange == "Poloniex" and api_credentials!=404:
                 import poloniex
+                import datetime
                 polon = poloniex.Poloniex( api_credentials.api_key, api_credentials.secret)
                 start_date = datetime.datetime(datetime.datetime.now().year, 1, 1)
                 fills = polon.returnTradeHistory(start=start_date.timestamp())
