@@ -159,6 +159,8 @@ class APISettings(TemplateView):
         except:
             if client_id != '':
                 client_id = int(client_id)
+            else:
+                client_id = 0
 
 
             trader = Trading_Platform.objects.create(trading_platform = trading_platform,
