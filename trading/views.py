@@ -29,7 +29,7 @@ def dashboard(request , id):
 	user = get_object_or_404(MyUser , id = request.user.id)
 	context['user'] = user
 
-        for exchange in ['Quadrigacx', 'Quoine', 'Kraken', 'Bitfinex', 'Poloniex', 'Bitmex']:
+        for exchange in ['Quadrigacx', 'Quoine', 'Kraken', 'Bitfinex', 'Poloniex', 'Bitmext']:
             try:
                 api_credentials = Trading_Platform.objects.get( user = user, trading_platform=exchange)
             except:
@@ -45,7 +45,7 @@ def dashboard(request , id):
             elif exchange == "Quoine" and api_credentials!=404:
                 context['Quoinex_data'] = ccxt.quoinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
-                context['Quoinex_transactions'], context['Quoinex_data']  = context['Quoinex_data'].privateGetTrades(), dir(context['Quoinex_data'])
+                context['Quoinex_transactions'], context['Quoinex_data']  = context['Quoinex_data'].parse_trades(), dir(context['Quoinex_data'])
             elif exchange == "Kraken" and api_credentials!=404:
                 context['Kraken_data'] = ccxt.kraken({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
