@@ -61,7 +61,7 @@ def dashboard(request , id):
                 import poloniex
                 import datetime
                 import time
-                polon = poloniex.Poloniex( str(api_credentials.api_key), str(api_credentials.secret))
+                polon = poloniex.Poloniex( api_credentials.api_key, api_credentials.secret)
                 start = time.mktime(datetime.datetime(2017, 4, 30).timetuple())
                 end = time.mktime(datetime.datetime.now().timetuple())
                 fills = polon.returnTradeHistory(start=start, end=end)
