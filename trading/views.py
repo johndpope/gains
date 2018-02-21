@@ -43,6 +43,9 @@ def dashboard(request , id):
                 #})
                 #context['Quadrigacx_transactions'], context['Quadrigacx_data'] = context['Quadrigacx_data'].privatePostUserTransactions(), dir(context['Quadrigacx_data'])
             elif exchange == "Quoine" and api_credentials!=404:
+                from quoine.client import Quoinex
+                client = Quoinex(api_credentials.api_key, api_credentials.secret)
+                print client
                 context['Quoinex_data'] = ccxt.quoinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
                 context['Quoinex_transactions'], context['Quoinex_data']  = context['Quoinex_data'], dir(context['Quoinex_data'])
@@ -63,38 +66,39 @@ def dashboard(request , id):
                 end = time.mktime(datetime.datetime.now().timetuple())
                 fills = polon.returnTradeHistory(start=start, end=end)
                 print fills
-                for key, history in fills.items():
-                    underscore_index = key.index("_")
-                    currency = key[underscore_index + 1:].upper()
-                    base_currency = key[:underscore_index].upper()
-                    if currency not in transactions:
-                        transactions[currency] = []
-                    if base_currency not in transactions:
-                        transactions[base_currency] = []
-                    for transaction in history:
-                        # first the currency that was traded
-                        transaction_ts = self._to_timestamp(transaction['date'])
-                        amount = Decimal(transaction['amount'])
-                        base_amount = amount * Decimal(transaction['rate'])
-                        if transaction['type'] == 'buy':
-                            fee = Decimal(transaction['fee']) * amount
-                            amount -= round(fee, PRECISION)
-                        else:
-                            fee = Decimal(transaction['fee']) * base_amount
-                            base_amount -= round(fee, PRECISION)
-                        base_price = self._gdax.getHistoryPrice(base_currency,
-                                                                transaction_ts)
-                        total = base_amount * Decimal(base_price)
-                        print transaction['type'],
-                        print currency,
-                        print transaction_ts,
-                        print amount,
-                        print total
+                if fills.length > 1:
+                    for key, history in fills.items():
+                        underscore_index = key.index("_")
+                        currency = key[underscore_index + 1:].upper()
+                        base_currency = key[:underscore_index].upper()
+                        if currency not in transactions:
+                            transactions[currency] = []
+                        if base_currency not in transactions:
+                            transactions[base_currency] = []
+                        for transaction in history:
+                            # first the currency that was traded
+                            transaction_ts = self._to_timestamp(transaction['date'])
+                            amount = Decimal(transaction['amount'])
+                            base_amount = amount * Decimal(transaction['rate'])
+                            if transaction['type'] == 'buy':
+                                fee = Decimal(transaction['fee']) * amount
+                                amount -= round(fee, PRECISION)
+                            else:
+                                fee = Decimal(transaction['fee']) * base_amount
+                                base_amount -= round(fee, PRECISION)
+                            base_price = self._gdax.getHistoryPrice(base_currency,
+                                                                    transaction_ts)
+                            total = base_amount * Decimal(base_price)
+                            print transaction['type'],
+                            print currency,
+                            print transaction_ts,
+                            print amount,
+                            print total
 
 
-                        context['Poloniex_data'] = ccxt.poloniex({"apiKey": api_credentials.api_key,
-                        "secret": api_credentials.secret})
-                        context['Poloniex_transactions'] = context['Poloniex_data'] #.privatePostMytrades()
+                            context['Poloniex_data'] = ccxt.poloniex({"apiKey": api_credentials.api_key,
+                            "secret": api_credentials.secret})
+                            context['Poloniex_transactions'] = context['Poloniex_data'] #.privatePostMytrades()
             elif exchange == "Bitmex" and api_credentials!=404:
                 context['Bitmex_data'] = ccxt.bitmex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
