@@ -67,7 +67,7 @@ def dashboard(request , id):
                 fills = polon.returnTradeHistory('BTC_ETH')
                 print polon.returnBalances()
                 print fills
-                if fills.len > 0:
+                if len(fills) > 0:
                     for key, history in fills.items():
                         underscore_index = key.index("_")
                         currency = key[underscore_index + 1:].upper()
