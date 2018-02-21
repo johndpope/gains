@@ -26,8 +26,8 @@ import ccxt  # noqa: E402
 @login_required(login_url = 'login')
 def dashboard(request , id):
         context = {}
-	user = get_object_or_404(MyUser , id = request.user.id)
-	context['user'] = user
+        user = get_object_or_404(MyUser , id = request.user.id)
+        context['user'] = user
 
         for exchange in ['Quadrigacx', 'Quoine', 'Kraken', 'Bitfinex', 'Poloniex', 'Bitmext']:
             try:
@@ -142,7 +142,7 @@ def dashboard(request , id):
                 "secret": api_credentials.secret})
                 context['Bitmex_transactions'] = context['Bitmex_data'] #.privatePostMytrades()
 
-	return render(request , 'trading/dashboard.html' , context)
+        return render(request , 'trading/dashboard.html' , context)
 
 
 @require_GET
