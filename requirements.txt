@@ -34,7 +34,7 @@ xmltodict==0.10.2
 python-quoine
 quadriga
 coinbase
-poloniex
+https://github.com/s4w3d0ff/python-poloniex/archive/v0.4.7.zip
 krakenex
 gdax
 zope.interface==4.3.3
