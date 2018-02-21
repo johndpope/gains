@@ -32,7 +32,7 @@ txaio==2.6.1
 whitenoise==3.3.0
 xmltodict==0.10.2
 python-quoine
-quadriga
+#quadriga
 coinbase
 https://github.com/s4w3d0ff/python-poloniex/archive/v0.4.7.zip
 krakenex
