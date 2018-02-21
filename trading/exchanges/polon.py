@@ -46,9 +46,5 @@ class Poloniex(object):
                 base_price = self._gdax.getHistoryPrice(base_currency,
                                                         transaction_ts)
                 total = base_amount * Decimal(base_price)
-                print transaction['type'],
-                print currency,
-                print transaction_ts,
-                print amount,
-                print total
+
  #       return transactions

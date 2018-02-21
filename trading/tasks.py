@@ -9,7 +9,7 @@ from django.conf import settings
 
 @periodic_task(run_every=crontab(minute='1'))
 def Collect_Gain_Report():
-	print "started billing"
+	print ("started billing")
 	from account.models import Trading_Platform, MyUser
 	import ccxt  # noqa: E402
 	for user in MyUser.objects.all():
@@ -39,6 +39,6 @@ def Collect_Gain_Report():
 				context['Bitfinex_data'] = ccxt.bitfinex({"apiKey": api_credentials.api_key,
 				"secret": api_credentials.secret})
 				context['Bitfinex_transactions'] = context['Bitfinex_data'].privatePostMytrades()
-		print context
+		print (context)
 
 

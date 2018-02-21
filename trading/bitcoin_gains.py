@@ -239,7 +239,7 @@ class CsvParser(TransactionParser):
                     if transaction is not None:
                         yield transaction
                 except Exception:
-                    print ix, row
+                    print (ix, row)
                     raise
         for transaction in self.finish():
             yield transaction
@@ -562,8 +562,8 @@ class MtGoxParser(CsvParser):
         except Exception:
             print len(transactions)
             for t in transactions:
-                print t, t.line
-            print merged.__dict__
+                print (t, t.line)
+            print (merged.__dict__)
             raise
         return merged
 
@@ -808,12 +808,12 @@ def fmv(timestamp):
     return prices[date]
 
 def fetch_prices(force_download=False):
-    print "Fetching fair market values..."
+    print ("Fetching fair market values...")
     for url in reversed(parsed_args.fmv_urls):
         if not url:
             # Empty parameter ignores all previous.
             break
-        print url
+        print (url)
         format = None
         for line in open_cached(url, force_download=force_download):
             line = line.strip()
@@ -844,7 +844,7 @@ def fetch_prices(force_download=False):
                 price = cols[1]
             if date not in prices:
                 prices[date] = decimal.Decimal(price)
-    print "Done"
+    print ("Done")
 
 tx_fees = {}
 def tx_fee(tx_hash):
@@ -855,7 +855,7 @@ def tx_fee(tx_hash):
     if tx_hash in tx_fees:
         return decimal.Decimal(tx_fees[tx_hash])
     else:
-        print "Downloading fee for tx", tx_hash
+        print ("Downloading fee for tx", tx_hash)
         fee = decimal.Decimal(open_cached("https://blockchain.info/q/txfee/" + tx_hash).read().strip()) * decimal.Decimal('1e-8')
         tx_fees[tx_hash] = str(fee)
         json.dump(tx_fees, open(tx_fee_file, 'w'), indent=4)
