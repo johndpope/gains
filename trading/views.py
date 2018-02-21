@@ -64,7 +64,7 @@ def dashboard(request , id):
                 polon = poloniex.Poloniex( str(api_credentials.api_key), str(api_credentials.secret))
                 start = time.mktime(datetime.datetime(2018, 1, 1).timetuple())
                 end = time.mktime(datetime.datetime.now().timetuple())
-                fills = polon.returnTradeHistory(start=start, end=end)
+                fills = polon.returnTradeHistory('BTC_ETH')
                 print fills
                 if fills.length > 1:
                     for key, history in fills.items():
