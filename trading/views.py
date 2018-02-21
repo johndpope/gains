@@ -65,6 +65,7 @@ def dashboard(request , id):
                 start = time.mktime(datetime.datetime(2018, 1, 1).timetuple())
                 end = time.mktime(datetime.datetime.now().timetuple())
                 fills = polon.returnTradeHistory('BTC_ETH')
+                print polon.returnBalances()
                 print fills
                 if fills.length > 1:
                     for key, history in fills.items():
