@@ -116,12 +116,12 @@ class Trading_Platform(models.Model):
             ('Poloniex','Poloniex'),
             ('Bitmex','Bitmex')
             )
-	user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-	trading_platform = models.CharField(max_length=100,
-                            choices=PLATFORM_CHOICES, default=None)
-	api_key = models.CharField(max_length=224)
-	secret = models.CharField(max_length=224)
-	client_id = models.IntegerField(blank=True)
+        user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+        trading_platform = models.CharField(max_length=100,
+        choices=PLATFORM_CHOICES, default=None)
+        api_key = models.CharField(max_length=224)
+        secret = models.CharField(max_length=224)
+        client_id = models.IntegerField(blank=True)
 
-	def __unicode__(self):
-	    return self.user.email + " - " + self.trading_platform
+        def __unicode__(self):
+        	    return self.user.email + " - " + self.trading_platform
