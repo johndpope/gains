@@ -60,7 +60,7 @@ def dashboard(request , id):
                 url = 'https://api.quadrigacx.com/v2/user_transactions'+data
                 req = http.request('POST', url)
                 #response = urllib3.urlopen(req)
-                print( json.loads(req.data))
+                print( req.data)
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret, 'uid': api_credentials.client_id
