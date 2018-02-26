@@ -55,7 +55,7 @@ def dashboard(request , id):
                         'nonce': noonce,
                         'signature': signature
                         }
-                data = urllib.urlencode(values)
+                data = urllib.request.urlencode(values)
                 url = 'https://api.quadrigacx.com/v2/user_transactions'
                 req = urllib3.Request(url, data=data)
                 response = urllib3.urlopen(req)
