@@ -23,7 +23,6 @@ import hashlib
 
 def genSignature (key,noonce, secret,clientID):
     thing_to_hash = noonce + clientID + key
-    print type(bytes(secret, 'utf-8'))
     signature = hmac.new(secret, msg=thing_to_hash, digestmod=hashlib.sha256).hexdigest()
     return signature
 
