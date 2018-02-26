@@ -45,6 +45,7 @@ def dashboard(request , id):
             if exchange == "Quadrigacx" and api_credentials:
                 import time, urllib
                 import urllib3
+                http = urllib3.PoolManager()
                 key = api_credentials.api_key
                 secret = api_credentials.secret
                 clientID = str(api_credentials.client_id)
@@ -56,10 +57,10 @@ def dashboard(request , id):
                         'signature': signature
                         }
                 data = urllib.parse.urlencode(values)
-                url = 'https://api.quadrigacx.com/v2/user_transactions'
-                req = urllib3.Request(url, data=data)
-                response = urllib3.urlopen(req)
-                print( json.loads(response.read()))
+                url = 'https://api.quadrigacx.com/v2/user_transactions'+data
+                req = http.request('POST', url)
+                #response = urllib3.urlopen(req)
+                print( json.loads(req.data.decode('utf-8'))['args'])
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret, 'uid': api_credentials.client_id
