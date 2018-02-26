@@ -43,7 +43,7 @@ def dashboard(request , id):
                 api_credentials = 404
 
             if exchange == "Quadrigacx" and api_credentials:
-                import time
+                import time, urllib
                 import urllib3
                 key = api_credentials.api_key
                 secret = api_credentials.secret
