@@ -56,7 +56,7 @@ def dashboard(request , id):
                         }
                 data = urllib.parse.urlencode(values)
                 url = 'https://api.quadrigacx.com/v2/user_transactions'
-                req = urllib2.Request(url, data=data)
+                req = urllib.request(url, data=data)
                 response = urllib.request.urlopen(req)
                 print( json.loads(response.read()))
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
