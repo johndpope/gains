@@ -57,7 +57,7 @@ def dashboard(request , id):
                         'signature': signature
                         }
                 data = urllib.parse.urlencode(values)
-                url = 'https://api.quadrigacx.com/v2/user_transactions'+data
+                url = 'https://api.quadrigacx.com/v2/user_transactions?'+data
                 req = http.request('POST', url)
                 #response = urllib3.urlopen(req)
                 print( req.data)
