@@ -36,12 +36,11 @@ def dashboard(request , id):
                 api_credentials = 404
 
             if exchange == "Quadrigacx" and api_credentials:
-                pass
-                #context['Quadrigacx_data'] = ccxt.quadrigacx({
-                #"apiKey": api_credentials.api_key,
-                #"secret": api_credentials.secret
-                #})
-                #context['Quadrigacx_transactions'], context['Quadrigacx_data'] = context['Quadrigacx_data'].privatePostUserTransactions(), dir(context['Quadrigacx_data'])
+                context['Quadrigacx_data'] = ccxt.quadrigacx({
+                "apiKey": api_credentials.api_key,
+                "secret": api_credentials.secret
+                })
+                context['Quadrigacx_transactions'], context['Quadrigacx_data'] = context['Quadrigacx_data'].privatePostUserTransactions(), dir(context['Quadrigacx_data'])
             elif exchange == "Quoine" and api_credentials!=404:
                 from quoine.client import Quoinex
                 client = Quoinex(api_credentials.api_key, api_credentials.secret)
