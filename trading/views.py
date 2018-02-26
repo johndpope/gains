@@ -1,5 +1,4 @@
 import json
-import time
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -37,6 +36,7 @@ def dashboard(request , id):
                 api_credentials = 404
 
             if exchange == "Quadrigacx" and api_credentials:
+                import time
                 key = api_credentials.api_key
                 secret = api_credentials.secret
                 clientID = str(api_credentials.client_id)
