@@ -38,7 +38,7 @@ def dashboard(request , id):
             if exchange == "Quadrigacx" and api_credentials:
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
                 "apiKey": api_credentials.api_key,
-                "secret": api_credentials.secret, 'uid': api_credentials.client_id
+                "secret": api_credentials.secret, 'uid': str(api_credentials.client_id)
                 })
                 context['Quadrigacx_transactions'], context['Quadrigacx_data'] = context['Quadrigacx_data'].privatePostUserTransactions(), dir(context['Quadrigacx_data'])
             elif exchange == "Quoine" and api_credentials!=404:
