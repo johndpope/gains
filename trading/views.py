@@ -37,7 +37,7 @@ def dashboard(request , id):
 
             if exchange == "Quadrigacx" and api_credentials:
                 from quadriga import QuadrigaClient
-                client = QuadrigaClient(api_key=api_credentials.api_key, api_secret=api_credentials.secret, client_id=str(api_credentials.client_id))
+                client = QuadrigaClient(api_key=api_credentials.api_key, api_secret=api_credentials.secret, client_id=str(api_credentials.client_id), default_book=API_setup.client['default_book'])
                 print (client.get_summary())
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
                 "apiKey": api_credentials.api_key,
