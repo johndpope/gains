@@ -19,6 +19,10 @@ from account.forms import Settings_APIForm
 from account.models import Trading_Platform, MyUser
 import ccxt  # noqa: E402
 
+def genSignature (key,noonce, secret,clientID):
+    thing_to_hash = noonce + clientID + key
+    signature = hmac.new(secret, msg=thing_to_hash, digestmod=hashlib.sha256).hexdigest()
+    return signature
 
 #from quadriga import QuadrigaClient
 # Create your views here.environmental1
