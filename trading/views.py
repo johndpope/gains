@@ -43,7 +43,7 @@ def dashboard(request , id):
                 api_credentials = 404
 
             if exchange == "Quadrigacx" and api_credentials:
-                import time
+                import time, urllib
                 key = api_credentials.api_key
                 secret = api_credentials.secret
                 clientID = str(api_credentials.client_id)
@@ -54,7 +54,7 @@ def dashboard(request , id):
                         'nonce': noonce,
                         'signature': signature
                         }
-                data = urllib.urlencode(values)
+                data = urllib.parse.urlencode(values)
                 url = 'https://api.quadrigacx.com/v2/user_transactions'
                 req = urllib2.Request(url, data=data)
                 response = urllib2.urlopen(req)
