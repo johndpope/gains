@@ -19,6 +19,7 @@ from account.forms import Settings_APIForm
 from account.models import Trading_Platform, MyUser
 import ccxt  # noqa: E402
 import hmac
+import hashlib
 
 def genSignature (key,noonce, secret,clientID):
     thing_to_hash = noonce + clientID + key
