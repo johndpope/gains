@@ -45,6 +45,7 @@ def dashboard(request , id):
             if exchange == "Quadrigacx" and api_credentials:
                 import time, urllib
                 import urllib3
+                from user_agent import generate_user_agent, generate_navigator
                 http = urllib3.PoolManager()
                 key = api_credentials.api_key
                 secret = api_credentials.secret
@@ -57,7 +58,6 @@ def dashboard(request , id):
                         'signature': signature
                         }
                 data = urllib.parse.urlencode(values)
-                from user_agent import generate_user_agent, generate_navigator
                 user_agent = generate_user_agent()
                 url = 'https://api.quadrigacx.com/v2/user_transactions?'+data
                 head = {'User-Agent': user_agent,
@@ -71,7 +71,7 @@ def dashboard(request , id):
                 print( req.data)
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
                 "apiKey": api_credentials.api_key,
-                "secret": api_credentials.secret, 'uid': api_credentials.client_id
+                "secret": api_credentials.secret, 'uid': str(api_credentials.client_id)
                 })
                 context['Quadrigacx_transactions'], context['Quadrigacx_data'] = context['Quadrigacx_data'].privatePostUserTransactions(), dir(context['Quadrigacx_data'])
             elif exchange == "Quoine" and api_credentials!=404:
