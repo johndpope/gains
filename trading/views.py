@@ -49,12 +49,9 @@ def dashboard(request , id):
                         }
                 data = urllib.urlencode(values)
                 url = 'https://api.quadrigacx.com/v2/user_transactions'
-                req = urllib2.Request(url, data=data, headers=hdr)
+                req = urllib2.Request(url, data=data)
                 response = urllib2.urlopen(req)
                 print( json.loads(response.read()))
-                from quadriga import QuadrigaClient
-                client = QuadrigaClient(api_key=, api_secret=api_credentials.secret, client_id=str(api_credentials.client_id))
-                print (client.get_trades())
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
                 "apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret, 'uid': api_credentials.client_id
