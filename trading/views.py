@@ -23,7 +23,7 @@ import hashlib
 
 def genSignature (key,noonce, secret,clientID):
     thing_to_hash = noonce + clientID + key
-    signature = hmac.new(str.encode(secret), msg=thing_to_hash, digestmod=hashlib.sha256).hexdigest()
+    signature = hmac.new(secret.encode('utf-8'), msg=thing_to_hash, digestmod=hashlib.sha256).hexdigest()
     return signature
 
 #from quadriga import QuadrigaClient
