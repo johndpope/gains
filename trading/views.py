@@ -37,7 +37,7 @@ def dashboard(request , id):
 
             if exchange == "Quadrigacx" and api_credentials:
                 from quoine.client import Quoinex
-                client = Quoinex(api_credentials.api_key, api_credentials.secret, api_credentials.client_id)
+                client = Quoinex(api_credentials.api_key, api_credentials.secret, str(api_credentials.client_id))
                 print (client.get_trades())
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
                 "apiKey": api_credentials.api_key,
