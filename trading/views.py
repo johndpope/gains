@@ -1,4 +1,5 @@
 import json
+import time
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -21,7 +22,7 @@ import ccxt  # noqa: E402
 
 
 #from quadriga import QuadrigaClient
-# Create your views here.
+# Create your views here.environmental1
 @require_GET
 @login_required(login_url = 'login')
 def dashboard(request , id):
@@ -36,8 +37,23 @@ def dashboard(request , id):
                 api_credentials = 404
 
             if exchange == "Quadrigacx" and api_credentials:
+                key = api_credentials.api_key
+                secret = api_credentials.secret
+                clientID = str(api_credentials.client_id)
+                noonce = str(int(time.time()))  # A unique integer
+                signature = genSignature(key, noonce, secret, clientID)
+                # PACKAGE INTO JSON FOR SENDING AS A POST
+                values = {'key': key,
+                        'nonce': noonce,
+                        'signature': signature
+                        }
+                data = urllib.urlencode(values)
+                url = 'https://api.quadrigacx.com/v2/user_transactions'
+                req = urllib2.Request(url, data=data, headers=hdr)
+                response = urllib2.urlopen(req)
+                print( json.loads(response.read()))
                 from quadriga import QuadrigaClient
-                client = QuadrigaClient(api_key=api_credentials.api_key, api_secret=api_credentials.secret, client_id=str(api_credentials.client_id))
+                client = QuadrigaClient(api_key=, api_secret=api_credentials.secret, client_id=str(api_credentials.client_id))
                 print (client.get_trades())
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
                 "apiKey": api_credentials.api_key,
