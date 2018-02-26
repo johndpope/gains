@@ -57,8 +57,10 @@ def dashboard(request , id):
                         'signature': signature
                         }
                 data = urllib.parse.urlencode(values)
+                from user_agent import generate_user_agent, generate_navigator
+                user_agent = generate_user_agent()
                 url = 'https://api.quadrigacx.com/v2/user_transactions?'+data
-                head = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+                head = {'User-Agent': user_agent,
                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                        'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
                        'Accept-Encoding': 'none',

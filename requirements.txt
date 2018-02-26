@@ -47,6 +47,7 @@ invoke==0.20.4
 pycrypto==2.6.1
 requests==2.18.4
 urllib3
+user_agent
 ## ASYNC TASKS
 django-celery-beat==1.1.0           # Scheduler via Django
 django-celery-results==1.0.1        # Store results via Django
