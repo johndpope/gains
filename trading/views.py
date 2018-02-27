@@ -39,11 +39,8 @@ def dashboard(request , id):
                 from quadriga import QuadrigaClient
                 client = QuadrigaClient(api_key=api_credentials.api_key, api_secret=api_credentials.secret, client_id=str(api_credentials.client_id))
                 print (client.book('btc_cad').get_user_trades())
-                context['Quadrigacx_data'] = ccxt.quadrigacx({
-                "apiKey": api_credentials.api_key,
-                "secret": api_credentials.secret, 'uid': api_credentials.client_id
-                })
-                context['Quadrigacx_transactions'], context['Quadrigacx_data'] = context['Quadrigacx_data'].privatePostUserTransactions(), dir(context['Quadrigacx_data'])
+                context['Quadrigacx_data'] = client.book('btc_cad').get_user_trades()
+                context['Quadrigacx_transactions'] = client.book('btc_cad').get_user_trades()
             elif exchange == "Quoine" and api_credentials!=404:
                 from quoine.client import Quoinex
                 client = Quoinex(api_credentials.api_key, api_credentials.secret)
