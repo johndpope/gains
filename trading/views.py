@@ -92,6 +92,9 @@ def dashboard(request , id):
                 context['Kraken_data'] = ccxt.kraken({"apiKey": api_credentials.api_key, "secret": api_credentials.secret})
                 context['Kraken_transactions'], context['Kraken_data'] = trades, dir(context['Kraken_data'])
             elif exchange == "Bitfinex" and api_credentials!=404:
+                from bitfinex.client import Client
+                client = Client("key"=api_credentials.api_key, "secret"= api_credentials.secret)\
+                print (client.past_trade()
                 context['Bitfinex_data'] = ccxt.bitfinex({"apiKey": api_credentials.api_key,
                 "secret": api_credentials.secret})
                 context['Bitfinex_transactions'], context['Bitfinex_data'] = context['Bitfinex_data'], dir(context['Bitfinex_data']) #.privatePostMytrades()
