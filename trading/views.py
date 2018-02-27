@@ -59,14 +59,14 @@ def dashboard(request , id):
                         }
                 data = urllib.parse.urlencode(values)
                 user_agent = generate_user_agent()
-                url = 'https://api.quadrigacx.com/v2/user_transactions?'+data
+                url = 'https://api.quadrigacx.com/v2/user_transactions'
                 head = {'User-Agent': user_agent,
                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                        'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
                        'Accept-Encoding': 'none',
                        'Accept-Language': 'en-US,en;q=0.8',
                        'Connection': 'keep-alive'}
-                req = http.request('GET', url, headers=head)
+                req = http.request('POST', url, payload=values, headers=head)
                 #response = urllib3.urlopen(req)
                 print( req.data)
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
