@@ -66,7 +66,7 @@ def dashboard(request , id):
                        'Accept-Encoding': 'none',
                        'Accept-Language': 'en-US,en;q=0.8',
                        'Connection': 'keep-alive'}
-                req = http.request('POST', url, headers=head)
+                req = http.request('GET', url, headers=head)
                 #response = urllib3.urlopen(req)
                 print( req.data)
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
