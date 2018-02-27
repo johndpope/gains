@@ -21,7 +21,7 @@ import ccxt  # noqa: E402
 
 
 #from quadriga import QuadrigaClient
-# Create your views here.
+# Create your views here.environmental1
 @require_GET
 @login_required(login_url = 'login')
 def dashboard(request , id):
@@ -37,7 +37,7 @@ def dashboard(request , id):
 
             if exchange == "Quadrigacx" and api_credentials:
                 from quadriga import QuadrigaClient
-                client = QuadrigaClient(api_key=api_credentials.api_key, api_secret=api_credentials.secret, client_id=str(api_credentials.client_id), default_book=API_setup.client['default_book'])
+                client = QuadrigaClient(api_key=api_credentials.api_key, api_secret=api_credentials.secret, client_id=str(api_credentials.client_id))
                 print (client.book('btc_cad').get_user_trades())
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
                 "apiKey": api_credentials.api_key,
