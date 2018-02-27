@@ -18,17 +18,10 @@ from django.views.generic import TemplateView
 from account.forms import Settings_APIForm
 from account.models import Trading_Platform, MyUser
 import ccxt  # noqa: E402
-import hmac
-import hashlib
 
-def genSignature (key,noonce, secret,clientID):
-    thing_to_hash = bytes(noonce + clientID + key, 'utf-8')
-    secret = bytes(secret, 'utf-8')
-    signature = hmac.new(secret, msg=thing_to_hash, digestmod=hashlib.sha256).hexdigest()
-    return signature
 
 #from quadriga import QuadrigaClient
-# Create your views here.environmental1
+# Create your views here.
 @require_GET
 @login_required(login_url = 'login')
 def dashboard(request , id):
@@ -43,35 +36,12 @@ def dashboard(request , id):
                 api_credentials = 404
 
             if exchange == "Quadrigacx" and api_credentials:
-                import time, urllib
-                import urllib3
-                from user_agent import generate_user_agent, generate_navigator
-                http = urllib3.PoolManager()
-                key = api_credentials.api_key
-                secret = api_credentials.secret
-                clientID = str(api_credentials.client_id)
-                noonce = str(int(time.time()))  # A unique integer
-                signature = genSignature(key, noonce, secret, clientID)
-                # PACKAGE INTO JSON FOR SENDING AS A POST
-                values = {'key': key,
-                        'nonce': noonce,
-                        'signature': signature
-                        }
-                data = urllib.parse.urlencode(values)
-                user_agent = generate_user_agent()
-                url = 'https://api.quadrigacx.com/v2/user_transactions'
-                head = {'User-Agent': user_agent,
-                       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-                       'Accept-Encoding': 'none',
-                       'Accept-Language': 'en-US,en;q=0.8',
-                       'Connection': 'keep-alive'}
-                req = http.request('POST', url, payload=values, headers=head)
-                #response = urllib3.urlopen(req)
-                print( req.data)
+                from quadriga import QuadrigaClient
+                client = QuadrigaClient(api_key=api_credentials.api_key, api_secret=api_credentials.secret, client_id=str(api_credentials.client_id), default_book=API_setup.client['default_book'])
+                print (client.book('btc_cad').get_user_trades())
                 context['Quadrigacx_data'] = ccxt.quadrigacx({
                 "apiKey": api_credentials.api_key,
-                "secret": api_credentials.secret, 'uid': str(api_credentials.client_id)
+                "secret": api_credentials.secret, 'uid': api_credentials.client_id
                 })
                 context['Quadrigacx_transactions'], context['Quadrigacx_data'] = context['Quadrigacx_data'].privatePostUserTransactions(), dir(context['Quadrigacx_data'])
             elif exchange == "Quoine" and api_credentials!=404:
