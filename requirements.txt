@@ -53,3 +53,7 @@ user_agent
 django-celery-beat==1.1.0           # Scheduler via Django
 django-celery-results==1.0.1        # Store results via Django
 hiredis==0.2.0 # C-based redis driver
+gevent
+zerorpc
+web3
+pysqlcipher3
