@@ -93,19 +93,19 @@ class Rotkelchen(object):
 
     def initialize_exchanges(self, secret_data):
         # initialize exchanges for which we have keys and are not already initialized
-        if self.kraken is None and 'kraken' in secret_data:
+        if self.kraken is None and 'Kraken' in secret_data:
             self.kraken = Kraken(
-                str.encode(secret_data['kraken']['api_key']),
-                str.encode(secret_data['kraken']['api_secret']),
+                str.encode(secret_data['Kraken'].api_key),
+                str.encode(secret_data['Kraken'].secret),
                 self.data_dir
             )
             self.connected_exchanges.append('kraken')
             self.trades_historian.set_exchange('kraken', self.kraken)
 
-        if self.poloniex is None and 'poloniex' in secret_data:
+        if self.poloniex is None and 'Poloniex' in secret_data:
             self.poloniex = Poloniex(
-                str.encode(secret_data['poloniex']['api_key']),
-                str.encode(secret_data['poloniex']['api_secret']),
+                str.encode(secret_data['Poloniex'].api_key),
+                str.encode(secret_data['Poloniex'].secret),
                 self.cache_data_filename,
                 self.inquirer,
                 self.data_dir
@@ -113,20 +113,20 @@ class Rotkelchen(object):
             self.connected_exchanges.append('poloniex')
             self.trades_historian.set_exchange('poloniex', self.poloniex)
 
-        if self.bittrex is None and 'bittrex' in secret_data:
+        if self.bittrex is None and 'Bittrex' in secret_data:
             self.bittrex = Bittrex(
-                str.encode(secret_data['bittrex']['api_key']),
-                str.encode(secret_data['bittrex']['api_secret']),
+                str.encode(secret_data['Bittrex'].api_key),
+                str.encode(secret_data['Bittrex'].secret),
                 self.inquirer,
                 self.data_dir
             )
             self.connected_exchanges.append('bittrex')
             self.trades_historian.set_exchange('bittrex', self.bittrex)
 
-        if self.binance is None and 'binance' in secret_data:
+        if self.binance is None and 'Binance' in secret_data:
             self.binance = Binance(
-                str.encode(secret_data['binance']['api_key']),
-                str.encode(secret_data['binance']['api_secret']),
+                str.encode(secret_data['Binance'].api_key),
+                str.encode(secret_data['Binance'].secret),
                 self.inquirer,
                 self.data_dir
             )
@@ -320,7 +320,7 @@ class Rotkelchen(object):
             logger.debug('Main loop end')
             gevent.sleep(MAIN_LOOP_SECS_DELAY)
 
-    def process_history(self, start_ts, end_ts):
+    def process_history(self, start_ts=0, end_ts=0):
         history, margin_history, loan_history, asset_movements, eth_transactions = self.trades_historian.get_history(
             start_ts=0,  # For entire history processing we need to have full history available
             end_ts=ts_now(),

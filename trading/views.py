@@ -28,6 +28,12 @@ def dashboard(request , id):
         context = {}
         user = get_object_or_404(MyUser , id = request.user.id)
         context['user'] = user
+        from rotkelchen.args import app_args
+        from rotkelchen.from rotkelchen import Rotkelchen
+        args = app_args()
+        r = Rotkelchen(args)
+        secrets = {}
+
 
         for exchange in ['Quadrigacx', 'Quoine', 'Kraken', 'Bitfinex', 'Poloniex', 'Bitmext']:
             try:
@@ -35,110 +41,12 @@ def dashboard(request , id):
             except:
                 api_credentials = 404
 
-            if exchange == "Quadrigacx" and api_credentials:
-                from quadriga import QuadrigaClient
-                client = QuadrigaClient(api_key=api_credentials.api_key, api_secret=api_credentials.secret, client_id=str(api_credentials.client_id))
-                print (client.book('btc_cad').get_user_trades())
-                context['Quadrigacx_data'] = client.book('btc_cad').get_user_trades()
-            elif exchange == "Quoine" and api_credentials!=404:
-                from quoine.client import Quoinex
-                client = Quoinex(api_credentials.api_key, api_credentials.secret)
-                print (client.get_orders())
-                context['Quoinex_data']=client.get_orders()
-            elif exchange == "Kraken" and api_credentials!=404:
-                import pandas as pd
-                import krakenex
-
-                import datetime
-                import calendar
-                import time
-
-                # takes date and returns nix time
-                def date_nix(str_date):
-                    return calendar.timegm(str_date.timetuple())
-
-                # takes nix time and returns date
-                def date_str(nix_time):
-                    return datetime.datetime.fromtimestamp(nix_time).strftime('%m, %d, %Y')
-
-                # return formatted TradesHistory request data
-                def data(start, end, ofs):
-                    req_data = {'type': 'all',
-                                'trades': 'true',
-                                'start': str(date_nix(start)),
-                                'end': str(date_nix(end)),
-                                'ofs': str(ofs)
-                                }
-                    return req_data
-
-                k = krakenex.API(api_credentials.api_key, api_credentials.secret)
-                data = []
-                count = 0
-                for i in range(1,11):
-                    start_date = datetime.datetime(2016, i+1, 1)
-                    end_date = datetime.datetime(2016, i+2, 29)
-                    th = k.query_private('TradesHistory', data(start_date, end_date, 1))
-                    time.sleep(.25)
-                    print(th)
-                    th_error = th['error']
-                    if int(th['result']['count'])>0:
-                        count += th['result']['count']
-                        data.append(pd.DataFrame.from_dict(th['result']['trades']).transpose())
-
-                trades = pd.DataFrame
-                trades = pd.concat(data, axis = 0)
-                trades = trades.sort_values(columns='time', ascending=True)
-                #trades.to_csv('data.csv')
-                context['Kraken_data'] = ccxt.kraken({"apiKey": api_credentials.api_key, "secret": api_credentials.secret})
-                context['Kraken_transactions'], context['Kraken_data'] = trades, dir(context['Kraken_data'])
-            elif exchange == "Bitfinex" and api_credentials!=404:
-                from bitfinex.client import Client
-                client = Client("key"=api_credentials.api_key, "secret"= api_credentials.secret)
-                context['Bitfinex_data'] = ccxt.bitfinex({"apiKey": api_credentials.api_key,
-                "secret": api_credentials.secret})
-                context['Bitfinex_transactions'], context['Bitfinex_data'] = context['Bitfinex_data'], dir(context['Bitfinex_data']) #.privatePostMytrades()
-            elif exchange == "Poloniex" and api_credentials!=404:
-                import poloniex
-                import datetime
-                import time
-                polon = poloniex.Poloniex( str(api_credentials.api_key), str(api_credentials.secret))
-                start = time.mktime(datetime.datetime(2018, 1, 1).timetuple())
-                end = time.mktime(datetime.datetime.now().timetuple())
-                fills = polon.returnTradeHistory('BTC_ETH')
-                #print (polon.returnBalances())
-                print (fills)
-                if len(fills) > 0:
-                    for key, history in fills.items():
-                        underscore_index = key.index("_")
-                        currency = key[underscore_index + 1:].upper()
-                        base_currency = key[:underscore_index].upper()
-                        if currency not in transactions:
-                            transactions[currency] = []
-                        if base_currency not in transactions:
-                            transactions[base_currency] = []
-                        for transaction in history:
-                            # first the currency that was traded
-                            transaction_ts = self._to_timestamp(transaction['date'])
-                            amount = Decimal(transaction['amount'])
-                            base_amount = amount * Decimal(transaction['rate'])
-                            if transaction['type'] == 'buy':
-                                fee = Decimal(transaction['fee']) * amount
-                                amount -= round(fee, PRECISION)
-                            else:
-                                fee = Decimal(transaction['fee']) * base_amount
-                                base_amount -= round(fee, PRECISION)
-                            base_price = self._gdax.getHistoryPrice(base_currency,
-                                                                    transaction_ts)
-                            total = base_amount * Decimal(base_price)
-
-
-                            context['Poloniex_data'] = ccxt.poloniex({"apiKey": api_credentials.api_key,
-                            "secret": api_credentials.secret})
-                            context['Poloniex_transactions'] = context['Poloniex_data'] #.privatePostMytrades()
-            elif exchange == "Bitmex" and api_credentials!=404:
-                context['Bitmex_data'] = ccxt.bitmex({"apiKey": api_credentials.api_key,
-                "secret": api_credentials.secret})
-                context['Bitmex_transactions'] = context['Bitmex_data'] #.privatePostMytrades()
+            if api_credentials != 404:
+                secrets[exchange] = api_credentials
+        print (secrets)
+        r.initialize_exchanges(secrets)
+        r.process_history()
+        print (r)
 
         return render(request , 'trading/dashboard.html' , context)
 
