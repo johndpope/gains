@@ -29,7 +29,7 @@ def dashboard(request , id):
         user = get_object_or_404(MyUser , id = request.user.id)
         context['user'] = user
         from rotkelchen.args import app_args
-        from rotkelchen.from rotkelchen import Rotkelchen
+        from rotkelchen.rotkelchen import Rotkelchen
         args = app_args()
         r = Rotkelchen(args)
         secrets = {}
