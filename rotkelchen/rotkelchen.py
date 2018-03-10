@@ -36,7 +36,7 @@ MAIN_LOOP_SECS_DELAY = 60
 
 
 class Rotkelchen(object):
-    def __init__(self, args):
+    def __init__(self):
         #self.lock = Semaphore()
         #self.lock.acquire()
         self.results_cache = {}

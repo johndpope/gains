@@ -28,10 +28,10 @@ def dashboard(request , id):
         context = {}
         user = get_object_or_404(MyUser , id = request.user.id)
         context['user'] = user
-        from rotkelchen.args import app_args
+        #from rotkelchen.args import app_args
         from rotkelchen.rotkelchen import Rotkelchen
-        args = app_args()
-        r = Rotkelchen(args)
+        #args = app_args()
+        r = Rotkelchen()
         secrets = {}
 
 
