@@ -44,11 +44,14 @@ class Rotkelchen(object):
         self.connected_exchanges = []
         self.last_data_upload_ts = 0
         self.poloniex = None
-        self.kraken = None
         self.bittrex = None
         self.binance = None
         self.data_dir =  os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         self.cache_data_filename = os.path.join(self.data_dir, 'cache_data.json')
+        self.kraken = Kraken(
+                self.data_dir
+            )
+
 
 
         #self.data = DataHandler(self.data_dir)
@@ -57,6 +60,9 @@ class Rotkelchen(object):
         #self.shutdown_event = gevent.event.Event()
 
     def initialize_exchanges(self, secret_data):
+
+        self.inquirer = Inquirer(kraken=self.kraken)
+        self.initialize_exchanges(secret_data)
         # initialize exchanges for which we have keys and are not already initialized
         if self.kraken is None and 'Kraken' in secret_data:
             self.kraken = Kraken(
