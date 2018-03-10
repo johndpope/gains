@@ -43,12 +43,12 @@ class Poloniex(Exchange):
         'watched_currencies'
     ]
 
-    def __init__(self, api_key, secret, cache_filename, inquirer, data_dir):
+    def __init__(self, api_key, secret, inquirer, data_dir):
         super(Poloniex, self).__init__('poloniex', api_key, secret)
 
         self.uri = 'https://poloniex.com/'
         self.public_uri = self.uri + 'public?command='
-        self.cache_filename = cache_filename
+        #self.cache_filename = cache_filename
         self.data_dir = data_dir
         # Set default setting values
         self.watched_currencies = {

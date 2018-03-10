@@ -68,7 +68,6 @@ class Rotkelchen(object):
             self.poloniex = Poloniex(
                 str.encode(secret_data['Poloniex'].api_key),
                 str.encode(secret_data['Poloniex'].secret),
-                self.cache_data_filename,
                 self.inquirer,
                 self.data_dir
             )
@@ -144,7 +143,7 @@ class Rotkelchen(object):
                 logger.debug('Could sync data from server but user refused')
 
 
-    def unlock_user(self, user, password, create_new, sync_approval, api_key, api_secret):
+    def unlock_user(self):
         # unlock or create the DB
         self.password = password
         user_dir = self.data.unlock(user, password, create_new)
