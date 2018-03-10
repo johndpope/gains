@@ -41,13 +41,7 @@ class Rotkelchen(object):
         #self.lock.acquire()
         self.results_cache = {}
         self.connected_exchanges = []
-
-
-        self.sleep_secs = args.sleep_secs
-        self.data_dir = args.data_dir
-        self.args = args
         self.last_data_upload_ts = 0
-
         self.poloniex = None
         self.kraken = None
         self.bittrex = None
