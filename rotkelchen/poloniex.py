@@ -401,10 +401,7 @@ class Poloniex(Exchange):
             if (available != FVal(0) or on_orders != FVal(0)):
                 entry = {}
                 entry['amount'] = available + on_orders
-                usd_price = self.inquirer.find_usd_price(
-                    asset=currency,
-                    asset_btc_price=None
-                )
+                usd_price = self.inquirer
                 usd_value = entry['amount'] * usd_price
                 entry['usd_value'] = usd_value
                 balances[currency] = entry

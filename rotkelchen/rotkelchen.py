@@ -48,9 +48,7 @@ class Rotkelchen(object):
         self.binance = None
         self.data_dir =  os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         self.cache_data_filename = os.path.join(self.data_dir, 'cache_data.json')
-        self.kraken = Kraken(
-                self.data_dir
-            )
+        self.kraken = None
 
 
 
@@ -61,7 +59,7 @@ class Rotkelchen(object):
 
     def initialize_exchanges(self, secret_data):
 
-        self.inquirer = Inquirer(kraken=self.kraken)
+        self.inquirer = 10000
         self.initialize_exchanges(secret_data)
         # initialize exchanges for which we have keys and are not already initialized
         if self.kraken is None and 'Kraken' in secret_data:

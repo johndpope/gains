@@ -155,10 +155,7 @@ class Bittrex(Exchange):
         returned_balances = dict()
         for entry in resp:
             currency = entry['Currency']
-            usd_price = self.inquirer.find_usd_price(
-                asset=currency,
-                asset_btc_price=self.get_btc_price(currency)
-            )
+            usd_price = self.inquirer
 
             balance = dict()
             balance['amount'] = FVal(entry['Balance'])
