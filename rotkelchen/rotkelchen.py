@@ -42,37 +42,6 @@ class Rotkelchen(object):
         self.results_cache = {}
         self.connected_exchanges = []
 
-        logfilename = None
-        if args.logtarget == 'file':
-            logfilename = args.logfile
-
-        loglevel = logging.DEBUG
-        if args.loglevel == 'debug':
-            loglevel = logging.DEBUG
-        elif args.loglevel == 'info':
-            loglevel = logging.INFO
-        elif args.loglevel == 'warn':
-            loglevel = logging.WARN
-        elif args.loglevel == 'error':
-            loglevel = logging.ERROR
-        elif args.loglevel == 'critical':
-            loglevel = logging.CRITICAL
-        else:
-            raise ValueError('Should never get here. Illegal log value')
-
-        logging.basicConfig(
-            filename=logfilename,
-            filemode='w',
-            level=loglevel,
-            format='%(asctime)s -- %(levelname)s:%(name)s:%(message)s',
-            datefmt='%d/%m/%Y %H:%M:%S %Z',
-        )
-
-        if not args.logfromothermodules:
-            logging.getLogger('zerorpc').setLevel(logging.CRITICAL)
-            logging.getLogger('zerorpc.channel').setLevel(logging.CRITICAL)
-            logging.getLogger('urllib3').setLevel(logging.CRITICAL)
-            logging.getLogger('urllib3.connectionpool').setLevel(logging.CRITICAL)
 
         self.sleep_secs = args.sleep_secs
         self.data_dir = args.data_dir
