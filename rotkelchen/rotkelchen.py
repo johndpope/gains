@@ -29,9 +29,8 @@ from .fval import FVal
 from .history import TradesHistorian, PriceHistorian
 from .accounting import Accountant
 
-import .logging
+import logging
 logger = logging.getLogger(__name__)
-
 
 MAIN_LOOP_SECS_DELAY = 60
 
