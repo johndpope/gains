@@ -6,7 +6,7 @@ import base64
 import shutil
 from gevent.lock import Semaphore
 
-from utils import (
+from .utils import (
     combine_stat_dicts,
     dict_get_sumof,
     merge_dicts,
@@ -14,22 +14,22 @@ from utils import (
     rlk_jsondumps,
     ts_now,
 )
-from errors import PermissionError, AuthenticationError
-from constants import SUPPORTED_EXCHANGES
-from blockchain import Blockchain
-from poloniex import Poloniex
-from kraken import Kraken
-from bittrex import Bittrex
-from binance import Binance
+from .errors import PermissionError, AuthenticationError
+from .constants import SUPPORTED_EXCHANGES
+from .blockchain import Blockchain
+from .poloniex import Poloniex
+from .kraken import Kraken
+from .bittrex import Bittrex
+from .binance import Binance
 #from data_handler import DataHandler
-from inquirer import Inquirer
-from premium import premium_create_and_verify
-from utils import query_fiat_pair
-from fval import FVal
-from history import TradesHistorian, PriceHistorian
-from accounting import Accountant
+from .inquirer import Inquirer
+from .premium import premium_create_and_verify
+from .utils import query_fiat_pair
+from .fval import FVal
+from .history import TradesHistorian, PriceHistorian
+from .accounting import Accountant
 
-import logging
+import .logging
 logger = logging.getLogger(__name__)
 
 
