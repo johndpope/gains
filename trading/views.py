@@ -44,7 +44,6 @@ def dashboard(request , id):
             if api_credentials != 404:
                 secrets[exchange] = api_credentials
         print (secrets)
-        r.unlock_user()
         r.initialize_exchanges(secrets)
         r.process_history()
         print (r)

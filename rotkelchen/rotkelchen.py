@@ -48,6 +48,7 @@ class Rotkelchen(object):
         self.bittrex = None
         self.binance = None
         self.data_dir =  os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.cache_data_filename = os.path.join(self.data_dir, 'cache_data.json')
 
 
         #self.data = DataHandler(self.data_dir)
