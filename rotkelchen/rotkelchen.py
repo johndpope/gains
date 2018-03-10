@@ -30,6 +30,7 @@ from .history import TradesHistorian, PriceHistorian
 from .accounting import Accountant
 
 import logging
+import os
 logger = logging.getLogger(__name__)
 
 MAIN_LOOP_SECS_DELAY = 60
@@ -46,6 +47,7 @@ class Rotkelchen(object):
         self.kraken = None
         self.bittrex = None
         self.binance = None
+        self.data_dir =  os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
         #self.data = DataHandler(self.data_dir)
@@ -145,11 +147,6 @@ class Rotkelchen(object):
 
     def unlock_user(self):
         # unlock or create the DB
-        self.password = password
-        user_dir = self.data.unlock(user, password, create_new)
-        self.try_premium_at_start(api_key, api_secret, create_new, sync_approval, user_dir)
-
-        secret_data = self.data.db.get_exchange_secrets()
         self.cache_data_filename = os.path.join(self.data_dir, 'cache_data.json')
         historical_data_start = self.data.historical_start_date()
         self.trades_historian = TradesHistorian(
@@ -175,7 +172,7 @@ class Rotkelchen(object):
             self.data.eth_tokens,
             self.data.db.get_owned_tokens(),
             self.inquirer,
-            self.args.ethrpc_port
+            8545
         )
 
     def set_premium_credentials(self, api_key, api_secret):
