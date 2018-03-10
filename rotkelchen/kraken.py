@@ -65,7 +65,7 @@ def kraken_to_world_pair(pair):
 
 
 class Kraken(Exchange):
-    def __init__(self, data_dir, api_key='', secret=''):
+    def __init__(self, data_dir, api_key=str.encode(''), secret=str.encode('')):
         super(Kraken, self).__init__('kraken', api_key, secret)
         self.apiversion = '0'
         self.uri = 'https://api.kraken.com/{}/'.format(self.apiversion)
