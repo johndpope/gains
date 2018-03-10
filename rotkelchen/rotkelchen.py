@@ -37,8 +37,8 @@ MAIN_LOOP_SECS_DELAY = 60
 
 class Rotkelchen(object):
     def __init__(self, args):
-        self.lock = Semaphore()
-        self.lock.acquire()
+        #self.lock = Semaphore()
+        #self.lock.acquire()
         self.results_cache = {}
         self.connected_exchanges = []
 
@@ -384,17 +384,17 @@ class Rotkelchen(object):
         return result_dict
 
     def set_main_currency(self, currency):
-        with self.lock:
-            self.data.set_main_currency(currency, self.accountant)
-            if currency != 'USD':
-                self.usd_to_main_currency_rate = query_fiat_pair('USD', currency)
+    #with self.lock:
+        self.data.set_main_currency(currency, self.accountant)
+        if currency != 'USD':
+            self.usd_to_main_currency_rate = query_fiat_pair('USD', currency)
 
     def set_settings(self, settings):
-        with self.lock:
-            self.data.set_settings(settings)
-            main_currency = settings['main_currency']
-            if main_currency != 'USD':
-                self.usd_to_main_currency_rate = query_fiat_pair('USD', main_currency)
+        #with self.lock:
+        self.data.set_settings(settings)
+        main_currency = settings['main_currency']
+        if main_currency != 'USD':
+            self.usd_to_main_currency_rate = query_fiat_pair('USD', main_currency)
 
     def usd_to_main_currency(self, amount):
         main_currency = self.data.main_currency()
