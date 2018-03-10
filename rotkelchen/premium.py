@@ -7,8 +7,8 @@ from http import HTTPStatus
 from urllib.parse import urlencode
 from requests import ConnectionError
 from binascii import Error as binascii_error
-from utils import rlk_jsonloads
-from constants import ROTKEHLCHEN_SERVER_TIMEOUT
+from .utils import rlk_jsonloads
+from .constants import ROTKEHLCHEN_SERVER_TIMEOUT
 
 import logging
 logger = logging.getLogger(__name__)

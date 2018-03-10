@@ -5,13 +5,13 @@ import re
 from urllib.request import Request, urlopen
 from json.decoder import JSONDecodeError
 
-from exchange import data_up_todate
-from kraken import kraken_to_world_pair
-from bittrex import trade_from_bittrex
-from binance import trade_from_binance
-from transactions import query_etherscan_for_transactions, transactions_from_dictlist
-from fval import FVal
-from utils import (
+from .exchange import data_up_todate
+from .kraken import kraken_to_world_pair
+from .bittrex import trade_from_bittrex
+from .binance import trade_from_binance
+from .transactions import query_etherscan_for_transactions, transactions_from_dictlist
+from .fval import FVal
+from .utils import (
     createTimeStamp,
     tsToDate,
     get_pair_position,
@@ -22,12 +22,12 @@ from utils import (
     convert_to_int,
     ts_now,
 )
-from order_formatting import (
+from .order_formatting import (
     Trade,
     trades_from_dictlist,
     asset_movements_from_dictlist
 )
-from inquirer import FIAT_CURRENCIES
+from .inquirer import FIAT_CURRENCIES
 
 import logging
 logger = logging.getLogger(__name__)

@@ -8,17 +8,17 @@ import base64
 import time
 from urllib.parse import urlencode
 
-from utils import (
+from .utils import (
     query_fiat_pair,
     retry_calls,
     rlk_jsonloads,
     convert_to_int,
     cache_response_timewise,
 )
-from order_formatting import AssetMovement
-from exchange import Exchange
-from errors import RecoverableRequestError
-from fval import FVal
+from .order_formatting import AssetMovement
+from .exchange import Exchange
+from .errors import RecoverableRequestError
+from .fval import FVal
 
 import logging
 logger = logging.getLogger(__name__)

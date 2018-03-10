@@ -3,7 +3,7 @@ import requests
 import os
 from gevent.lock import Semaphore
 
-from utils import rlk_jsonloads, rlk_jsondumps
+from .utils import rlk_jsonloads, rlk_jsondumps
 
 
 def data_up_todate(json_data, start_ts, end_ts):

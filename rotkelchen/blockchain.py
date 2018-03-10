@@ -4,10 +4,10 @@ import copy
 from gevent.lock import Semaphore
 from urllib.request import Request, urlopen
 
-from errors import InputError
-from ethchain import Ethchain
-from fval import FVal
-from utils import cache_response_timewise
+from .errors import InputError
+from .ethchain import Ethchain
+from .fval import FVal
+from .utils import cache_response_timewise
 
 import logging
 logger = logging.getLogger(__name__)

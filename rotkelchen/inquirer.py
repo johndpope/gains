@@ -1,8 +1,8 @@
 from __future__ import unicode_literals
 from urllib.request import Request, urlopen
 
-from fval import FVal
-from utils import rlk_jsonloads, retry_calls, query_fiat_pair
+from .fval import FVal
+from .utils import rlk_jsonloads, retry_calls, query_fiat_pair
 
 import logging
 logger = logging.getLogger(__name__)

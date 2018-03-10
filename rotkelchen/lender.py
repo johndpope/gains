@@ -3,9 +3,9 @@ import os
 import csv
 from datetime import datetime
 
-from utils import createTimeStamp, dateToTs, isclose
-from errors import PoloniexError
-from fval import FVal
+from .utils import createTimeStamp, dateToTs, isclose
+from .errors import PoloniexError
+from .fval import FVal
 
 import logging
 logger = logging.getLogger(__name__)

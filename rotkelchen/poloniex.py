@@ -8,16 +8,16 @@ import traceback
 import csv
 from urllib.parse import urlencode
 
-from fval import FVal
-from utils import (
+from .fval import FVal
+from .utils import (
     createTimeStamp,
     retry_calls,
     rlk_jsonloads,
     cache_response_timewise,
 )
-from exchange import Exchange
-from order_formatting import AssetMovement
-from errors import PoloniexError
+from .exchange import Exchange
+from .order_formatting import AssetMovement
+from .errors import PoloniexError
 
 import logging
 logger = logging.getLogger(__name__)

@@ -3,15 +3,15 @@ import hmac
 import hashlib
 from urllib.parse import urlencode
 
-from utils import (
+from .utils import (
     createTimeStamp,
     get_pair_position,
     rlk_jsonloads,
     cache_response_timewise,
 )
-from exchange import Exchange
-from order_formatting import Trade
-from fval import FVal
+from .exchange import Exchange
+from .order_formatting import Trade
+from .fval import FVal
 
 import logging
 logger = logging.getLogger(__name__)

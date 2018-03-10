@@ -1,8 +1,8 @@
 import gevent
 from random import randint
 
-from utils import tsToDate, ts_now, taxable_gain_for_sell
-from order_formatting import (
+from .utils import tsToDate, ts_now, taxable_gain_for_sell
+from .order_formatting import (
     Events,
     BuyEvent,
     SellEvent,
@@ -11,15 +11,15 @@ from order_formatting import (
     Trade,
     AssetMovement
 )
-from transactions import EthereumTransaction
-from history import (
+from .transactions import EthereumTransaction
+from .history import (
     NoPriceForGivenTimestamp,
     PriceQueryUnknownFromAsset,
     FIAT_CURRENCIES
 )
-from csv_exporter import CSVExporter
-from fval import FVal
-from errors import CorruptData
+from .csv_exporter import CSVExporter
+from .fval import FVal
+from .errors import CorruptData
 
 import logging
 logger = logging.getLogger(__name__)

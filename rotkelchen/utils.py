@@ -9,8 +9,8 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError
 from collections import namedtuple
 
-from errors import RecoverableRequestError
-from fval import FVal
+from .errors import RecoverableRequestError
+from .fval import FVal
 
 
 def sfjson_loads(s):

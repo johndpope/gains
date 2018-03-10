@@ -1,6 +1,6 @@
 import os
 import csv
-from utils import tsToDate, taxable_gain_for_sell
+from .utils import tsToDate, taxable_gain_for_sell
 
 import logging
 logger = logging.getLogger(__name__)

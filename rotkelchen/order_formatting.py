@@ -1,5 +1,5 @@
 from collections import namedtuple
-from fval import FVal
+from .fval import FVal
 
 Events = namedtuple('Events', ('buys', 'sells'))
 BuyEvent = namedtuple(

@@ -4,10 +4,10 @@ import os
 import shutil
 from pysqlcipher3 import dbapi2 as sqlcipher
 
-from constants import SUPPORTED_EXCHANGES
-from fval import FVal
-from utils import ts_now
-from errors import AuthenticationError, InputError
+from .constants import SUPPORTED_EXCHANGES
+from .fval import FVal
+from .utils import ts_now
+from .errors import AuthenticationError, InputError
 
 
 def str_to_bool(s):

@@ -3,10 +3,10 @@ import hmac
 import hashlib
 from urllib.parse import urlencode
 
-from exchange import Exchange
-from order_formatting import pair_get_assets, Trade
-from utils import rlk_jsonloads, cache_response_timewise
-from fval import FVal
+from .exchange import Exchange
+from .order_formatting import pair_get_assets, Trade
+from .utils import rlk_jsonloads, cache_response_timewise
+from .fval import FVal
 
 V3_ENDPOINTS = (
     'account',
