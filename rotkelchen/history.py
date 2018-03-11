@@ -501,6 +501,7 @@ class TradesHistorian(object):
                 end_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y"),
                 end_at_least_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y")
             )
+
             print (polo_history)
             poloniex_margin_trades = list()
             for pair, trades in polo_history.items():
