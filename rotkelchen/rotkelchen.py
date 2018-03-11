@@ -54,7 +54,7 @@ class Rotkelchen(object):
         self.trades_historian = TradesHistorian(
             self.data_dir,
             [],
-            historical_data_start,
+            "01/08/2015",
         )
         self.price_historian = PriceHistorian(
             self.data_dir,
