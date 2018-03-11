@@ -145,7 +145,7 @@ class Poloniex(Exchange):
                 # Protect this region with a lock since poloniex will reject
                 # non-increasing nonces. So if two greenlets come in here at
                 # the same time one of them will fail
-                req['nonce'] = int(time.time() * 1000000000000)
+                req['nonce'] = int(time.time() * 10000000000)
                 post_data = str.encode(urlencode(req))
 
                 sign = hmac.new(self.secret, post_data, hashlib.sha512).hexdigest()
