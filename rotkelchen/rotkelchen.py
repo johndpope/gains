@@ -36,6 +36,7 @@ logger = logging.getLogger(__name__)
 MAIN_LOOP_SECS_DELAY = 60
 
 
+
 class Rotkelchen(object):
     def __init__(self):
         #self.lock = Semaphore()
@@ -49,6 +50,28 @@ class Rotkelchen(object):
         self.data_dir =  os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         self.cache_data_filename = os.path.join(self.data_dir, 'cache_data.json')
         self.kraken = None
+        self.inquirer = 10000
+        self.trades_historian = TradesHistorian(
+            self.data_dir,
+            self.data.get_eth_accounts(),
+            historical_data_start,
+        )
+        self.price_historian = PriceHistorian(
+            self.data_dir,
+            historical_data_start,
+        )
+        self.accountant = Accountant(
+            price_historian=self.price_historian,
+            profit_currency='USD',
+            create_csv=True
+        )
+        self.blockchain = Blockchain(
+            [],
+            [],
+            [],
+            self.inquirer,
+            8545
+        )
 
 
 
@@ -59,7 +82,6 @@ class Rotkelchen(object):
 
     def initialize_exchanges(self, secret_data):
 
-        self.inquirer = 10000
 
         # initialize exchanges for which we have keys and are not already initialized
         if self.kraken is None and 'Kraken' in secret_data:
