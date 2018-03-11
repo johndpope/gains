@@ -60,7 +60,7 @@ class Rotkelchen(object):
     def initialize_exchanges(self, secret_data):
 
         self.inquirer = 10000
-        self.initialize_exchanges(secret_data)
+
         # initialize exchanges for which we have keys and are not already initialized
         if self.kraken is None and 'Kraken' in secret_data:
             self.kraken = Kraken(
