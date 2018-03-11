@@ -446,7 +446,7 @@ class TradesHistorian(object):
             data_directory,
             eth_accounts,
             historical_data_start,
-            start_date='17/01/2018',
+            start_date='01/11/2015',
     ):
 
         self.poloniex = None
@@ -494,14 +494,13 @@ class TradesHistorian(object):
                 end_at_least_ts=end_at_least_ts,
             )
             asset_movements.extend(kraken_asset_movements)
-        print (self.poloniex)
+
         if self.poloniex is not None:
             polo_history = self.poloniex.query_trade_history(
-                start_ts=createTimeStamp('01/01/2015', formatstr="%d/%m/%Y"),
-                end_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y"),
-                end_at_least_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y")
+                start_ts=start_ts,
+                end_ts=end_ts,
+                end_at_least_ts=end_at_least_ts
             )
-
             print (polo_history)
             poloniex_margin_trades = list()
             for pair, trades in polo_history.items():
@@ -549,11 +548,10 @@ class TradesHistorian(object):
 
         if self.bittrex is not None:
             bittrex_history = self.bittrex.query_trade_history(
-                start_ts=createTimeStamp('01/01/2015', formatstr="%d/%m/%Y"),
-                end_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y"),
-                end_at_least_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y")
+                start_ts=start_ts,
+                end_ts=end_ts,
+                end_at_least_ts=end_at_least_ts
             )
-            print (bittrex_history)
             for trade in bittrex_history:
                 history.append(trade_from_bittrex(trade))
 
