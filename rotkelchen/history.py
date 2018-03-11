@@ -552,6 +552,7 @@ class TradesHistorian(object):
                 end_ts=end_ts,
                 end_at_least_ts=end_at_least_ts
             )
+            print (bittrex_history)
             for trade in bittrex_history:
                 history.append(trade_from_bittrex(trade))
 
