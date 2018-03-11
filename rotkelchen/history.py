@@ -445,7 +445,7 @@ class TradesHistorian(object):
             self,
             data_directory,
             eth_accounts,
-            historical_data_start,
+            historical_data_start='01/11/2015',
             start_date='01/11/2015',
     ):
 
