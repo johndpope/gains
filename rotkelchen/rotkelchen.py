@@ -53,7 +53,7 @@ class Rotkelchen(object):
         self.inquirer = 10000
         self.trades_historian = TradesHistorian(
             self.data_dir,
-            self.data.get_eth_accounts(),
+            [],
             historical_data_start,
         )
         self.price_historian = PriceHistorian(
