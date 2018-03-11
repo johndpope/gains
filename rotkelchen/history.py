@@ -486,6 +486,7 @@ class TradesHistorian(object):
                 end_ts=end_ts,
                 end_at_least_ts=end_at_least_ts
             )
+            print (kraken_history)
             for trade in kraken_history:
                 history.append(trade_from_kraken(trade))
             kraken_asset_movements = self.kraken.query_deposits_withdrawals(
