@@ -548,9 +548,9 @@ class TradesHistorian(object):
 
         if self.bittrex is not None:
             bittrex_history = self.bittrex.query_trade_history(
-                start_ts=start_ts,
-                end_ts=end_ts,
-                end_at_least_ts=end_at_least_ts
+                start_ts=createTimeStamp('01/01/2015', formatstr="%d/%m/%Y"),
+                end_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y"),
+                end_at_least_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y")
             )
             print (bittrex_history)
             for trade in bittrex_history:
