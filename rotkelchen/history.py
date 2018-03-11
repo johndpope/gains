@@ -495,7 +495,7 @@ class TradesHistorian(object):
             )
             asset_movements.extend(kraken_asset_movements)
 
-        if self.poloniex is not None:
+        if self.poloniex == 'None':
             polo_history = self.poloniex.query_trade_history(
                 start_ts=createTimeStamp('01/01/2015', formatstr="%d/%m/%Y"),
                 end_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y"),
