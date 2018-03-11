@@ -93,15 +93,15 @@ class Rotkelchen(object):
             self.connected_exchanges.append('kraken')
             self.trades_historian.set_exchange('kraken', self.kraken)
 
-        if self.poloniex is None and 'Poloniex' in secret_data:
-            self.poloniex = Poloniex(
-                str.encode(secret_data['Poloniex'].api_key),
-                str.encode(secret_data['Poloniex'].secret),
-                self.inquirer,
-                self.data_dir
-            )
-            self.connected_exchanges.append('poloniex')
-            self.trades_historian.set_exchange('poloniex', self.poloniex)
+        #if self.poloniex is None and 'Poloniex' in secret_data:
+            #self.poloniex = Poloniex(
+                #str.encode(secret_data['Poloniex'].api_key),
+                #str.encode(secret_data['Poloniex'].secret),
+                #self.inquirer,
+                #self.data_dir
+            #)
+            #self.connected_exchanges.append('poloniex')
+            #self.trades_historian.set_exchange('poloniex', self.poloniex)
 
         if self.bittrex is None and 'Bittrex' in secret_data:
             self.bittrex = Bittrex(
