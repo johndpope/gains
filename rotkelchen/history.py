@@ -499,7 +499,7 @@ class TradesHistorian(object):
             polo_history = self.poloniex.query_trade_history(
                 start_ts=createTimeStamp('01/01/2018', formatstr="%d/%m/%Y"),
                 end_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y"),
-                end_at_least_ts=end_tst
+                end_at_least_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y")
             )
             print (polo_history)
             poloniex_margin_trades = list()
