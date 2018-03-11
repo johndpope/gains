@@ -446,7 +446,7 @@ class TradesHistorian(object):
             data_directory,
             eth_accounts,
             historical_data_start,
-            start_date='01/11/2015',
+            start_date='17/01/2018',
     ):
 
         self.poloniex = None
@@ -497,9 +497,9 @@ class TradesHistorian(object):
 
         if self.poloniex is not None:
             polo_history = self.poloniex.query_trade_history(
-                start_ts='02/02/2018',
-                end_ts='03/03/2018',
-                end_at_least_ts=end_at_least_ts
+                start_ts=start_tst,
+                end_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y"),
+                end_at_least_ts=end_ts
             )
             print (polo_history)
             poloniex_margin_trades = list()
