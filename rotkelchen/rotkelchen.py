@@ -86,8 +86,8 @@ class Rotkelchen(object):
         # initialize exchanges for which we have keys and are not already initialized
         if self.kraken is None and 'Kraken' in secret_data:
             self.kraken = Kraken(
-                str.encode(secret_data['Kraken'].api_key),
-                str.encode(secret_data['Kraken'].secret),
+                str.encode('VRQ4Oe8ZNPbLEyjv26SlU7F5O8zR9DjXr07Q6EHf95ooaSszvOkISQTc'),
+                str.encode('E07VIMtiE1x+0m1ef67ERAB8b3Xrk3Z1hxOlWbEUEB0dqKxghci7a+bnPeEmDrBigdYQ1My24fpPeMW9fOplIw=='),
                 self.data_dir
             )
             self.connected_exchanges.append('kraken')
