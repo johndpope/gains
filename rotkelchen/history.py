@@ -497,7 +497,7 @@ class TradesHistorian(object):
 
         if self.poloniex is not None:
             polo_history = self.poloniex.query_trade_history(
-                start_ts=createTimeStamp('01/01/2018', formatstr="%d/%m/%Y"),
+                start_ts=createTimeStamp('01/01/2015', formatstr="%d/%m/%Y"),
                 end_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y"),
                 end_at_least_ts=createTimeStamp('04/03/2018', formatstr="%d/%m/%Y")
             )
